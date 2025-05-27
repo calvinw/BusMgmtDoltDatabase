@@ -1,0 +1,17 @@
+{
+    "mcpServers": {
+      "mcp-greet": {
+        "timeout": 60,
+        "command": ".venv/bin/python",
+        "args": [
+          "mcp_greet.py"
+        ],
+        "transportType": "stdio",
+        "disabled": false,
+        "alwaysAllow": [
+          "greet",
+          "greet_in_german"
+        ]
+      }
+    }
+}
