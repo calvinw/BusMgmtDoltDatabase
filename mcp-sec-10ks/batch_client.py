@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class MCPFinancialBatchClient:
-    def __init__(self, model_name: str, server_script: str = "./main.py"):
+    def __init__(self, model_name: str, server_script: str = "./mcp_sec_10ks.py"):
         self.model_name = model_name
         self.server_script = server_script
         self.openai_client = None
@@ -334,8 +334,8 @@ Environment Variables:
     )
     parser.add_argument(
         "--server-script",
-        default="./main.py",
-        help="Path to the MCP server script (default: ./main.py)"
+        default="./mcp_sec_10ks.py",
+        help="Path to the MCP server script (default: ./mcp_sec_10ks.py)"
     )
     
     args = parser.parse_args()
