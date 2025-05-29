@@ -1,7 +1,17 @@
 import os
+import logging
+import sys
 from fastmcp import FastMCP
 from openai import OpenAI
 from dotenv import load_dotenv
+
+# Configure logging to stderr
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    stream=sys.stderr
+)
+logger = logging.getLogger(__name__)
 
 # Load environment variables from .env file
 load_dotenv()
@@ -16,19 +26,14 @@ client = OpenAI(
 )
 
 @proxy.tool()
-def enhance_greeting(basic_greeting: str) -> str:
-    """Enhance a basic greeting with additional friendly text and emojis."""
-    enhanced = f"🎉 {basic_greeting} 🎉\n"
-    enhanced += "Hope you're having a wonderful day! ✨\n"
-    enhanced += "Thanks for using our FastMCP greeting service! 🚀"
-    return enhanced
-
-@proxy.tool()
 async def enhance_greeting_with_llm(basic_greeting: str, model: str = "anthropic/claude-3.5-sonnet") -> str:
     """Enhance a basic greeting using an LLM via OpenRouter API."""
+    logger.info(f"Enhancing greeting with model: {model}")
+    
     try:
         # Check if API key is available
         if not os.getenv("OPENROUTER_API_KEY"):
+            logger.warning("OPENROUTER_API_KEY not found")
             return f"Error: OPENROUTER_API_KEY not found in environment variables. Original greeting: {basic_greeting}"
         
         # Create the prompt for the LLM
@@ -50,12 +55,14 @@ Enhanced greeting:"""
         
         # Extract the enhanced greeting from the response
         enhanced_greeting = response.choices[0].message.content.strip()
+        logger.info("Greeting enhanced successfully")
         
         return enhanced_greeting
         
     except Exception as e:
-        # Return original greeting with error info if something goes wrong
+        logger.error(f"Error enhancing greeting with LLM: {e}")
         return f"Error enhancing greeting with LLM: {str(e)}. Original greeting: {basic_greeting}"
 
 if __name__ == "__main__":
+    logger.info("Starting GreetingEnhancerProxy")
     proxy.run()
