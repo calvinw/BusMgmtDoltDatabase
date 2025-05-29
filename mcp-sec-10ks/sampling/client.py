@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
 """
-Simple FastMCP Client for Financial Data Extraction
+Simplified MCP Client with FastMCP approach and OpenRouter Integration
 """
 import asyncio
 import argparse
 import os
 import sys
 import csv
-from fastmcp import Client
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
 import openai
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
 
-class FinancialClient:
+class SimplifiedFinancialClient:
     def __init__(self, model_name: str, server_script: str = "./mcp_sec_10ks.py"):
         self.model_name = model_name
         self.server_script = server_script
@@ -32,26 +33,95 @@ class FinancialClient:
             api_key=api_key,
         )
     
-    async def handle_sampling(self, ctx, prompt, max_tokens=4000, temperature=0.1):
-        """Handle sampling requests from the server"""
+    async def handle_logging(self, params):
+        """Handle logging messages from the server"""
+        from mcp import types
+        
+        # Extract log level and message from the logging notification
+        level = getattr(params, 'level', 'info').upper()
+        data = getattr(params, 'data', str(params))
+        
+        # Print with nice formatting
+        print(f"[SERVER {level}] {data}")
+    
+    async def handle_sampling_request(self, ctx, message):
+        """Handle sampling requests from the MCP server"""
         try:
             print(f"🤖 Sampling request received for model: {self.model_name}")
             
+            # Convert MCP messages to OpenAI format
+            openai_messages = []
+            
+            # Add system prompt if provided
+            if hasattr(message, 'systemPrompt') and message.systemPrompt:
+                openai_messages.append({
+                    "role": "system",
+                    "content": message.systemPrompt
+                })
+            
+            # Convert MCP messages
+            for msg in message.messages:
+                if msg.role in ["user", "assistant", "system"]:
+                    if hasattr(msg.content, 'text'):
+                        content = msg.content.text
+                    elif isinstance(msg.content, str):
+                        content = msg.content
+                    else:
+                        content = str(msg.content)
+                    
+                    openai_messages.append({
+                        "role": msg.role,
+                        "content": content
+                    })
+            
+            # Make the API call to OpenRouter
             response = await self.openai_client.chat.completions.create(
                 model=self.model_name,
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=max_tokens,
-                temperature=temperature
+                messages=openai_messages,
+                max_tokens=getattr(message, 'maxTokens', 4000),
+                temperature=0.1  # Low temperature for consistent financial data extraction
             )
             
+            # Extract the response
             content = response.choices[0].message.content
-            print(f"✅ Sampling completed. Finish reason: {response.choices[0].finish_reason}")
+            finish_reason = response.choices[0].finish_reason
             
-            return content or ""
+            print(f"✅ Sampling completed. Finish reason: {finish_reason}")
+            
+            # Convert finish reason to MCP stop reason
+            stop_reason_mapping = {
+                "stop": "endTurn",
+                "length": "maxTokens",
+                "content_filter": "contentFilter",
+                "function_call": "toolUse"
+            }
+            stop_reason = stop_reason_mapping.get(finish_reason, "endTurn")
+            
+            # Import the types we need
+            from mcp import types
+            
+            return types.CreateMessageResult(
+                role="assistant",
+                content=types.TextContent(
+                    type="text",
+                    text=content or ""
+                ),
+                model=self.model_name,
+                stopReason=stop_reason
+            )
             
         except Exception as e:
             print(f"❌ Error in sampling: {e}")
-            return f"Error processing request: {str(e)}"
+            from mcp import types
+            return types.CreateMessageResult(
+                role="assistant",
+                content=types.TextContent(
+                    type="text",
+                    text=f"Error processing request: {str(e)}"
+                ),
+                model=self.model_name,
+                stopReason="error"
+            )
     
     async def process_company(self, company_name: str, year: int, cik: str):
         """Process a single company's financial data"""
@@ -60,65 +130,87 @@ class FinancialClient:
     
     async def process_companies(self, companies: list):
         """Process multiple companies and generate bulk INSERT statement"""
+        # Create server parameters
+        server_params = StdioServerParameters(
+            command="python",
+            args=[self.server_script],
+            env=None
+        )
+        
         print(f"🏢 Processing {len(companies)} companies")
-        print(f"🔗 Connecting to FastMCP server: {self.server_script}")
-        
-        # Import the specific transport we need
-        from fastmcp.client.transports import PythonStdioTransport
-        
-        # Create FastMCP client with explicit stdio transport
-        client = Client(PythonStdioTransport(self.server_script))
+        print(f"🔗 Connecting to MCP server: {self.server_script}")
         
         try:
-            async with client:
-                # Set up sampling handler
-                client.sampling_handler = self.handle_sampling
-                
-                # List available tools
-                tools = await client.list_tools()
-                print(f"📋 Available tools: {[tool.name for tool in tools]}")
-                
-                # Call the appropriate tool based on number of companies
-                if len(companies) == 1:
-                    # Single company - use original tool
-                    company = companies[0]
-                    print(f"🔄 Calling process_financial_data tool...")
-                    print("📝 Server logs will appear below:")
-                    print("-" * 60)
+            # Connect to the MCP server
+            async with stdio_client(server_params) as (read, write):
+                async with ClientSession(
+                    read, 
+                    write, 
+                    sampling_callback=self.handle_sampling_request,
+                    logging_callback=self.handle_logging
+                ) as session:
+                    # Initialize the connection
+                    await session.initialize()
+                    print("✅ Connected to MCP server")
                     
-                    result = await client.call_tool(
-                        "process_financial_data",
-                        company_name=company["company_name"],
-                        year=company["year"],
-                        cik=company["cik"]
-                    )
+                    # List available tools
+                    tools = await session.list_tools()
+                    print(f"📋 Available tools: {[tool.name for tool in tools.tools]}")
                     
-                    print("-" * 60)
-                    print("🎯 Financial data processing completed!")
-                    print("=" * 80)
-                    print("📊 RESULT:")
-                    print("=" * 80)
-                else:
-                    # Multiple companies - use batch tool
-                    print(f"🔄 Calling process_financial_batch tool...")
-                    print("📝 Server logs will appear below:")
-                    print("-" * 60)
+                    # Call the appropriate tool based on number of companies
+                    if len(companies) == 1:
+                        # Single company - use original tool
+                        company = companies[0]
+                        print(f"🔄 Calling process_financial_data tool...")
+                        print("📝 Server logs will appear below:")
+                        print("-" * 60)
+                        
+                        result = await session.call_tool(
+                            "process_financial_data",
+                            arguments={
+                                "company_name": company["company_name"],
+                                "year": company["year"],
+                                "cik": company["cik"]
+                            }
+                        )
+                        
+                        print("-" * 60)
+                        print("🎯 Financial data processing completed!")
+                        print("=" * 80)
+                        print("📊 RESULT:")
+                        print("=" * 80)
+                    else:
+                        # Multiple companies - use batch tool
+                        print(f"🔄 Calling process_financial_batch tool...")
+                        print("📝 Server logs will appear below:")
+                        print("-" * 60)
+                        
+                        result = await session.call_tool(
+                            "process_financial_batch",
+                            arguments={"companies": companies}
+                        )
+                        
+                        print("-" * 60)
+                        print("🎯 Batch processing completed!")
+                        print("=" * 80)
+                        print("📊 BULK INSERT STATEMENT:")
+                        print("=" * 80)
                     
-                    result = await client.call_tool(
-                        "process_financial_batch",
-                        companies=companies
-                    )
+                    # Handle the result
+                    if hasattr(result, 'content'):
+                        if isinstance(result.content, list):
+                            for content_item in result.content:
+                                if hasattr(content_item, 'text'):
+                                    print(content_item.text)
+                                else:
+                                    print(str(content_item))
+                        else:
+                            print(result.content)
+                    else:
+                        print(str(result))
                     
-                    print("-" * 60)
-                    print("🎯 Batch processing completed!")
                     print("=" * 80)
-                    print("📊 BULK INSERT STATEMENT:")
-                    print("=" * 80)
-                
-                # Print the result
-                print(result)
-                print("=" * 80)
-                
+                    
         except Exception as e:
             print(f"❌ Error processing companies: {e}")
             import traceback
@@ -202,7 +294,7 @@ def load_companies_from_csv(file_path: str) -> list:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="FastMCP Client for Financial Data Extraction",
+        description="Simplified MCP Client for Financial Data Extraction",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -212,7 +304,7 @@ Examples:
   Batch processing from CSV:
     %(prog)s --model google/gemini-2.5-flash-preview-05-20 --csv companies.csv
 
-CSV Format:
+CSV Format (headers can be named flexibly):
 company_name,year,cik
 Apple Inc,2023,320193
 Microsoft Corporation,2023,789019
@@ -225,7 +317,7 @@ Environment Variables:
     parser.add_argument(
         "--model", 
         required=True,
-        help="Model name for OpenRouter (e.g., 'anthropic/claude-3.5-sonnet')"
+        help="Model name for OpenRouter (e.g., 'anthropic/claude-3.5-sonnet', 'openai/gpt-4o')"
     )
     
     # Single company arguments
@@ -246,7 +338,7 @@ Environment Variables:
     # Batch processing argument
     parser.add_argument(
         "--csv", 
-        help="CSV file containing list of companies to process"
+        help="CSV file containing list of companies to process (for batch processing)"
     )
     
     parser.add_argument(
@@ -260,6 +352,7 @@ Environment Variables:
     # Check for required environment variables
     if not os.getenv("OPENROUTER_API_KEY"):
         print("❌ Error: OPENROUTER_API_KEY environment variable is required")
+        print("Please set it with: export OPENROUTER_API_KEY=your_api_key_here")
         sys.exit(1)
     
     # Validate server script exists
@@ -276,7 +369,7 @@ Environment Variables:
             print("❌ Error: No valid companies found in CSV file")
             sys.exit(1)
         
-        print("🚀 FastMCP Financial Data Extraction Client (Batch Mode)")
+        print("🚀 Simplified MCP Financial Data Extraction Client (Batch Mode)")
         print(f"🤖 Model: {args.model}")  
         print(f"📁 CSV File: {args.csv}")
         print(f"📊 Total Companies: {len(companies)}")
@@ -292,7 +385,8 @@ Environment Variables:
         print("-" * 80)
         
         try:
-            client = FinancialClient(args.model, args.server_script)
+            # Create and run the batch client
+            client = SimplifiedFinancialClient(args.model, args.server_script)
             asyncio.run(client.process_companies(companies))
         except KeyboardInterrupt:
             print("\n👋 Interrupted by user")
@@ -303,7 +397,7 @@ Environment Variables:
         
     elif args.company and args.year and args.cik:
         # Single company mode
-        print("🚀 FastMCP Financial Data Extraction Client (Single Company)")
+        print("🚀 Simplified MCP Financial Data Extraction Client (Single Company)")
         print(f"🤖 Model: {args.model}")
         print(f"🏢 Company: {args.company}")
         print(f"📅 Year: {args.year}")
@@ -312,7 +406,8 @@ Environment Variables:
         print("-" * 80)
         
         try:
-            client = FinancialClient(args.model, args.server_script)
+            # Create and run the single company client
+            client = SimplifiedFinancialClient(args.model, args.server_script)
             asyncio.run(client.process_company(args.company, args.year, args.cik))
         except KeyboardInterrupt:
             print("\n👋 Interrupted by user")
