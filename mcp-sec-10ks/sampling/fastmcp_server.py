@@ -1,92 +1,49 @@
-#!/usr/bin/env python3
 """
-Simple FastMCP Server with Sampling Support
+Simple FastMCP Server with Logging
 """
 from fastmcp import FastMCP, Context
 
-# Create the MCP server
-mcp = FastMCP("simple-sampling-server")
+# Create the FastMCP server
+mcp = FastMCP(name="SimpleServer")
 
 @mcp.tool()
-async def ask_question(question: str, ctx: Context) -> str:
-    """
-    A simple tool that uses sampling to answer questions via LLM
-    """
-    # Log the start of processing
-    await ctx.info(f"🔄 Processing question: '{question}'")
+async def greet(name: str, ctx: Context) -> str:
+    """Greet someone by name."""
+    await ctx.info(f"Greeting request received for name: {name}")
+    await ctx.debug(f"Processing greeting with name length: {len(name)}")
     
-    # Validate the question
-    if not question or len(question.strip()) < 3:
-        await ctx.error("❌ Question is too short or empty")
-        return "Error: Please provide a valid question with at least 3 characters."
+    result = f"Hello, {name}!"
     
-    # Log question analysis
-    question_length = len(question)
-    await ctx.info(f"📏 Question length: {question_length} characters")
-    
-    if question_length > 200:
-        await ctx.info("⚠️ Long question detected - this may take more time to process")
-    
-    # Create a simple prompt
-    prompt = f"""Please answer the following question in a helpful and concise way:
+    await ctx.info(f"Greeting completed successfully")
+    return result
 
-Question: {question}
-
-Please provide a clear and informative answer."""
-    
-    # Log before sampling
-    await ctx.info("🤖 Sending request to LLM for processing...")
+@mcp.tool()
+async def generate_summary(content: str, ctx: Context) -> str:
+    """Generate a summary using LLM sampling."""
+    await ctx.info(f"Summary request received for {len(content)} character content")
+    await ctx.debug(f"Content preview: {content[:50]}...")
     
     try:
-        # Use sampling to get LLM response via the Context
-        result = await ctx.sample(prompt, max_tokens=500, temperature=0.7)
+        await ctx.info("Requesting LLM sampling for summary generation")
+        # Use the client's LLM to generate a summary
+        summary = await ctx.sample(f"Please summarize this text: {content}")
         
-        # Log successful completion
-        response_length = len(result.text) if result.text else 0
-        await ctx.info(f"✅ LLM response received - {response_length} characters")
+        await ctx.info(f"LLM sampling completed, summary length: {len(summary.text)}")
+        await ctx.debug(f"Summary preview: {summary.text[:30]}...")
         
-        if response_length == 0:
-            await ctx.error("❌ Empty response received from LLM")
-            return "Error: Received empty response from LLM. Please try again."
-        
-        # Log completion
-        await ctx.info("🎯 Question processing completed successfully")
-        
-        return f"Answer: {result.text}"
+        return summary.text
         
     except Exception as e:
-        await ctx.error(f"❌ Error during LLM sampling: {str(e)}")
-        return f"Error: Failed to process question - {str(e)}"
+        await ctx.error(f"Error during summary generation: {str(e)}")
+        await ctx.warning("Falling back to simple summary")
+        return f"Summary unavailable. Original content was {len(content)} characters long."
 
-@mcp.tool()
-def greet(name: str) -> str:
-    """Simple greeting tool (no sampling)"""
-    return f"Hello, {name}! This is FastMCP server."
-
-@mcp.tool()
-async def test_logging(message: str, ctx: Context) -> str:
-    """
-    Test all logging levels available in FastMCP Context
-    """
-    await ctx.info(f"ℹ️ INFO: Testing logging with message: '{message}'")
-    await ctx.error(f"❌ ERROR: This is a test error (not a real error)")
-    
-    # Test different scenarios
-    if "debug" in message.lower():
-        await ctx.info("🐛 DEBUG-style info: Debug mode detected in message")
-    
-    if "warning" in message.lower():
-        await ctx.info("⚠️ WARNING-style info: Warning detected in message")
-        
-    if "success" in message.lower():
-        await ctx.info("✅ SUCCESS: Success keyword detected")
-    
-    # Log some processing steps
-    await ctx.info("📊 Processing step 1: Message analysis complete")
-    await ctx.info("📊 Processing step 2: Keyword detection complete")
-    await ctx.info("📊 Processing step 3: Response preparation complete")
-    
-    return f"Logging test completed for message: '{message}'. Check the logs above!"
-
+# Main execution block - only used if running server standalone
 if __name__ == "__main__":
-    mcp.run()
+    print("Starting FastMCP server...")
+    try:
+        mcp.run()
+    except Exception as e:
+        print(f"Server error: {e}")
+        import traceback
+        traceback.print_exc()
