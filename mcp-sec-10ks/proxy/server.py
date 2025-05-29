@@ -14,9 +14,9 @@ async def greet(name: str) -> str:
     # Create basic greeting
     basic_greeting = f"Hello, {name}! Welcome to FastMCP!"
     
-    # Use proxy client to enhance the greeting
+    # Use proxy client to enhance the greeting with LLM
     async with proxy_client:
-        result = await proxy_client.call_tool("enhance_greeting", {"basic_greeting": basic_greeting})
+        result = await proxy_client.call_tool("enhance_greeting_with_llm", {"basic_greeting": basic_greeting})
         enhanced_greeting = result[0].text
     
     return enhanced_greeting
