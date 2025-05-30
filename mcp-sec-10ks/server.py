@@ -16,6 +16,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Suppress httpx info logs
+logging.getLogger("httpx").setLevel(logging.WARNING)
+
 # Set identity for edgartools
 set_identity("Calvin Williamson calvin_williamson@fitnyc.edu")
 
@@ -25,16 +28,18 @@ mcp = FastMCP(name="FinancialDataServer")
 # Create proxy client using the imported proxy server
 proxy_client = Client(proxy)
 
-def _create_extraction_prompt(
-    company_name: str, 
-    fiscal_year: int, 
-    report_date: str, 
-    income_statement_markdown: str, 
-    balance_sheet_markdown: str
+def _build_financial_data_prompt(
+    company_name: str,
+    fiscal_year: int,
+    report_date: str,
+    income_statement_markdown: str,
+    balance_sheet_markdown: str,
+    output_format: str = "full_insert"  # "full_insert" or "values_only"
 ) -> str:
-    """Creates the prompt for LLM to extract financial data"""
-    return f"""Extract financial data from the income statement and balance sheet below and format as a MySQL INSERT statement.
+    """Builds the prompt for LLM to extract financial data."""
+    common_header = f"""Extract financial data from the income statement and balance sheet below"""
 
+    concepts_block = f"""
 <concepts>
  "Net Revenue" 
  "Cost of Goods" 
@@ -47,20 +52,18 @@ def _create_extraction_prompt(
  "Current Liabilities" 
  "Total Shareholder Equity"
  "Total Liabilities and Shareholder Equity"
-</concepts>
+</concepts>"""
 
+    data_blocks = f"""
 <income_statement>
 {income_statement_markdown}
 </income_statement>
 
 <balance_sheet>
 {balance_sheet_markdown}
-</balance_sheet>
+</balance_sheet>"""
 
-The target table structure is:
-INSERT INTO financials (company_name, year, reportDate, `Net Revenue`, `Cost of Goods`, `Gross Margin`, `SGA`, `Operating Profit`, `Net Profit`, `Inventory`, `Current Assets`, `Total Assets`, `Current Liabilities`, `Liabilities`, `Total Shareholder Equity`, `Total Liabilities and Shareholder Equity`)
-VALUES (...);
-
+    common_rules = f"""
 Rules:
 - Company name: "{company_name}"
 - Fiscal year: {fiscal_year}
@@ -68,16 +71,63 @@ Rules:
 - Report values in thousands (divide by 1000)
 - SGA and Cost of Goods as positive values
 - Operating/Net Profit can be negative
-- Use NULL for any missing values
+- Use NULL for any missing values"""
 
+    computed_fields = f"""
 Computed fields (calculate these):
 - Gross Margin = Net Revenue - Cost of Goods (if both available, otherwise NULL)
-- Liabilities = Total Assets - Total Shareholder Equity (always calculate this)
+- Liabilities = Total Assets - Total Shareholder Equity (always calculate this)"""
 
+    common_important_notes = f"""
 Important: 
 - If Cost of Goods is NULL, then Gross Margin must be NULL
-- If any component for Liabilities calculation is NULL, then Liabilities = NULL
+- If any component for Liabilities calculation is NULL, then Liabilities = NULL"""
+
+    if output_format == "full_insert":
+        instruction = f"{common_header} and format as a MySQL INSERT statement."
+        target_table_structure = """
+The target table structure is:
+INSERT INTO financials (company_name, year, reportDate, `Net Revenue`, `Cost of Goods`, `Gross Margin`, `SGA`, `Operating Profit`, `Net Profit`, `Inventory`, `Current Assets`, `Total Assets`, `Current Liabilities`, `Liabilities`, `Total Shareholder Equity`, `Total Liabilities and Shareholder Equity`)
+VALUES (...);"""
+        specific_important_notes = ""
+    elif output_format == "values_only":
+        instruction = f"{common_header} and return ONLY the VALUES clause for a MySQL INSERT statement."
+        target_table_structure = """
+The target table structure is:
+(company_name, year, reportDate, `Net Revenue`, `Cost of Goods`, `Gross Margin`, `SGA`, `Operating Profit`, `Net Profit`, `Inventory`, `Current Assets`, `Total Assets`, `Current Liabilities`, `Liabilities`, `Total Shareholder Equity`, `Total Liabilities and Shareholder Equity`)
+
+Return ONLY the VALUES clause in this format:
+('CompanyName', fiscal_year, 'report_date', net_revenue, cost_of_goods, gross_margin, sga, operating_profit, net_profit, inventory, current_assets, total_assets, current_liabilities, liabilities, total_shareholder_equity, total_liabilities_and_equity)"""
+        specific_important_notes = "\n- Respond with ONLY the VALUES clause, no other text"
+    else:
+        raise ValueError(f"Invalid output_format: {output_format}")
+
+    full_prompt = f"""{instruction}
+{concepts_block}
+{data_blocks}
+{target_table_structure}
+{common_rules}
+{computed_fields}
+{common_important_notes}{specific_important_notes}
 """
+    return full_prompt
+
+def _create_extraction_prompt(
+    company_name: str, 
+    fiscal_year: int, 
+    report_date: str, 
+    income_statement_markdown: str, 
+    balance_sheet_markdown: str
+) -> str:
+    """Creates the prompt for LLM to extract financial data as a full INSERT statement."""
+    return _build_financial_data_prompt(
+        company_name,
+        fiscal_year,
+        report_date,
+        income_statement_markdown,
+        balance_sheet_markdown,
+        output_format="full_insert"
+    )
 
 def _create_values_extraction_prompt(
     company_name: str, 
@@ -86,55 +136,15 @@ def _create_values_extraction_prompt(
     income_statement_markdown: str, 
     balance_sheet_markdown: str
 ) -> str:
-    """Creates the prompt for LLM to extract financial data as VALUES clause only"""
-    return f"""Extract financial data from the income statement and balance sheet below and return ONLY the VALUES clause for a MySQL INSERT statement.
-
-<concepts>
- "Net Revenue" 
- "Cost of Goods" 
- "SGA"
- "Operating Profit" 
- "Net Profit" 
- "Inventory" 
- "Current Assets" 
- "Total Assets" 
- "Current Liabilities" 
- "Total Shareholder Equity"
- "Total Liabilities and Shareholder Equity"
-</concepts>
-
-<income_statement>
-{income_statement_markdown}
-</income_statement>
-
-<balance_sheet>
-{balance_sheet_markdown}
-</balance_sheet>
-
-The target table structure is:
-(company_name, year, reportDate, `Net Revenue`, `Cost of Goods`, `Gross Margin`, `SGA`, `Operating Profit`, `Net Profit`, `Inventory`, `Current Assets`, `Total Assets`, `Current Liabilities`, `Liabilities`, `Total Shareholder Equity`, `Total Liabilities and Shareholder Equity`)
-
-Return ONLY the VALUES clause in this format:
-('CompanyName', fiscal_year, 'report_date', net_revenue, cost_of_goods, gross_margin, sga, operating_profit, net_profit, inventory, current_assets, total_assets, current_liabilities, liabilities, total_shareholder_equity, total_liabilities_and_equity)
-
-Rules:
-- Company name: "{company_name}"
-- Fiscal year: {fiscal_year}
-- Report date: '{report_date}'
-- Report values in thousands (divide by 1000)
-- SGA and Cost of Goods as positive values
-- Operating/Net Profit can be negative
-- Use NULL for any missing values
-
-Computed fields (calculate these):
-- Gross Margin = Net Revenue - Cost of Goods (if both available, otherwise NULL)
-- Liabilities = Total Assets - Total Shareholder Equity (always calculate this)
-
-Important: 
-- If Cost of Goods is NULL, then Gross Margin must be NULL
-- If any component for Liabilities calculation is NULL, then Liabilities = NULL
-- Respond with ONLY the VALUES clause, no other text
-"""
+    """Creates the prompt for LLM to extract financial data as VALUES clause only."""
+    return _build_financial_data_prompt(
+        company_name,
+        fiscal_year,
+        report_date,
+        income_statement_markdown,
+        balance_sheet_markdown,
+        output_format="values_only"
+    )
 
 @mcp.tool()
 async def process_financial_data(
@@ -146,37 +156,37 @@ async def process_financial_data(
     """
     Process a single company's financial data with detailed logging
     """
-    logger.info(f"🏢 Starting financial data processing for {company_name}")
-    logger.info(f"📊 Parameters: CIK={cik}, Fiscal Year={year}")
+    logger.info(f"Starting financial data processing for {company_name}")
+    logger.info(f"Parameters: CIK={cik}, Fiscal Year={year}")
     
     try:
         # Clean the CIK input
         cleaned_cik = "".join(filter(str.isdigit, cik))
-        logger.info(f"🔢 Cleaned CIK: {cleaned_cik}")
+        logger.info(f"Cleaned CIK: {cleaned_cik}")
         
         # Get the company object
-        logger.info("🔍 Fetching company information from SEC...")
+        logger.info("Fetching company information from SEC...")
         company = Company(cleaned_cik)
         
         # Get 10-K filings
-        logger.info("📋 Retrieving 10-K filings...")
+        logger.info("Retrieving 10-K filings...")
         filings = company.get_filings(form="10-K")
-        logger.info(f"📄 Found {len(filings)} total 10-K filings")
+        logger.info(f"Found {len(filings)} total 10-K filings")
         
         if not filings:
-            logger.error(f"❌ No 10-K filings found for CIK {cleaned_cik}")
+            logger.error(f"No 10-K filings found for CIK {cleaned_cik}")
             return f"No 10-K filings found for CIK {cleaned_cik}"
         
         # Find the appropriate filing for the requested fiscal year
-        logger.info(f"🔎 Searching for fiscal year {year} filing...")
-        logger.info(f"📋 Logic: FY {year} can have Period in early {year+1} (Jan-Jul) or late {year} (Aug-Dec)")
+        logger.info(f"Searching for fiscal year {year} filing...")
+        logger.info(f"Logic: FY {year} can have Period in early {year+1} (Jan-Jul) or late {year} (Aug-Dec)")
         selected_filing = None
         
         for i, filing in enumerate(filings):
             try:
                 period_str = filing.period_of_report
                 filed_str = filing.filing_date
-                logger.info(f"  📅 Filing {i+1}: Period={period_str}, Filed={filed_str}")
+                logger.info(f"  Filing {i+1}: Period={period_str}, Filed={filed_str}")
                 
                 # Handle both YYYYMMDD and YYYY-MM-DD formats
                 period_year = None
@@ -193,47 +203,47 @@ async def process_financial_data(
                         period_year = int(parts[0])
                         period_month = int(parts[1])
                 else:
-                    logger.info(f"    ⚠️  Unrecognized period format: {period_str}")
+                    logger.info(f"    Unrecognized period format: {period_str}")
                     continue
                 
                 if period_year and period_month:
                     # Determine which fiscal year this period represents
                     if period_month <= 7:  # Jan-Jul: represents previous fiscal year
                         fiscal_year_represented = period_year - 1
-                        logger.info(f"    📊 Period {period_str} (month {period_month:02d}) → FY {fiscal_year_represented}")
+                        logger.info(f"    Period {period_str} (month {period_month:02d}) -> FY {fiscal_year_represented}")
                     else:  # Aug-Dec: represents same fiscal year
                         fiscal_year_represented = period_year
-                        logger.info(f"    📊 Period {period_str} (month {period_month:02d}) → FY {fiscal_year_represented}")
+                        logger.info(f"    Period {period_str} (month {period_month:02d}) -> FY {fiscal_year_represented}")
                     
                     if fiscal_year_represented == year:
                         selected_filing = filing
-                        logger.info(f"✅ MATCH! Selected filing for FY {year}: Period={period_str}")
+                        logger.info(f"MATCH! Selected filing for FY {year}: Period={period_str}")
                         break
                     else:
-                        logger.info(f"    ❌ FY {fiscal_year_represented} ≠ requested FY {year}")
+                        logger.info(f"    FY {fiscal_year_represented} != requested FY {year}")
                         
             except Exception as filing_error:
-                logger.info(f"⚠️  Error checking filing {i+1}: {filing_error}")
+                logger.info(f"Warning: Error checking filing {i+1}: {filing_error}")
                 continue
         
         if not selected_filing:
-            logger.error(f"❌ No filing found for fiscal year {year}")
+            logger.error(f"No filing found for fiscal year {year}")
             return f"No 10-K filing found for fiscal year {year}"
         
         # Get the full filing object
-        logger.info("📖 Loading full filing document...")
+        logger.info("Loading full filing document...")
         full_filing = selected_filing.obj()
         
         # Get financial statements
-        logger.info("💰 Extracting income statement...")
+        logger.info("Extracting income statement...")
         income_statement = full_filing.income_statement.to_dataframe()
         income_statement_markdown = income_statement.to_markdown()
-        logger.info(f"✅ Income statement extracted ({len(income_statement)} rows)")
+        logger.info(f"Income statement extracted ({len(income_statement)} rows)")
         
-        logger.info("⚖️  Extracting balance sheet...")
+        logger.info("Extracting balance sheet...")
         balance_sheet = full_filing.balance_sheet.to_dataframe()
         balance_sheet_markdown = balance_sheet.to_markdown()
-        logger.info(f"✅ Balance sheet extracted ({len(balance_sheet)} rows)")
+        logger.info(f"Balance sheet extracted ({len(balance_sheet)} rows)")
         
         # Format the report date
         report_date = selected_filing.filing_date
@@ -242,7 +252,7 @@ async def process_financial_data(
         else:
             formatted_date = str(report_date)
         
-        logger.info(f"📅 Report date: {formatted_date}")
+        logger.info(f"Report date: {formatted_date}")
         
         # Create the extraction prompt
         prompt = _create_extraction_prompt(
@@ -254,7 +264,7 @@ async def process_financial_data(
         )
         
         # Use proxy client to call LLM
-        logger.info("🤖 Requesting LLM to extract financial data via proxy...")
+        logger.info("Requesting LLM to extract financial data via proxy...")
         async with proxy_client:
             result = await proxy_client.call_tool("call_llm", {
                 "prompt": prompt,
@@ -265,17 +275,17 @@ async def process_financial_data(
             extracted_data = result[0].text
         
         response_length = len(extracted_data) if extracted_data else 0
-        logger.info(f"✅ LLM processing completed ({response_length} characters)")
+        logger.info(f"LLM processing completed ({response_length} characters)")
         
         if not extracted_data or response_length == 0:
-            logger.error("❌ Empty response received from LLM")
+            logger.error("Empty response received from LLM")
             return "Error: Empty response from LLM"
         
-        logger.info("🎯 Financial data extraction completed successfully")
+        logger.info("Financial data extraction completed successfully.")
         return extracted_data
         
     except Exception as e:
-        logger.error(f"❌ Error processing financial data: {str(e)}")
+        logger.error(f"Error processing financial data: {str(e)}")
         return f"Error processing financial data: {str(e)}"
 
 @mcp.tool()
@@ -286,7 +296,7 @@ async def process_financial_batch(
     """
     Process a batch of companies and generate a bulk INSERT statement
     """
-    logger.info(f"🚀 Starting batch processing of {len(companies)} companies")
+    logger.info(f"Starting batch processing of {len(companies)} companies.")
     
     all_values = []
     successful_companies = []
@@ -297,7 +307,7 @@ async def process_financial_batch(
         year = company_info.get("year") 
         cik = company_info.get("cik")
         
-        logger.info(f"📊 Processing {i+1}/{len(companies)}: {company_name} ({year})")
+        logger.info(f"Processing {i+1}/{len(companies)}: {company_name} ({year})")
         
         try:
             # Process this single company (for VALUES clause only)  
@@ -306,14 +316,14 @@ async def process_financial_batch(
             if values_clause and values_clause.strip():
                 all_values.append(values_clause.strip())
                 successful_companies.append(f"{company_name} ({year})")
-                logger.info(f"✅ Successfully processed {company_name} ({year})")
+                logger.info(f"Successfully processed {company_name} ({year}).")
             else:
                 failed_companies.append(f"{company_name} ({year}) - No data returned")
-                logger.error(f"❌ No data returned for {company_name} ({year})")
+                logger.error(f"No data returned for {company_name} ({year}).")
                 
         except Exception as e:
             failed_companies.append(f"{company_name} ({year}) - {str(e)}")
-            logger.error(f"❌ Failed to process {company_name} ({year}): {e}")
+            logger.error(f"Failed to process {company_name} ({year}): {e}")
             continue
     
     # Generate summary and bulk INSERT statement
@@ -327,12 +337,12 @@ async def process_financial_batch(
 -- Failed: {len(failed_companies)}
 --
 -- Successful companies:
-{chr(10).join([f"-- ✅ {company}" for company in successful_companies])}
+{chr(10).join([f"-- {company}" for company in successful_companies])}
 --
 """
         if failed_companies:
             summary += f"""-- Failed companies:
-{chr(10).join([f"-- ❌ {company}" for company in failed_companies])}
+{chr(10).join([f"-- {company}" for company in failed_companies])}
 --
 """
         
@@ -341,7 +351,7 @@ async def process_financial_batch(
 {bulk_insert}
 """
         
-        logger.info(f"🎯 Batch processing completed: {len(successful_companies)}/{len(companies)} successful")
+        logger.info(f"Batch processing completed: {len(successful_companies)}/{len(companies)} successful.")
         return summary
     else:
         error_msg = f"No companies were successfully processed. Failures:\n" + "\n".join(failed_companies)
