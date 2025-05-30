@@ -5,7 +5,7 @@ from fastmcp import FastMCP
 from openai import OpenAI
 from dotenv import load_dotenv
 
-# Configure logging to stderr
+# Configure logging to stderr (stdout is used for MCP protocol)
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -24,6 +24,15 @@ client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
     api_key=os.getenv("OPENROUTER_API_KEY"),
 )
+
+@proxy.tool()
+def enhance_greeting(basic_greeting: str) -> str:
+    """Enhance a basic greeting with additional friendly text and emojis."""
+    logger.info("Enhancing greeting with emojis")
+    enhanced = f"🎉 {basic_greeting} 🎉\n"
+    enhanced += "Hope you're having a wonderful day! ✨\n"
+    enhanced += "Thanks for using our FastMCP greeting service! 🚀"
+    return enhanced
 
 @proxy.tool()
 async def enhance_greeting_with_llm(basic_greeting: str, model: str = "anthropic/claude-3.5-sonnet") -> str:
