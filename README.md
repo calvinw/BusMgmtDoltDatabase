@@ -12,4 +12,3 @@ git clone https://github.com/calvinw/BusMgmtDoltDatabase.git
 cd BusMgmtDoltDatabase
 git submodule update --init --
 ```
-
