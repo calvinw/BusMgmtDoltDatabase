@@ -25,6 +25,117 @@ mcp = FastMCP(name="FinancialDataServer")
 # Create proxy client using the imported proxy server
 proxy_client = Client(proxy)
 
+def _create_extraction_prompt(
+    company_name: str, 
+    fiscal_year: int, 
+    report_date: str, 
+    income_statement_markdown: str, 
+    balance_sheet_markdown: str
+) -> str:
+    """Creates the prompt for LLM to extract financial data"""
+    return f"""Extract financial data from the income statement and balance sheet below and format as a MySQL INSERT statement.
+
+<concepts>
+ "Net Revenue" 
+ "Cost of Goods" 
+ "SGA"
+ "Operating Profit" 
+ "Net Profit" 
+ "Inventory" 
+ "Current Assets" 
+ "Total Assets" 
+ "Current Liabilities" 
+ "Total Shareholder Equity"
+ "Total Liabilities and Shareholder Equity"
+</concepts>
+
+<income_statement>
+{income_statement_markdown}
+</income_statement>
+
+<balance_sheet>
+{balance_sheet_markdown}
+</balance_sheet>
+
+The target table structure is:
+INSERT INTO financials (company_name, year, reportDate, `Net Revenue`, `Cost of Goods`, `Gross Margin`, `SGA`, `Operating Profit`, `Net Profit`, `Inventory`, `Current Assets`, `Total Assets`, `Current Liabilities`, `Liabilities`, `Total Shareholder Equity`, `Total Liabilities and Shareholder Equity`)
+VALUES (...);
+
+Rules:
+- Company name: "{company_name}"
+- Fiscal year: {fiscal_year}
+- Report date: '{report_date}'
+- Report values in thousands (divide by 1000)
+- SGA and Cost of Goods as positive values
+- Operating/Net Profit can be negative
+- Use NULL for any missing values
+
+Computed fields (calculate these):
+- Gross Margin = Net Revenue - Cost of Goods (if both available, otherwise NULL)
+- Liabilities = Total Assets - Total Shareholder Equity (always calculate this)
+
+Important: 
+- If Cost of Goods is NULL, then Gross Margin must be NULL
+- If any component for Liabilities calculation is NULL, then Liabilities = NULL
+"""
+
+def _create_values_extraction_prompt(
+    company_name: str, 
+    fiscal_year: int, 
+    report_date: str, 
+    income_statement_markdown: str, 
+    balance_sheet_markdown: str
+) -> str:
+    """Creates the prompt for LLM to extract financial data as VALUES clause only"""
+    return f"""Extract financial data from the income statement and balance sheet below and return ONLY the VALUES clause for a MySQL INSERT statement.
+
+<concepts>
+ "Net Revenue" 
+ "Cost of Goods" 
+ "SGA"
+ "Operating Profit" 
+ "Net Profit" 
+ "Inventory" 
+ "Current Assets" 
+ "Total Assets" 
+ "Current Liabilities" 
+ "Total Shareholder Equity"
+ "Total Liabilities and Shareholder Equity"
+</concepts>
+
+<income_statement>
+{income_statement_markdown}
+</income_statement>
+
+<balance_sheet>
+{balance_sheet_markdown}
+</balance_sheet>
+
+The target table structure is:
+(company_name, year, reportDate, `Net Revenue`, `Cost of Goods`, `Gross Margin`, `SGA`, `Operating Profit`, `Net Profit`, `Inventory`, `Current Assets`, `Total Assets`, `Current Liabilities`, `Liabilities`, `Total Shareholder Equity`, `Total Liabilities and Shareholder Equity`)
+
+Return ONLY the VALUES clause in this format:
+('CompanyName', fiscal_year, 'report_date', net_revenue, cost_of_goods, gross_margin, sga, operating_profit, net_profit, inventory, current_assets, total_assets, current_liabilities, liabilities, total_shareholder_equity, total_liabilities_and_equity)
+
+Rules:
+- Company name: "{company_name}"
+- Fiscal year: {fiscal_year}
+- Report date: '{report_date}'
+- Report values in thousands (divide by 1000)
+- SGA and Cost of Goods as positive values
+- Operating/Net Profit can be negative
+- Use NULL for any missing values
+
+Computed fields (calculate these):
+- Gross Margin = Net Revenue - Cost of Goods (if both available, otherwise NULL)
+- Liabilities = Total Assets - Total Shareholder Equity (always calculate this)
+
+Important: 
+- If Cost of Goods is NULL, then Gross Margin must be NULL
+- If any component for Liabilities calculation is NULL, then Liabilities = NULL
+- Respond with ONLY the VALUES clause, no other text
+"""
+
 @mcp.tool()
 async def process_financial_data(
     company_name: str, 
@@ -133,16 +244,23 @@ async def process_financial_data(
         
         logger.info(f"📅 Report date: {formatted_date}")
         
-        # Use proxy client to extract financial data with LLM
+        # Create the extraction prompt
+        prompt = _create_extraction_prompt(
+            company_name,
+            year,
+            formatted_date,
+            income_statement_markdown,
+            balance_sheet_markdown
+        )
+        
+        # Use proxy client to call LLM
         logger.info("🤖 Requesting LLM to extract financial data via proxy...")
         async with proxy_client:
-            result = await proxy_client.call_tool("extract_financial_data", {
-                "company_name": company_name,
-                "year": year,
-                "report_date": formatted_date,
-                "income_statement_markdown": income_statement_markdown,
-                "balance_sheet_markdown": balance_sheet_markdown,
-                "model": model
+            result = await proxy_client.call_tool("call_llm", {
+                "prompt": prompt,
+                "model": model,
+                "max_tokens": 4000,
+                "temperature": 0.1
             })
             extracted_data = result[0].text
         
@@ -312,15 +430,22 @@ async def _process_single_company(
         else:
             formatted_date = str(report_date)
         
-        # Use proxy client to extract VALUES clause
+        # Create the VALUES extraction prompt
+        prompt = _create_values_extraction_prompt(
+            company_name,
+            year,
+            formatted_date,
+            income_statement_markdown,
+            balance_sheet_markdown
+        )
+        
+        # Use proxy client to call LLM
         async with proxy_client:
-            result = await proxy_client.call_tool("extract_values_clause", {
-                "company_name": company_name,
-                "year": year,
-                "report_date": formatted_date,
-                "income_statement_markdown": income_statement_markdown,
-                "balance_sheet_markdown": balance_sheet_markdown,
-                "model": model
+            result = await proxy_client.call_tool("call_llm", {
+                "prompt": prompt,
+                "model": model,
+                "max_tokens": 1000,
+                "temperature": 0.1
             })
             values_clause = result[0].text
         
