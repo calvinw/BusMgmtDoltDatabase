@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Financial Data Extraction Client using proxy architecture
+Simple FastMCP Client for Financial Data Extraction
 """
 import asyncio
 import argparse
@@ -8,86 +8,122 @@ import os
 import sys
 import csv
 from fastmcp import Client
-from server import mcp
+import openai
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
 
-async def process_company(company_name: str, year: int, cik: str, model: str):
-    """Process a single company's financial data"""
-    companies = [{"company_name": company_name, "year": year, "cik": cik}]
-    await process_companies(companies, model)
-
-async def process_companies(companies: list, model: str):
-    """Process multiple companies and generate bulk INSERT statement"""
-    print(f"🏢 Processing {len(companies)} companies")
-    print(f"🔗 Connecting to MCP server")
+class FinancialClient:
+    def __init__(self, model_name: str, server_script: str = "./mcp_sec_10ks.py"):
+        self.model_name = model_name
+        self.server_script = server_script
+        self.openai_client = None
+        self._setup_openai_client()
     
-    # Create client with in-memory transport using imported server
-    client = Client(mcp)
+    def _setup_openai_client(self):
+        """Setup OpenAI client with OpenRouter configuration"""
+        api_key = os.getenv("OPENROUTER_API_KEY")
+        if not api_key:
+            raise ValueError("OPENROUTER_API_KEY environment variable is required")
+        
+        self.openai_client = openai.AsyncOpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=api_key,
+        )
     
-    try:
-        # Use async context manager for the client
-        async with client:
-            print("✅ Connected to MCP server")
+    async def handle_sampling(self, ctx, prompt, max_tokens=4000, temperature=0.1):
+        """Handle sampling requests from the server"""
+        try:
+            print(f"🤖 Sampling request received for model: {self.model_name}")
             
-            # List available tools
-            tools = await client.list_tools()
-            print(f"📋 Available tools: {[tool.name for tool in tools]}")
+            response = await self.openai_client.chat.completions.create(
+                model=self.model_name,
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=max_tokens,
+                temperature=temperature
+            )
             
-            # Call the appropriate tool based on number of companies
-            if len(companies) == 1:
-                # Single company - use original tool
-                company = companies[0]
-                print(f"🔄 Calling process_financial_data tool...")
-                print("📝 Server logs will appear below:")
-                print("-" * 60)
-                
-                result = await client.call_tool(
-                    "process_financial_data",
-                    {
-                        "company_name": company["company_name"],
-                        "year": company["year"],
-                        "cik": company["cik"],
-                        "model": model
-                    }
-                )
-                
-                print("-" * 60)
-                print("🎯 Financial data processing completed!")
-                print("=" * 80)
-                print("📊 RESULT:")
-                print("=" * 80)
-            else:
-                # Multiple companies - use batch tool
-                print(f"🔄 Calling process_financial_batch tool...")
-                print("📝 Server logs will appear below:")
-                print("-" * 60)
-                
-                result = await client.call_tool(
-                    "process_financial_batch",
-                    {
-                        "companies": companies,
-                        "model": model
-                    }
-                )
-                
-                print("-" * 60)
-                print("🎯 Batch processing completed!")
-                print("=" * 80)
-                print("📊 BULK INSERT STATEMENT:")
-                print("=" * 80)
+            content = response.choices[0].message.content
+            print(f"✅ Sampling completed. Finish reason: {response.choices[0].finish_reason}")
             
-            # Display the result
-            print(result[0].text)
-            print("=" * 80)
+            return content or ""
             
-    except Exception as e:
-        print(f"❌ Error processing companies: {e}")
-        import traceback
-        traceback.print_exc()
-        raise
+        except Exception as e:
+            print(f"❌ Error in sampling: {e}")
+            return f"Error processing request: {str(e)}"
+    
+    async def process_company(self, company_name: str, year: int, cik: str):
+        """Process a single company's financial data"""
+        companies = [{"company_name": company_name, "year": year, "cik": cik}]
+        await self.process_companies(companies)
+    
+    async def process_companies(self, companies: list):
+        """Process multiple companies and generate bulk INSERT statement"""
+        print(f"🏢 Processing {len(companies)} companies")
+        print(f"🔗 Connecting to FastMCP server: {self.server_script}")
+        
+        # Import the specific transport we need
+        from fastmcp.client.transports import PythonStdioTransport
+        
+        # Create FastMCP client with explicit stdio transport
+        client = Client(PythonStdioTransport(self.server_script))
+        
+        try:
+            async with client:
+                # Set up sampling handler
+                client.sampling_handler = self.handle_sampling
+                
+                # List available tools
+                tools = await client.list_tools()
+                print(f"📋 Available tools: {[tool.name for tool in tools]}")
+                
+                # Call the appropriate tool based on number of companies
+                if len(companies) == 1:
+                    # Single company - use original tool
+                    company = companies[0]
+                    print(f"🔄 Calling process_financial_data tool...")
+                    print("📝 Server logs will appear below:")
+                    print("-" * 60)
+                    
+                    result = await client.call_tool(
+                        "process_financial_data",
+                        company_name=company["company_name"],
+                        year=company["year"],
+                        cik=company["cik"]
+                    )
+                    
+                    print("-" * 60)
+                    print("🎯 Financial data processing completed!")
+                    print("=" * 80)
+                    print("📊 RESULT:")
+                    print("=" * 80)
+                else:
+                    # Multiple companies - use batch tool
+                    print(f"🔄 Calling process_financial_batch tool...")
+                    print("📝 Server logs will appear below:")
+                    print("-" * 60)
+                    
+                    result = await client.call_tool(
+                        "process_financial_batch",
+                        companies=companies
+                    )
+                    
+                    print("-" * 60)
+                    print("🎯 Batch processing completed!")
+                    print("=" * 80)
+                    print("📊 BULK INSERT STATEMENT:")
+                    print("=" * 80)
+                
+                # Print the result
+                print(result)
+                print("=" * 80)
+                
+        except Exception as e:
+            print(f"❌ Error processing companies: {e}")
+            import traceback
+            traceback.print_exc()
+            raise
 
 def load_companies_from_csv(file_path: str) -> list:
     """Load companies from CSV file"""
@@ -105,7 +141,7 @@ def load_companies_from_csv(file_path: str) -> list:
             # Print detected headers for debugging
             print(f"📋 Detected CSV headers: {reader.fieldnames}")
             
-            for row_num, row in enumerate(reader, start=2):
+            for row_num, row in enumerate(reader, start=2):  # Start at 2 since header is row 1
                 try:
                     # Handle different possible column names (case insensitive)
                     company_name = None
@@ -166,7 +202,7 @@ def load_companies_from_csv(file_path: str) -> list:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Financial Data Extraction Client using Proxy Architecture",
+        description="FastMCP Client for Financial Data Extraction",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -176,7 +212,7 @@ Examples:
   Batch processing from CSV:
     %(prog)s --model google/gemini-2.5-flash-preview-05-20 --csv companies.csv
 
-CSV Format (headers can be named flexibly):
+CSV Format:
 company_name,year,cik
 Apple Inc,2023,320193
 Microsoft Corporation,2023,789019
@@ -189,7 +225,7 @@ Environment Variables:
     parser.add_argument(
         "--model", 
         required=True,
-        help="Model name for OpenRouter (e.g., 'anthropic/claude-3.5-sonnet', 'openai/gpt-4o')"
+        help="Model name for OpenRouter (e.g., 'anthropic/claude-3.5-sonnet')"
     )
     
     # Single company arguments
@@ -210,7 +246,13 @@ Environment Variables:
     # Batch processing argument
     parser.add_argument(
         "--csv", 
-        help="CSV file containing list of companies to process (for batch processing)"
+        help="CSV file containing list of companies to process"
+    )
+    
+    parser.add_argument(
+        "--server-script",
+        default="./mcp_sec_10ks.py",
+        help="Path to the MCP server script (default: ./mcp_sec_10ks.py)"
     )
     
     args = parser.parse_args()
@@ -218,7 +260,11 @@ Environment Variables:
     # Check for required environment variables
     if not os.getenv("OPENROUTER_API_KEY"):
         print("❌ Error: OPENROUTER_API_KEY environment variable is required")
-        print("Please set it with: export OPENROUTER_API_KEY=your_api_key_here")
+        sys.exit(1)
+    
+    # Validate server script exists
+    if not os.path.exists(args.server_script):
+        print(f"❌ Error: Server script not found: {args.server_script}")
         sys.exit(1)
     
     # Determine processing mode
@@ -230,10 +276,11 @@ Environment Variables:
             print("❌ Error: No valid companies found in CSV file")
             sys.exit(1)
         
-        print("🚀 Financial Data Extraction Client (Batch Mode)")
+        print("🚀 FastMCP Financial Data Extraction Client (Batch Mode)")
         print(f"🤖 Model: {args.model}")  
         print(f"📁 CSV File: {args.csv}")
         print(f"📊 Total Companies: {len(companies)}")
+        print(f"🖥️  Server: {args.server_script}")
         print("-" * 80)
         
         # Show preview of companies to be processed
@@ -245,7 +292,8 @@ Environment Variables:
         print("-" * 80)
         
         try:
-            asyncio.run(process_companies(companies, args.model))
+            client = FinancialClient(args.model, args.server_script)
+            asyncio.run(client.process_companies(companies))
         except KeyboardInterrupt:
             print("\n👋 Interrupted by user")
             sys.exit(0)
@@ -255,15 +303,17 @@ Environment Variables:
         
     elif args.company and args.year and args.cik:
         # Single company mode
-        print("🚀 Financial Data Extraction Client (Single Company)")
+        print("🚀 FastMCP Financial Data Extraction Client (Single Company)")
         print(f"🤖 Model: {args.model}")
         print(f"🏢 Company: {args.company}")
         print(f"📅 Year: {args.year}")
         print(f"🔢 CIK: {args.cik}")
+        print(f"🖥️  Server: {args.server_script}")
         print("-" * 80)
         
         try:
-            asyncio.run(process_company(args.company, args.year, args.cik, args.model))
+            client = FinancialClient(args.model, args.server_script)
+            asyncio.run(client.process_company(args.company, args.year, args.cik))
         except KeyboardInterrupt:
             print("\n👋 Interrupted by user")
             sys.exit(0)
