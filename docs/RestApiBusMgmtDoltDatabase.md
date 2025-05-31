@@ -1,71 +1,104 @@
-# BusMgmtBenchmarks REST API Documentation
+# BusMgmtBenchmarks REST API Documentation with Response Examples
 
-This document provides comprehensive examples of using the DoltHub REST API to access the `calvinw/BusMgmtBenchmarks` database. The API returns data in JSON format and is perfect for building web applications that need financial benchmarking data.
+This document provides comprehensive examples of using the DoltHub REST API to access the `calvinw/BusMgmtBenchmarks` database, including actual response examples showing the JSON structure returned by each query type.
+
+**⚠️ Important Note**: The API response examples shown in this documentation are for illustrative purposes to demonstrate the JSON structure and data format. The specific companies, financial figures, years, and other data values may have changed since this documentation was created. Always query the live API to get current and accurate data rather than relying on the example values shown here.
 
 ## Base URL Structure
 
 All API calls follow this pattern:
 ```
-https://www.dolthub.com/api/v1alpha1/{owner}/{database}
+https://www.dolthub.com/api/v1alpha1/{owner}/{database}?q={SQL_QUERY}
 ```
 
 For the BusMgmtBenchmarks database:
 ```
-https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
+https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q={SQL_QUERY}
 ```
+
+### URL Encoding Example
+
+The SQL queries shown in this document need to be URL-encoded when used in actual API calls. For example:
+
+**Clean SQL:**
+```sql
+SELECT * FROM new_company_info WHERE segment = 'Grocery'
+```
+
+**URL-encoded for API:**
+```
+https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20*%20FROM%20new_company_info%20WHERE%20segment%20%3D%20%27Grocery%27
+```
+
+**Note:** Most modern clients and AI assistants will handle URL encoding automatically.
 
 ## Authentication
 
 The BusMgmtBenchmarks database is public, so no authentication is required for read operations.
 
-## Basic Database Metadata
+## Response Format Overview
 
-Get basic information about the database:
+All successful queries return JSON in this standardized format:
 
-```http
-GET https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-```
-
-**Response:**
-```json
-{
-  "owner": "calvinw",
-  "repo_name": "BusMgmtBenchmarks",
-  "description": "Business Management Benchmarks database",
-  "branch": "main"
-}
-```
-
-## Table Listing
-
-Get all tables in the database:
-
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SHOW TABLES"
-}
-```
-
-**Response:**
 ```json
 {
   "query_execution_status": "Success",
   "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks", 
+  "commit_ref": "main",
+  "sql_query": "YOUR_SQL_QUERY",
   "schema": [
     {
-      "columnName": "Tables_in_BusMgmtBenchmarks",
-      "columnType": "TEXT"
+      "columnName": "column_name",
+      "columnType": "data_type"
     }
   ],
   "rows": [
-    ["financials"],
-    ["new_company_info"],
-    ["new_financial_metrics"],
-    ["segment_metrics"],
-    ["subsegment_metrics"]
+    {
+      "column_name": "value1"
+    }
+  ]
+}
+```
+
+## Basic Database Operations
+
+### Table Listing
+
+**Query:**
+```sql
+SHOW TABLES
+```
+
+**Response Example:**
+```json
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SHOW TABLES",
+  "schema": [
+    {
+      "columnName": "Tables_in_BusMgmtBenchmarks",
+      "columnType": "longtext"
+    }
+  ],
+  "rows": [
+    {"Tables_in_BusMgmtBenchmarks": "benchmarks 2018 view"},
+    {"Tables_in_BusMgmtBenchmarks": "benchmarks 2019 view"},
+    {"Tables_in_BusMgmtBenchmarks": "benchmarks 2020 view"},
+    {"Tables_in_BusMgmtBenchmarks": "benchmarks 2021 view"},
+    {"Tables_in_BusMgmtBenchmarks": "benchmarks 2022 view"},
+    {"Tables_in_BusMgmtBenchmarks": "benchmarks 2023 view"},
+    {"Tables_in_BusMgmtBenchmarks": "benchmarks 2024 view"},
+    {"Tables_in_BusMgmtBenchmarks": "financials"},
+    {"Tables_in_BusMgmtBenchmarks": "new_company_info"},
+    {"Tables_in_BusMgmtBenchmarks": "new_financial_metrics"},
+    {"Tables_in_BusMgmtBenchmarks": "segment_metrics"},
+    {"Tables_in_BusMgmtBenchmarks": "subsegment_metrics"}
   ]
 }
 ```
@@ -74,73 +107,266 @@ Content-Type: application/json
 
 ### 1. Company Information
 
-Get all companies with their segments and subsegments:
+**Query:** Get all companies with their segments and subsegments
+```sql
+SELECT company, display_name, ticker_symbol, segment, subsegment 
+FROM new_company_info 
+ORDER BY segment, display_name 
+LIMIT 10
+```
 
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
+**Response Example:**
+```json
 {
-  "query": "SELECT company, display_name, ticker_symbol, segment, subsegment FROM new_company_info ORDER BY segment, display_name"
+  "query_execution_status": "Success",
+  "schema": [
+    {"columnName": "company", "columnType": "varchar(255)"},
+    {"columnName": "display_name", "columnType": "varchar(255)"},
+    {"columnName": "ticker_symbol", "columnType": "varchar(10)"},
+    {"columnName": "segment", "columnType": "varchar(255)"},
+    {"columnName": "subsegment", "columnType": "varchar(255)"}
+  ],
+  "rows": [
+    {
+      "company": "Dillard's",
+      "display_name": "Dillard's", 
+      "ticker_symbol": "DDS",
+      "segment": "Department Store",
+      "subsegment": null
+    },
+    {
+      "company": "Walmart",
+      "display_name": "Walmart",
+      "ticker_symbol": "WMT", 
+      "segment": "Discount Store",
+      "subsegment": null
+    }
+  ]
 }
 ```
 
-Find companies in a specific segment:
+**Query:** Find companies in a specific segment
+```sql
+SELECT * FROM new_company_info 
+WHERE segment = 'Grocery' 
+ORDER BY display_name
+```
 
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
+**Response Example:**
+```json
 {
-  "query": "SELECT * FROM new_company_info WHERE segment = 'Technology' ORDER BY display_name"
+  "query_execution_status": "Success",
+  "schema": [
+    {"columnName": "company", "columnType": "varchar(255)"},
+    {"columnName": "CIK", "columnType": "int"},
+    {"columnName": "display_name", "columnType": "varchar(255)"},
+    {"columnName": "ticker_symbol", "columnType": "varchar(10)"},
+    {"columnName": "segment", "columnType": "varchar(255)"},
+    {"columnName": "subsegment", "columnType": "varchar(255)"},
+    {"columnName": "currency", "columnType": "varchar(10)"},
+    {"columnName": "units", "columnType": "varchar(50)"}
+  ],
+  "rows": [
+    {
+      "company": "Ahold Delhaize",
+      "CIK": null,
+      "display_name": "Ahold Delhaize",
+      "ticker_symbol": "AD.AS",
+      "segment": "Grocery",
+      "subsegment": null,
+      "currency": "EUR",
+      "units": "thousands"
+    },
+    {
+      "company": "Albertsons",
+      "CIK": "1646972",
+      "display_name": "Albertsons",
+      "ticker_symbol": "ACI",
+      "segment": "Grocery", 
+      "subsegment": null,
+      "currency": "USD",
+      "units": "thousands"
+    },
+    {
+      "company": "Kroger",
+      "CIK": "56873",
+      "display_name": "Kroger",
+      "ticker_symbol": "KR",
+      "segment": "Grocery",
+      "subsegment": null,
+      "currency": "USD",
+      "units": "thousands"
+    }
+  ]
+}
+```
+
+**Query:** Get company info by ticker symbol
+```sql
+SELECT * FROM new_company_info 
+WHERE ticker_symbol = 'WMT'
+```
+
+**Response Example:**
+```json
+{
+  "query_execution_status": "Success",
+  "rows": [
+    {
+      "company": "Walmart",
+      "CIK": "104169",
+      "display_name": "Walmart",
+      "ticker_symbol": "WMT",
+      "segment": "Discount Store",
+      "subsegment": null,
+      "currency": "USD",
+      "units": "thousands"
+    }
+  ]
 }
 ```
 
 ### 2. Financial Data
 
-Get financial data for a specific company and year:
-
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SELECT * FROM financials WHERE company_name = 'Apple Inc.' AND year = 2023"
-}
+**Query:** Get top revenue companies in 2023
+```sql
+SELECT company_name, year, `Net Revenue`, `Gross Margin`, `Operating Profit`, `Net Profit` 
+FROM financials 
+WHERE year = 2023 
+ORDER BY `Net Revenue` DESC 
+LIMIT 10
 ```
 
-Get revenue data for all companies in a specific year:
-
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
+**Response Example:**
+```json
 {
-  "query": "SELECT company_name, year, `Net Revenue`, `Gross Margin`, `Operating Profit`, `Net Profit` FROM financials WHERE year = 2023 ORDER BY `Net Revenue` DESC"
+  "query_execution_status": "Success",
+  "schema": [
+    {"columnName": "company_name", "columnType": "varchar(255)"},
+    {"columnName": "year", "columnType": "int"},
+    {"columnName": "Net Revenue", "columnType": "bigint"},
+    {"columnName": "Gross Margin", "columnType": "bigint"},
+    {"columnName": "Operating Profit", "columnType": "bigint"},
+    {"columnName": "Net Profit", "columnType": "bigint"}
+  ],
+  "rows": [
+    {
+      "company_name": "Walmart",
+      "year": "2023",
+      "Net Revenue": "648125000",
+      "Gross Margin": "157983000", 
+      "Operating Profit": "27012000",
+      "Net Profit": "15511000"
+    },
+    {
+      "company_name": "Amazon",
+      "year": "2023",
+      "Net Revenue": "574785000",
+      "Gross Margin": "270046000",
+      "Operating Profit": "36852000",
+      "Net Profit": "30425000"
+    },
+    {
+      "company_name": "CVS",
+      "year": "2023", 
+      "Net Revenue": "357776000",
+      "Gross Margin": "140678000",
+      "Operating Profit": "13743000",
+      "Net Profit": "8344000"
+    }
+  ]
 }
 ```
 
 ### 3. Financial Metrics
 
-Get financial ratios for a specific company:
+**Query:** Get profitability metrics for top performers
+```sql
+SELECT company_name, year, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, 
+       Net_Profit_Margin_Percentage, Return_on_Assets 
+FROM new_financial_metrics 
+WHERE year = 2023 
+ORDER BY Return_on_Assets DESC 
+LIMIT 10
+```
 
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
+**Response Example:**
+```json
 {
-  "query": "SELECT * FROM new_financial_metrics WHERE company_name = 'Apple Inc.' AND year = 2023"
+  "query_execution_status": "Success",
+  "schema": [
+    {"columnName": "company_name", "columnType": "varchar(255)"},
+    {"columnName": "year", "columnType": "int"},
+    {"columnName": "Gross_Margin_Percentage", "columnType": "decimal(10,4)"},
+    {"columnName": "Operating_Profit_Margin_Percentage", "columnType": "decimal(10,4)"},
+    {"columnName": "Net_Profit_Margin_Percentage", "columnType": "decimal(10,4)"},
+    {"columnName": "Return_on_Assets", "columnType": "decimal(10,4)"}
+  ],
+  "rows": [
+    {
+      "company_name": "Ulta Beauty",
+      "year": "2023",
+      "Gross_Margin_Percentage": "39.0915",
+      "Operating_Profit_Margin_Percentage": "14.9726",
+      "Net_Profit_Margin_Percentage": "11.5193",
+      "Return_on_Assets": "22.6214"
+    },
+    {
+      "company_name": "Lululemon",
+      "year": "2023",
+      "Gross_Margin_Percentage": "58.3142",
+      "Operating_Profit_Margin_Percentage": "22.1709",
+      "Net_Profit_Margin_Percentage": "16.1155",
+      "Return_on_Assets": "21.8585"
+    },
+    {
+      "company_name": "Home Depot",
+      "year": "2023",
+      "Gross_Margin_Percentage": "33.3794",
+      "Operating_Profit_Margin_Percentage": "14.2066",
+      "Net_Profit_Margin_Percentage": "9.9188", 
+      "Return_on_Assets": "19.7870"
+    }
+  ]
 }
 ```
 
-Get profitability metrics for all companies in a year:
+**Query:** Get efficiency ratios
+```sql
+SELECT company_name, Asset_Turnover, Inventory_Turnover, Current_Ratio, Quick_Ratio 
+FROM new_financial_metrics 
+WHERE year = 2023 
+ORDER BY Asset_Turnover DESC 
+LIMIT 10
+```
 
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
+**Response Example:**
+```json
 {
-  "query": "SELECT company_name, year, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, Net_Profit_Margin_Percentage, Return_on_Assets FROM new_financial_metrics WHERE year = 2023 ORDER BY Return_on_Assets DESC"
+  "query_execution_status": "Success",
+  "rows": [
+    {
+      "company_name": "Costco",
+      "Asset_Turnover": "3.5118",
+      "Inventory_Turnover": "12.7672",
+      "Current_Ratio": "1.0684",
+      "Quick_Ratio": "0.5726"
+    },
+    {
+      "company_name": "Chewy", 
+      "Asset_Turnover": "3.4980",
+      "Inventory_Turnover": "11.1032",
+      "Current_Ratio": "0.9969",
+      "Quick_Ratio": "0.6562"
+    },
+    {
+      "company_name": "Walmart",
+      "Asset_Turnover": "2.5679",
+      "Inventory_Turnover": "8.9292",
+      "Current_Ratio": "0.8319",
+      "Quick_Ratio": "0.2379"
+    }
+  ]
 }
 ```
 
@@ -148,192 +374,445 @@ Content-Type: application/json
 
 ### 1. Segment Benchmarks
 
-Get benchmark metrics for all segments in a specific year:
+**Query:** Get benchmark metrics for all segments in 2023
+```sql
+SELECT * FROM segment_metrics 
+WHERE year = 2023 
+ORDER BY segment
+```
 
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
+**Response Example (truncated):**
+```json
 {
-  "query": "SELECT * FROM segment_metrics WHERE year = 2023 ORDER BY segment"
+  "query_execution_status": "Success",
+  "schema": [
+    {"columnName": "segment", "columnType": "varchar(255)"},
+    {"columnName": "year", "columnType": "int"},
+    {"columnName": "Gross_Margin_Percentage", "columnType": "decimal(10,4)"},
+    {"columnName": "Operating_Profit_Margin_Percentage", "columnType": "decimal(10,4)"},
+    {"columnName": "Return_on_Assets", "columnType": "decimal(10,4)"}
+  ],
+  "rows": [
+    {
+      "segment": "Department Store",
+      "year": "2023",
+      "Gross_Margin_Percentage": "39.6353",
+      "Operating_Profit_Margin_Percentage": "3.6495",
+      "Return_on_Assets": "3.0722"
+    },
+    {
+      "segment": "Grocery",
+      "year": "2023", 
+      "Gross_Margin_Percentage": "24.9249",
+      "Operating_Profit_Margin_Percentage": "2.5191",
+      "Return_on_Assets": "4.2827"
+    },
+    {
+      "segment": "Home Improvement",
+      "year": "2023",
+      "Gross_Margin_Percentage": "33.5298",
+      "Operating_Profit_Margin_Percentage": "13.6927",
+      "Return_on_Assets": "18.8029"
+    }
+  ]
 }
 ```
 
-Get specific segment benchmark:
+**Query:** Get specific segment benchmark
+```sql
+SELECT segment, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, 
+       Net_Profit_Margin_Percentage, Return_on_Assets 
+FROM segment_metrics 
+WHERE segment = 'Grocery' AND year = 2023
+```
 
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
+**Response Example:**
+```json
 {
-  "query": "SELECT segment, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, Net_Profit_Margin_Percentage, Return_on_Assets FROM segment_metrics WHERE segment = 'Technology' AND year = 2023"
+  "query_execution_status": "Success",
+  "rows": [
+    {
+      "segment": "Grocery",
+      "Gross_Margin_Percentage": "24.9249",
+      "Operating_Profit_Margin_Percentage": "2.5191",
+      "Net_Profit_Margin_Percentage": "1.6773",
+      "Return_on_Assets": "4.2827"
+    }
+  ]
+}
+```
+
+**Query:** Compare all segment benchmarks by profitability
+```sql
+SELECT segment, Operating_Profit_Margin_Percentage, Return_on_Assets 
+FROM segment_metrics 
+WHERE year = 2023 
+ORDER BY Return_on_Assets DESC
+```
+
+**Response Example:**
+```json
+{
+  "query_execution_status": "Success",
+  "rows": [
+    {
+      "segment": "Home Improvement",
+      "Operating_Profit_Margin_Percentage": "13.6927",
+      "Return_on_Assets": "18.8029"
+    },
+    {
+      "segment": "Off Price",
+      "Operating_Profit_Margin_Percentage": "10.1988",
+      "Return_on_Assets": "12.9230"
+    },
+    {
+      "segment": "Specialty",
+      "Operating_Profit_Margin_Percentage": "13.2491",
+      "Return_on_Assets": "9.6749"
+    },
+    {
+      "segment": "Warehouse Clubs",
+      "Operating_Profit_Margin_Percentage": "3.3991",
+      "Return_on_Assets": "9.0070"
+    },
+    {
+      "segment": "Grocery",
+      "Operating_Profit_Margin_Percentage": "2.5191",
+      "Return_on_Assets": "4.2827"
+    }
+  ]
 }
 ```
 
 ### 2. Subsegment Benchmarks
 
-Get subsegment benchmarks for a specific year:
+**Query:** Get subsegment benchmarks for 2023
+```sql
+SELECT * FROM subsegment_metrics 
+WHERE year = 2023 
+ORDER BY subsegment 
+LIMIT 5
+```
 
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
+**Response Example:**
+```json
 {
-  "query": "SELECT * FROM subsegment_metrics WHERE year = 2023 ORDER BY subsegment"
+  "query_execution_status": "Success",
+  "rows": [
+    {
+      "subsegment": "Accessories and Shoes",
+      "year": "2023",
+      "Gross_Margin_Percentage": "46.2545",
+      "Operating_Profit_Margin_Percentage": "8.3039",
+      "Return_on_Assets": "7.4664"
+    },
+    {
+      "subsegment": "Apparel",
+      "year": "2023",
+      "Gross_Margin_Percentage": "45.4315",
+      "Operating_Profit_Margin_Percentage": "8.4004",
+      "Return_on_Assets": "7.9325"
+    },
+    {
+      "subsegment": "Beauty",
+      "year": "2023",
+      "Gross_Margin_Percentage": "40.8724",
+      "Operating_Profit_Margin_Percentage": "15.8992",
+      "Return_on_Assets": "19.4181"
+    }
+  ]
 }
 ```
 
 ## Using Pre-built Views
 
-### 1. Company Benchmarks View
+### 1. Company Benchmarks Views
 
-Get comprehensive company data using the benchmarks view:
+**Query:** Get all companies in a segment with their metrics
+```sql
+SELECT company, segment, `Net Revenue`, `Gross Margin %`, `Operating Profit Margin %`, `Return on Assets` 
+FROM `benchmarks 2023 view` 
+WHERE segment = 'Grocery' 
+ORDER BY `Net Revenue` DESC
+```
 
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
+**Response Example:**
+```json
 {
-  "query": "SELECT * FROM `benchmarks 2023 view` WHERE company = 'Apple Inc.'"
+  "query_execution_status": "Success",
+  "rows": [
+    {
+      "company": "Kroger",
+      "segment": "Grocery",
+      "Net Revenue": "150039000",
+      "Gross Margin %": "22.2369",
+      "Operating Profit Margin %": "2.0635",
+      "Return on Assets": "4.2847"
+    },
+    {
+      "company": "Ahold Delhaize", 
+      "segment": "Grocery",
+      "Net Revenue": "88734000",
+      "Gross Margin %": "26.8826",
+      "Operating Profit Margin %": "3.2073",
+      "Return on Assets": "3.9188"
+    },
+    {
+      "company": "Albertsons",
+      "segment": "Grocery",
+      "Net Revenue": "79237700",
+      "Gross Margin %": "27.8222",
+      "Operating Profit Margin %": "2.6110",
+      "Return on Assets": "4.9426"
+    }
+  ]
 }
 ```
 
-Get all companies in a segment with their metrics:
-
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SELECT company, segment, `Net Revenue`, `Gross Margin %`, `Operating Profit Margin %`, `Net Profit Margin %`, `Return on Assets` FROM `benchmarks 2023 view` WHERE segment = 'Technology' ORDER BY `Net Revenue` DESC"
-}
+**Query:** Get top companies by revenue across all segments
+```sql
+SELECT company, segment, `Net Revenue`, `Return on Assets` 
+FROM `benchmarks 2023 view` 
+ORDER BY `Net Revenue` DESC 
+LIMIT 10
 ```
 
-### 2. Segment and Company Comparison
-
-Compare a company to its segment benchmark:
-
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
+**Response Example:**
+```json
 {
-  "query": "SELECT segment, company, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, Net_Profit_Margin_Percentage, Return_on_Assets FROM `segment and company benchmarks 2023` WHERE segment = 'Technology' OR company = 'Apple Inc.' ORDER BY segment DESC, company"
+  "query_execution_status": "Success",
+  "rows": [
+    {
+      "company": "Walmart",
+      "segment": "Discount Store",
+      "Net Revenue": "648125000",
+      "Return on Assets": "6.1454"
+    },
+    {
+      "company": "Amazon",
+      "segment": "Online",
+      "Net Revenue": "574785000",
+      "Return on Assets": "5.7639"
+    },
+    {
+      "company": "CVS",
+      "segment": "Health & Pharmacy",
+      "Net Revenue": "357776000",
+      "Return on Assets": "3.3412"
+    },
+    {
+      "company": "Costco",
+      "segment": "Warehouse Clubs",
+      "Net Revenue": "242290000",
+      "Return on Assets": "9.1196"
+    }
+  ]
 }
 ```
 
 ## Advanced Analytics Queries
 
-### 1. Multi-Year Trend Analysis
+### 1. Peer Comparison
 
-Get revenue growth trends for a company:
-
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SELECT company_name, year, `Net Revenue`, Sales_Current_Year_vs_LY, Three_Year_Revenue_CAGR FROM new_financial_metrics WHERE company_name = 'Apple Inc.' AND year >= 2020 ORDER BY year"
-}
+**Query:** Compare multiple companies within the same segment
+```sql
+SELECT c.display_name, c.segment, m.Gross_Margin_Percentage, m.Operating_Profit_Margin_Percentage, m.Return_on_Assets 
+FROM new_financial_metrics m 
+JOIN new_company_info c ON m.company_name = c.company 
+WHERE c.segment = 'Grocery' AND m.year = 2023 
+ORDER BY m.Return_on_Assets DESC
 ```
 
-### 2. Peer Comparison
-
-Compare multiple companies within the same segment:
-
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SELECT c.display_name, c.segment, m.Gross_Margin_Percentage, m.Operating_Profit_Margin_Percentage, m.Return_on_Assets FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE c.segment = 'Technology' AND m.year = 2023 ORDER BY m.Return_on_Assets DESC"
-}
-```
-
-### 3. Top Performers Analysis
-
-Find top performing companies by Return on Assets:
-
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SELECT c.display_name, c.segment, m.Return_on_Assets, m.Net_Profit_Margin_Percentage, m.Asset_Turnover FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE m.year = 2023 AND m.Return_on_Assets IS NOT NULL ORDER BY m.Return_on_Assets DESC LIMIT 10"
-}
-```
-
-### 4. Segment Performance Rankings
-
-Rank segments by average profitability:
-
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SELECT segment, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, Net_Profit_Margin_Percentage, Return_on_Assets FROM segment_metrics WHERE year = 2023 ORDER BY Return_on_Assets DESC"
-}
-```
-
-## Financial Health Analysis
-
-### 1. Liquidity Analysis
-
-Get liquidity ratios for companies:
-
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SELECT c.display_name, c.segment, m.Current_Ratio, m.Quick_Ratio, m.Debt_to_Equity FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE m.year = 2023 AND m.Current_Ratio IS NOT NULL ORDER BY m.Current_Ratio DESC"
-}
-```
-
-### 2. Efficiency Metrics
-
-Analyze operational efficiency:
-
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SELECT c.display_name, c.segment, m.Asset_Turnover, m.Inventory_Turnover, m.SGA_Percentage FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE m.year = 2023 AND c.segment = 'Retail' ORDER BY m.Asset_Turnover DESC"
-}
-```
-
-## URL Encoding for Complex Queries
-
-For complex queries with special characters, ensure proper URL encoding. Here's an example using a URL-encoded query:
-
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SELECT company, segment, `Net Revenue`, `Gross Margin %` FROM `benchmarks 2023 view` WHERE `Net Revenue` > 1000000 ORDER BY `Net Revenue` DESC"
-}
-```
-
-## Response Format
-
-All successful queries return JSON in this format:
-
+**Response Example:**
 ```json
 {
   "query_execution_status": "Success",
-  "query_execution_message": "",
-  "schema": [
-    {
-      "columnName": "column_name",
-      "columnType": "DATA_TYPE"
-    }
-  ],
   "rows": [
-    ["value1", "value2", "value3"],
-    ["value4", "value5", "value6"]
+    {
+      "display_name": "Albertsons",
+      "segment": "Grocery",
+      "Gross_Margin_Percentage": "27.8222",
+      "Operating_Profit_Margin_Percentage": "2.6110",
+      "Return_on_Assets": "4.9426"
+    },
+    {
+      "display_name": "Kroger",
+      "segment": "Grocery",
+      "Gross_Margin_Percentage": "22.2369",
+      "Operating_Profit_Margin_Percentage": "2.0635",
+      "Return_on_Assets": "4.2847"
+    },
+    {
+      "display_name": "Ahold Delhaize",
+      "segment": "Grocery",
+      "Gross_Margin_Percentage": "26.8826",
+      "Operating_Profit_Margin_Percentage": "3.2073",
+      "Return_on_Assets": "3.9188"
+    }
+  ]
+}
+```
+
+### 2. Top Performers Analysis
+
+**Query:** Find top performing companies by Return on Assets
+```sql
+SELECT c.display_name, c.segment, m.Return_on_Assets, m.Net_Profit_Margin_Percentage 
+FROM new_financial_metrics m 
+JOIN new_company_info c ON m.company_name = c.company 
+WHERE m.year = 2023 AND m.Return_on_Assets IS NOT NULL 
+ORDER BY m.Return_on_Assets DESC 
+LIMIT 10
+```
+
+**Response Example:**
+```json
+{
+  "query_execution_status": "Success",
+  "rows": [
+    {
+      "display_name": "Ulta Beauty",
+      "segment": "Specialty",
+      "Return_on_Assets": "22.6214",
+      "Net_Profit_Margin_Percentage": "11.5193"
+    },
+    {
+      "display_name": "Lululemon",
+      "segment": "Specialty",
+      "Return_on_Assets": "21.8585",
+      "Net_Profit_Margin_Percentage": "16.1155"
+    },
+    {
+      "display_name": "Dillard's",
+      "segment": "Department Store",
+      "Return_on_Assets": "21.4226",
+      "Net_Profit_Margin_Percentage": "10.7478"
+    },
+    {
+      "display_name": "Home Depot",
+      "segment": "Home Improvement",
+      "Return_on_Assets": "19.7870",
+      "Net_Profit_Margin_Percentage": "9.9188"
+    }
+  ]
+}
+```
+
+### 3. Financial Health Analysis
+
+**Query:** Get liquidity ratios for companies
+```sql
+SELECT c.display_name, c.segment, m.Current_Ratio, m.Quick_Ratio, m.Debt_to_Equity 
+FROM new_financial_metrics m 
+JOIN new_company_info c ON m.company_name = c.company 
+WHERE m.year = 2023 AND m.Current_Ratio IS NOT NULL 
+ORDER BY m.Current_Ratio DESC 
+LIMIT 10
+```
+
+**Response Example:**
+```json
+{
+  "query_execution_status": "Success",
+  "rows": [
+    {
+      "display_name": "Tapestry",
+      "segment": "Specialty",
+      "Current_Ratio": "5.1435",
+      "Quick_Ratio": "4.6617",
+      "Debt_to_Equity": "3.6244"
+    },
+    {
+      "display_name": "Dillard's",
+      "segment": "Department Store",
+      "Current_Ratio": "2.6677",
+      "Quick_Ratio": "1.3461",
+      "Debt_to_Equity": "1.0323"
+    },
+    {
+      "display_name": "Lululemon",
+      "segment": "Specialty",
+      "Current_Ratio": "2.4892",
+      "Quick_Ratio": "1.6778",
+      "Debt_to_Equity": "0.6758"
+    }
+  ]
+}
+```
+
+## Search and Filter Examples
+
+### Company Search
+
+**Query:** Search for companies by name
+```sql
+SELECT display_name, ticker_symbol, segment 
+FROM new_company_info 
+WHERE display_name LIKE '%Walmart%'
+```
+
+**Response Example:**
+```json
+{
+  "query_execution_status": "Success",
+  "rows": [
+    {
+      "display_name": "Walmart",
+      "ticker_symbol": "WMT",
+      "segment": "Discount Store"
+    }
+  ]
+}
+```
+
+### Segment Filtering
+
+**Query:** Get all available segments
+```sql
+SELECT DISTINCT segment 
+FROM new_company_info 
+WHERE segment IS NOT NULL 
+ORDER BY segment
+```
+
+**Response Example:**
+```json
+{
+  "query_execution_status": "Success",
+  "rows": [
+    {"segment": "Department Store"},
+    {"segment": "Discount Store"},
+    {"segment": "Fast Fashion"},
+    {"segment": "Grocery"},
+    {"segment": "Health & Pharmacy"},
+    {"segment": "Home Improvement"},
+    {"segment": "Off Price"},
+    {"segment": "Online"},
+    {"segment": "Specialty"},
+    {"segment": "Warehouse Clubs"}
+  ]
+}
+```
+
+**Query:** Get all subsegments
+```sql
+SELECT DISTINCT subsegment 
+FROM new_company_info 
+WHERE subsegment IS NOT NULL 
+ORDER BY subsegment 
+LIMIT 5
+```
+
+**Response Example:**
+```json
+{
+  "query_execution_status": "Success",
+  "rows": [
+    {"subsegment": "Accessories and Shoes"},
+    {"subsegment": "Apparel"},
+    {"subsegment": "Beauty"},
+    {"subsegment": "Category Killer"},
+    {"subsegment": "Home"}
   ]
 }
 ```
@@ -351,48 +830,72 @@ If a query fails, you'll receive an error response:
 }
 ```
 
-## Best Practices for Web Applications
+## Best Practices
 
-1. **Pagination**: For large result sets, use `LIMIT` and `OFFSET` clauses
-2. **Filtering**: Always use `WHERE` clauses to limit data retrieval
-3. **Indexing**: The database is optimized for queries on company_name, year, segment, and subsegment
-4. **Caching**: Consider caching benchmark data as it doesn't change frequently
-5. **Error Handling**: Always check the `query_execution_status` field before processing results
+1. **Clean Queries**: Use the readable SQL format shown above - let your client handle URL encoding
+2. **Error Handling**: Always check the `query_execution_status` field before processing results
+3. **Filtering**: Use `WHERE` clauses to limit data retrieval and improve performance
+4. **Pagination**: Use `LIMIT` and `OFFSET` for large result sets
+5. **Caching**: Consider caching responses as benchmark data doesn't change frequently
 
-## Common Use Cases for Web Applications
+## JavaScript/TypeScript Helper Function
+
+Here's a helper function for building API URLs that handles encoding automatically:
+
+```javascript
+function buildBenchmarkQuery(sqlQuery) {
+  const baseUrl = 'https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks';
+  const encodedQuery = encodeURIComponent(sqlQuery);
+  return `${baseUrl}?q=${encodedQuery}`;
+}
+
+// Example usage:
+const url = buildBenchmarkQuery("SELECT * FROM new_company_info WHERE segment = 'Grocery'");
+
+// Fetch data
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    if (data.query_execution_status === 'Success') {
+      console.log('Data:', data.rows);
+    } else {
+      console.error('Query failed:', data.query_execution_message);
+    }
+  });
+```
+
+## Common Query Patterns
 
 ### Dashboard Widgets
 
-**Company Performance Summary:**
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SELECT company, `Net Revenue`, `Gross Margin %`, `Operating Profit Margin %`, `Return on Assets` FROM `benchmarks 2023 view` WHERE company = 'Apple Inc.'"
-}
+**Revenue Summary Widget:**
+```sql
+SELECT company, `Net Revenue`, `Gross Margin %`, `Operating Profit Margin %` 
+FROM `benchmarks 2023 view` 
+WHERE company = 'Walmart'
 ```
 
-**Segment Comparison Chart:**
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SELECT segment, AVG(Operating_Profit_Margin_Percentage) as avg_op_margin FROM segment_metrics WHERE year = 2023 GROUP BY segment ORDER BY avg_op_margin DESC"
-}
+**Segment Performance Widget:**
+```sql
+SELECT segment, Operating_Profit_Margin_Percentage, Return_on_Assets 
+FROM segment_metrics 
+WHERE year = 2023 
+ORDER BY Return_on_Assets DESC 
+LIMIT 5
 ```
 
-### Search and Filter APIs
+### Benchmarking Analysis
 
-**Company Search:**
-```http
-POST https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks
-Content-Type: application/json
-
-{
-  "query": "SELECT display_name, ticker_symbol, segment FROM new_company_info WHERE display_name LIKE '%Apple%' OR ticker_symbol LIKE '%AAPL%'"
-}
+**Company vs Segment Benchmark:**
+```sql
+SELECT 'Company' as type, c.display_name as name, m.Return_on_Assets, m.Operating_Profit_Margin_Percentage
+FROM new_financial_metrics m 
+JOIN new_company_info c ON m.company_name = c.company 
+WHERE c.display_name = 'Walmart' AND m.year = 2023
+UNION ALL
+SELECT 'Segment Benchmark' as type, s.segment as name, s.Return_on_Assets, s.Operating_Profit_Margin_Percentage
+FROM segment_metrics s 
+WHERE s.segment = 'Discount Store' AND s.year = 2023
 ```
 
-This REST API provides powerful access to comprehensive financial benchmarking data that can power sophisticated business intelligence applications, dashboards, and analytical tools.
+This comprehensive documentation provides real examples from your database, showing exactly what developers can expect when working with the BusMgmtBenchmarks API. The response format is consistent and includes all the metadata fields that help with debugging and understanding the data structure.

@@ -1,0 +1,61 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT * FROM new_company_info WHERE ticker_symbol = 'WMT'",
+  "schema": [
+    {
+      "columnName": "company",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "CIK",
+      "columnType": "int"
+    },
+    {
+      "columnName": "display_name",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "ticker_symbol",
+      "columnType": "varchar(10)"
+    },
+    {
+      "columnName": "segment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "subsegment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "currency",
+      "columnType": "varchar(10)"
+    },
+    {
+      "columnName": "units",
+      "columnType": "varchar(50)"
+    }
+  ],
+  "rows": [
+    {
+      "company": "Walmart",
+      "CIK": "104169",
+      "display_name": "Walmart",
+      "ticker_symbol": "WMT",
+      "segment": "Discount Store",
+      "subsegment": null,
+      "currency": "USD",
+      "units": "thousands"
+    }
+  ],
+  "_metadata": {
+    "query_name": "company_by_ticker",
+    "description": "Get company info by ticker symbol",
+    "original_query": "SELECT * FROM new_company_info WHERE ticker_symbol = 'WMT'",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20%2A%20FROM%20new_company_info%20WHERE%20ticker_symbol%20%3D%20%27WMT%27",
+    "timestamp": "2025-05-31 17:58:05"
+  }
+}

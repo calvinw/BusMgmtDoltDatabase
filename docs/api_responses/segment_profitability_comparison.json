@@ -1,0 +1,81 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT segment, Operating_Profit_Margin_Percentage, Return_on_Assets FROM segment_metrics WHERE year = 2023 ORDER BY Return_on_Assets DESC",
+  "schema": [
+    {
+      "columnName": "segment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "Operating_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Return_on_Assets",
+      "columnType": "decimal(10,4)"
+    }
+  ],
+  "rows": [
+    {
+      "segment": "Home Improvement",
+      "Operating_Profit_Margin_Percentage": "13.6927",
+      "Return_on_Assets": "18.8029"
+    },
+    {
+      "segment": "Off Price",
+      "Operating_Profit_Margin_Percentage": "10.1988",
+      "Return_on_Assets": "12.9230"
+    },
+    {
+      "segment": "Specialty",
+      "Operating_Profit_Margin_Percentage": "13.2491",
+      "Return_on_Assets": "9.6749"
+    },
+    {
+      "segment": "Warehouse Clubs",
+      "Operating_Profit_Margin_Percentage": "3.3991",
+      "Return_on_Assets": "9.0070"
+    },
+    {
+      "segment": "Fast Fashion",
+      "Operating_Profit_Margin_Percentage": "7.8483",
+      "Return_on_Assets": "6.6007"
+    },
+    {
+      "segment": "Discount Store",
+      "Operating_Profit_Margin_Percentage": "4.1851",
+      "Return_on_Assets": "5.6560"
+    },
+    {
+      "segment": "Online",
+      "Operating_Profit_Margin_Percentage": "5.9464",
+      "Return_on_Assets": "5.4927"
+    },
+    {
+      "segment": "Grocery",
+      "Operating_Profit_Margin_Percentage": "2.5191",
+      "Return_on_Assets": "4.2827"
+    },
+    {
+      "segment": "Department Store",
+      "Operating_Profit_Margin_Percentage": "3.6495",
+      "Return_on_Assets": "3.0722"
+    },
+    {
+      "segment": "Health & Pharmacy",
+      "Operating_Profit_Margin_Percentage": "1.3809",
+      "Return_on_Assets": "1.3905"
+    }
+  ],
+  "_metadata": {
+    "query_name": "segment_profitability_comparison",
+    "description": "Compare all segment benchmarks by profitability",
+    "original_query": "SELECT segment, Operating_Profit_Margin_Percentage, Return_on_Assets FROM segment_metrics WHERE year = 2023 ORDER BY Return_on_Assets DESC",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20segment%2C%20Operating_Profit_Margin_Percentage%2C%20Return_on_Assets%20FROM%20segment_metrics%20WHERE%20year%20%3D%202023%20ORDER%20BY%20Return_on_Assets%20DESC",
+    "timestamp": "2025-05-31 17:58:18"
+  }
+}

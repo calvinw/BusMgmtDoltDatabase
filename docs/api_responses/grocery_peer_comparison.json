@@ -1,0 +1,60 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT c.display_name, c.segment, m.Gross_Margin_Percentage, m.Operating_Profit_Margin_Percentage, m.Return_on_Assets FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE c.segment = 'Grocery' AND m.year = 2023 ORDER BY m.Return_on_Assets DESC",
+  "schema": [
+    {
+      "columnName": "display_name",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "segment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "Gross_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Operating_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Return_on_Assets",
+      "columnType": "decimal(10,4)"
+    }
+  ],
+  "rows": [
+    {
+      "display_name": "Albertsons",
+      "segment": "Grocery",
+      "Gross_Margin_Percentage": "27.8222",
+      "Operating_Profit_Margin_Percentage": "2.6110",
+      "Return_on_Assets": "4.9426"
+    },
+    {
+      "display_name": "Kroger",
+      "segment": "Grocery",
+      "Gross_Margin_Percentage": "22.2369",
+      "Operating_Profit_Margin_Percentage": "2.0635",
+      "Return_on_Assets": "4.2847"
+    },
+    {
+      "display_name": "Ahold Delhaize",
+      "segment": "Grocery",
+      "Gross_Margin_Percentage": "26.8826",
+      "Operating_Profit_Margin_Percentage": "3.2073",
+      "Return_on_Assets": "3.9188"
+    }
+  ],
+  "_metadata": {
+    "query_name": "grocery_peer_comparison",
+    "description": "Compare multiple companies within Grocery segment",
+    "original_query": "SELECT c.display_name, c.segment, m.Gross_Margin_Percentage, m.Operating_Profit_Margin_Percentage, m.Return_on_Assets FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE c.segment = 'Grocery' AND m.year = 2023 ORDER BY m.Return_on_Assets DESC",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20c.display_name%2C%20c.segment%2C%20m.Gross_Margin_Percentage%2C%20m.Operating_Profit_Margin_Percentage%2C%20m.Return_on_Assets%20FROM%20new_financial_metrics%20m%20JOIN%20new_company_info%20c%20ON%20m.company_name%20%3D%20c.company%20WHERE%20c.segment%20%3D%20%27Grocery%27%20AND%20m.year%20%3D%202023%20ORDER%20BY%20m.Return_on_Assets%20DESC",
+    "timestamp": "2025-05-31 17:58:30"
+  }
+}

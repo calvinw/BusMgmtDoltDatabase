@@ -1,0 +1,2239 @@
+{
+  "execution_info": {
+    "timestamp": "2025-05-31 17:58:37",
+    "total_queries": 25,
+    "successful_queries": 25,
+    "failed_queries": 0
+  },
+  "responses": {
+    "show_tables": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SHOW TABLES",
+      "schema": [
+        {
+          "columnName": "Tables_in_BusMgmtBenchmarks",
+          "columnType": "longtext"
+        }
+      ],
+      "rows": [
+        {
+          "Tables_in_BusMgmtBenchmarks": "benchmarks 2018 view"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "benchmarks 2019 view"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "benchmarks 2020 view"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "benchmarks 2021 view"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "benchmarks 2022 view"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "benchmarks 2023 view"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "benchmarks 2024 view"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "financials"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "new_company_info"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "new_financial_metrics"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2018"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2019"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2020"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2021"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2022"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2023"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2024"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2018"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2019"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2020"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2021"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2022"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2023"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2024"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "segment_metrics"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2018"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2019"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2020"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2021"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2022"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2023"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2024"
+        },
+        {
+          "Tables_in_BusMgmtBenchmarks": "subsegment_metrics"
+        }
+      ],
+      "_metadata": {
+        "query_name": "show_tables",
+        "description": "Get all tables in the database",
+        "original_query": "SHOW TABLES",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SHOW%20TABLES",
+        "timestamp": "2025-05-31 17:58:00"
+      }
+    },
+    "company_info_all": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT company, display_name, ticker_symbol, segment, subsegment FROM new_company_info ORDER BY segment, display_name LIMIT 10",
+      "schema": [
+        {
+          "columnName": "company",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "display_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "ticker_symbol",
+          "columnType": "varchar(10)"
+        },
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "subsegment",
+          "columnType": "varchar(255)"
+        }
+      ],
+      "rows": [
+        {
+          "company": "Dillard's",
+          "display_name": "Dillard's",
+          "ticker_symbol": "DDS",
+          "segment": "Department Store",
+          "subsegment": null
+        },
+        {
+          "company": "Kohl's",
+          "display_name": "Kohl's",
+          "ticker_symbol": "KSS",
+          "segment": "Department Store",
+          "subsegment": null
+        },
+        {
+          "company": "Macy's",
+          "display_name": "Macy's",
+          "ticker_symbol": "M",
+          "segment": "Department Store",
+          "subsegment": null
+        },
+        {
+          "company": "Nordstrom",
+          "display_name": "Nordstrom",
+          "ticker_symbol": "JWN",
+          "segment": "Department Store",
+          "subsegment": null
+        },
+        {
+          "company": "Dollar General",
+          "display_name": "Dollar General",
+          "ticker_symbol": "DG",
+          "segment": "Discount Store",
+          "subsegment": null
+        },
+        {
+          "company": "Dollar Tree",
+          "display_name": "Dollar Tree",
+          "ticker_symbol": "DLTR",
+          "segment": "Discount Store",
+          "subsegment": null
+        },
+        {
+          "company": "Five Below",
+          "display_name": "Five Below",
+          "ticker_symbol": "FIVE",
+          "segment": "Discount Store",
+          "subsegment": null
+        },
+        {
+          "company": "Target",
+          "display_name": "Target",
+          "ticker_symbol": "TGT",
+          "segment": "Discount Store",
+          "subsegment": null
+        },
+        {
+          "company": "Walmart",
+          "display_name": "Walmart",
+          "ticker_symbol": "WMT",
+          "segment": "Discount Store",
+          "subsegment": null
+        },
+        {
+          "company": "H&M",
+          "display_name": "H&M",
+          "ticker_symbol": "HM-B.ST",
+          "segment": "Fast Fashion",
+          "subsegment": null
+        }
+      ],
+      "_metadata": {
+        "query_name": "company_info_all",
+        "description": "Get all companies with segments and subsegments",
+        "original_query": "SELECT company, display_name, ticker_symbol, segment, subsegment FROM new_company_info ORDER BY segment, display_name LIMIT 10",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company%2C%20display_name%2C%20ticker_symbol%2C%20segment%2C%20subsegment%20FROM%20new_company_info%20ORDER%20BY%20segment%2C%20display_name%20LIMIT%2010",
+        "timestamp": "2025-05-31 17:58:02"
+      }
+    },
+    "company_info_grocery": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT * FROM new_company_info WHERE segment = 'Grocery' ORDER BY display_name",
+      "schema": [
+        {
+          "columnName": "company",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "CIK",
+          "columnType": "int"
+        },
+        {
+          "columnName": "display_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "ticker_symbol",
+          "columnType": "varchar(10)"
+        },
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "subsegment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "currency",
+          "columnType": "varchar(10)"
+        },
+        {
+          "columnName": "units",
+          "columnType": "varchar(50)"
+        }
+      ],
+      "rows": [
+        {
+          "company": "Ahold Delhaize",
+          "CIK": null,
+          "display_name": "Ahold Delhaize",
+          "ticker_symbol": "AD.AS",
+          "segment": "Grocery",
+          "subsegment": null,
+          "currency": "EUR",
+          "units": "thousands"
+        },
+        {
+          "company": "Albertsons",
+          "CIK": "1646972",
+          "display_name": "Albertsons",
+          "ticker_symbol": "ACI",
+          "segment": "Grocery",
+          "subsegment": null,
+          "currency": "USD",
+          "units": "thousands"
+        },
+        {
+          "company": "Kroger",
+          "CIK": "56873",
+          "display_name": "Kroger",
+          "ticker_symbol": "KR",
+          "segment": "Grocery",
+          "subsegment": null,
+          "currency": "USD",
+          "units": "thousands"
+        }
+      ],
+      "_metadata": {
+        "query_name": "company_info_grocery",
+        "description": "Find companies in Grocery segment",
+        "original_query": "SELECT * FROM new_company_info WHERE segment = 'Grocery' ORDER BY display_name",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20%2A%20FROM%20new_company_info%20WHERE%20segment%20%3D%20%27Grocery%27%20ORDER%20BY%20display_name",
+        "timestamp": "2025-05-31 17:58:03"
+      }
+    },
+    "company_by_ticker": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT * FROM new_company_info WHERE ticker_symbol = 'WMT'",
+      "schema": [
+        {
+          "columnName": "company",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "CIK",
+          "columnType": "int"
+        },
+        {
+          "columnName": "display_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "ticker_symbol",
+          "columnType": "varchar(10)"
+        },
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "subsegment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "currency",
+          "columnType": "varchar(10)"
+        },
+        {
+          "columnName": "units",
+          "columnType": "varchar(50)"
+        }
+      ],
+      "rows": [
+        {
+          "company": "Walmart",
+          "CIK": "104169",
+          "display_name": "Walmart",
+          "ticker_symbol": "WMT",
+          "segment": "Discount Store",
+          "subsegment": null,
+          "currency": "USD",
+          "units": "thousands"
+        }
+      ],
+      "_metadata": {
+        "query_name": "company_by_ticker",
+        "description": "Get company info by ticker symbol",
+        "original_query": "SELECT * FROM new_company_info WHERE ticker_symbol = 'WMT'",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20%2A%20FROM%20new_company_info%20WHERE%20ticker_symbol%20%3D%20%27WMT%27",
+        "timestamp": "2025-05-31 17:58:05"
+      }
+    },
+    "financials_walmart_2023": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT * FROM financials WHERE company_name = 'Walmart Inc.' AND year = 2023",
+      "schema": [
+        {
+          "columnName": "company_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "year",
+          "columnType": "int"
+        },
+        {
+          "columnName": "reportDate",
+          "columnType": "date"
+        },
+        {
+          "columnName": "Net Revenue",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Cost of Goods",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Gross Margin",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "SGA",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Operating Profit",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Net Profit",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Inventory",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Current Assets",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Total Assets",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Current Liabilities",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Liabilities",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Total Shareholder Equity",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Total Liabilities and Shareholder Equity",
+          "columnType": "bigint"
+        }
+      ],
+      "rows": [],
+      "_metadata": {
+        "query_name": "financials_walmart_2023",
+        "description": "Get financial data for Walmart in 2023",
+        "original_query": "SELECT * FROM financials WHERE company_name = 'Walmart Inc.' AND year = 2023",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20%2A%20FROM%20financials%20WHERE%20company_name%20%3D%20%27Walmart%20Inc.%27%20AND%20year%20%3D%202023",
+        "timestamp": "2025-05-31 17:58:06"
+      }
+    },
+    "revenue_data_2023": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT company_name, year, `Net Revenue`, `Gross Margin`, `Operating Profit`, `Net Profit` FROM financials WHERE year = 2023 ORDER BY `Net Revenue` DESC LIMIT 10",
+      "schema": [
+        {
+          "columnName": "company_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "year",
+          "columnType": "int"
+        },
+        {
+          "columnName": "Net Revenue",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Gross Margin",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Operating Profit",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Net Profit",
+          "columnType": "bigint"
+        }
+      ],
+      "rows": [
+        {
+          "company_name": "Walmart",
+          "year": "2023",
+          "Net Revenue": "648125000",
+          "Gross Margin": "157983000",
+          "Operating Profit": "27012000",
+          "Net Profit": "15511000"
+        },
+        {
+          "company_name": "Amazon",
+          "year": "2023",
+          "Net Revenue": "574785000",
+          "Gross Margin": "270046000",
+          "Operating Profit": "36852000",
+          "Net Profit": "30425000"
+        },
+        {
+          "company_name": "CVS",
+          "year": "2023",
+          "Net Revenue": "357776000",
+          "Gross Margin": "140678000",
+          "Operating Profit": "13743000",
+          "Net Profit": "8344000"
+        },
+        {
+          "company_name": "Costco",
+          "year": "2023",
+          "Net Revenue": "242290000",
+          "Gross Margin": "29704000",
+          "Operating Profit": "8114000",
+          "Net Profit": "6292000"
+        },
+        {
+          "company_name": "H&M",
+          "year": "2023",
+          "Net Revenue": "236035000",
+          "Gross Margin": "120896000",
+          "Operating Profit": "14537000",
+          "Net Profit": "8745000"
+        },
+        {
+          "company_name": "Home Depot",
+          "year": "2023",
+          "Net Revenue": "152669000",
+          "Gross Margin": "50960000",
+          "Operating Profit": "21689000",
+          "Net Profit": "15143000"
+        },
+        {
+          "company_name": "Kroger",
+          "year": "2023",
+          "Net Revenue": "150039000",
+          "Gross Margin": "33364000",
+          "Operating Profit": "3096000",
+          "Net Profit": "2164000"
+        },
+        {
+          "company_name": "Walgreens",
+          "year": "2023",
+          "Net Revenue": "139081000",
+          "Gross Margin": "27072000",
+          "Operating Profit": "-6882000",
+          "Net Profit": "-3528000"
+        },
+        {
+          "company_name": "Target",
+          "year": "2023",
+          "Net Revenue": "107412000",
+          "Gross Margin": "29676000",
+          "Operating Profit": "5707000",
+          "Net Profit": "4138000"
+        },
+        {
+          "company_name": "Ahold Delhaize",
+          "year": "2023",
+          "Net Revenue": "88734000",
+          "Gross Margin": "23854000",
+          "Operating Profit": "2846000",
+          "Net Profit": "1874000"
+        }
+      ],
+      "_metadata": {
+        "query_name": "revenue_data_2023",
+        "description": "Get revenue data for all companies in 2023",
+        "original_query": "SELECT company_name, year, `Net Revenue`, `Gross Margin`, `Operating Profit`, `Net Profit` FROM financials WHERE year = 2023 ORDER BY `Net Revenue` DESC LIMIT 10",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company_name%2C%20year%2C%20%60Net%20Revenue%60%2C%20%60Gross%20Margin%60%2C%20%60Operating%20Profit%60%2C%20%60Net%20Profit%60%20FROM%20financials%20WHERE%20year%20%3D%202023%20ORDER%20BY%20%60Net%20Revenue%60%20DESC%20LIMIT%2010",
+        "timestamp": "2025-05-31 17:58:08"
+      }
+    },
+    "walmart_multiyear": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT company_name, year, `Net Revenue`, `Operating Profit` FROM financials WHERE company_name = 'Walmart Inc.' AND year >= 2020 ORDER BY year",
+      "schema": [
+        {
+          "columnName": "company_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "year",
+          "columnType": "int"
+        },
+        {
+          "columnName": "Net Revenue",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Operating Profit",
+          "columnType": "bigint"
+        }
+      ],
+      "rows": [],
+      "_metadata": {
+        "query_name": "walmart_multiyear",
+        "description": "Get multi-year financial data for Walmart",
+        "original_query": "SELECT company_name, year, `Net Revenue`, `Operating Profit` FROM financials WHERE company_name = 'Walmart Inc.' AND year >= 2020 ORDER BY year",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company_name%2C%20year%2C%20%60Net%20Revenue%60%2C%20%60Operating%20Profit%60%20FROM%20financials%20WHERE%20company_name%20%3D%20%27Walmart%20Inc.%27%20AND%20year%20%3E%3D%202020%20ORDER%20BY%20year",
+        "timestamp": "2025-05-31 17:58:09"
+      }
+    },
+    "amazon_metrics_2023": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT * FROM new_financial_metrics WHERE company_name = 'Amazon.com Inc.' AND year = 2023",
+      "schema": [
+        {
+          "columnName": "company_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "year",
+          "columnType": "int"
+        },
+        {
+          "columnName": "Cost_of_Goods_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "SGA_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Gross_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Operating_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Net_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Inventory_Turnover",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Asset_Turnover",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Return_on_Assets",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Three_Year_Revenue_CAGR",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Current_Ratio",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Quick_Ratio",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Sales_Current_Year_vs_LY",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Debt_to_Equity",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [],
+      "_metadata": {
+        "query_name": "amazon_metrics_2023",
+        "description": "Get financial ratios for Amazon in 2023",
+        "original_query": "SELECT * FROM new_financial_metrics WHERE company_name = 'Amazon.com Inc.' AND year = 2023",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20%2A%20FROM%20new_financial_metrics%20WHERE%20company_name%20%3D%20%27Amazon.com%20Inc.%27%20AND%20year%20%3D%202023",
+        "timestamp": "2025-05-31 17:58:11"
+      }
+    },
+    "profitability_metrics_2023": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT company_name, year, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, Net_Profit_Margin_Percentage, Return_on_Assets FROM new_financial_metrics WHERE year = 2023 ORDER BY Return_on_Assets DESC LIMIT 10",
+      "schema": [
+        {
+          "columnName": "company_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "year",
+          "columnType": "int"
+        },
+        {
+          "columnName": "Gross_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Operating_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Net_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Return_on_Assets",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [
+        {
+          "company_name": "Ulta Beauty",
+          "year": "2023",
+          "Gross_Margin_Percentage": "39.0915",
+          "Operating_Profit_Margin_Percentage": "14.9726",
+          "Net_Profit_Margin_Percentage": "11.5193",
+          "Return_on_Assets": "22.6214"
+        },
+        {
+          "company_name": "Lululemon",
+          "year": "2023",
+          "Gross_Margin_Percentage": "58.3142",
+          "Operating_Profit_Margin_Percentage": "22.1709",
+          "Net_Profit_Margin_Percentage": "16.1155",
+          "Return_on_Assets": "21.8585"
+        },
+        {
+          "company_name": "Dillard's",
+          "year": "2023",
+          "Gross_Margin_Percentage": "41.3608",
+          "Operating_Profit_Margin_Percentage": "13.7597",
+          "Net_Profit_Margin_Percentage": "10.7478",
+          "Return_on_Assets": "21.4226"
+        },
+        {
+          "company_name": "Home Depot",
+          "year": "2023",
+          "Gross_Margin_Percentage": "33.3794",
+          "Operating_Profit_Margin_Percentage": "14.2066",
+          "Net_Profit_Margin_Percentage": "9.9188",
+          "Return_on_Assets": "19.7870"
+        },
+        {
+          "company_name": "Lowe's",
+          "year": "2023",
+          "Gross_Margin_Percentage": "33.3931",
+          "Operating_Profit_Margin_Percentage": "13.3797",
+          "Net_Profit_Margin_Percentage": "8.9445",
+          "Return_on_Assets": "18.4855"
+        },
+        {
+          "company_name": "Williams-Sonoma",
+          "year": "2023",
+          "Gross_Margin_Percentage": "42.6235",
+          "Operating_Profit_Margin_Percentage": "16.0528",
+          "Net_Profit_Margin_Percentage": "12.2540",
+          "Return_on_Assets": "18.0099"
+        },
+        {
+          "company_name": "Inditex/Zara",
+          "year": "2023",
+          "Gross_Margin_Percentage": "57.7545",
+          "Operating_Profit_Margin_Percentage": "18.9418",
+          "Net_Profit_Margin_Percentage": "14.9693",
+          "Return_on_Assets": "16.4381"
+        },
+        {
+          "company_name": "Bath & Body Works",
+          "year": "2023",
+          "Gross_Margin_Percentage": "43.5590",
+          "Operating_Profit_Margin_Percentage": "17.2971",
+          "Net_Profit_Margin_Percentage": "11.8185",
+          "Return_on_Assets": "16.0718"
+        },
+        {
+          "company_name": "TJ Maxx",
+          "year": "2023",
+          "Gross_Margin_Percentage": "30.0017",
+          "Operating_Profit_Margin_Percentage": "10.6922",
+          "Net_Profit_Margin_Percentage": "8.2520",
+          "Return_on_Assets": "15.0402"
+        },
+        {
+          "company_name": "Nike",
+          "year": "2023",
+          "Gross_Margin_Percentage": "44.5602",
+          "Operating_Profit_Margin_Percentage": "12.2873",
+          "Net_Profit_Margin_Percentage": "11.0977",
+          "Return_on_Assets": "14.9567"
+        }
+      ],
+      "_metadata": {
+        "query_name": "profitability_metrics_2023",
+        "description": "Get profitability metrics for all companies in 2023",
+        "original_query": "SELECT company_name, year, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, Net_Profit_Margin_Percentage, Return_on_Assets FROM new_financial_metrics WHERE year = 2023 ORDER BY Return_on_Assets DESC LIMIT 10",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company_name%2C%20year%2C%20Gross_Margin_Percentage%2C%20Operating_Profit_Margin_Percentage%2C%20Net_Profit_Margin_Percentage%2C%20Return_on_Assets%20FROM%20new_financial_metrics%20WHERE%20year%20%3D%202023%20ORDER%20BY%20Return_on_Assets%20DESC%20LIMIT%2010",
+        "timestamp": "2025-05-31 17:58:12"
+      }
+    },
+    "efficiency_ratios_2023": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT company_name, Asset_Turnover, Inventory_Turnover, Current_Ratio, Quick_Ratio FROM new_financial_metrics WHERE year = 2023 ORDER BY Asset_Turnover DESC LIMIT 10",
+      "schema": [
+        {
+          "columnName": "company_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "Asset_Turnover",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Inventory_Turnover",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Current_Ratio",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Quick_Ratio",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [
+        {
+          "company_name": "Costco",
+          "Asset_Turnover": "3.5118",
+          "Inventory_Turnover": "12.7672",
+          "Current_Ratio": "1.0684",
+          "Quick_Ratio": "0.5726"
+        },
+        {
+          "company_name": "Chewy",
+          "Asset_Turnover": "3.4980",
+          "Inventory_Turnover": "11.1032",
+          "Current_Ratio": "0.9969",
+          "Quick_Ratio": "0.6562"
+        },
+        {
+          "company_name": "Wayfair",
+          "Asset_Turnover": "3.4551",
+          "Inventory_Turnover": "111.1467",
+          "Current_Ratio": "0.8497",
+          "Quick_Ratio": "0.8154"
+        },
+        {
+          "company_name": "Albertsons",
+          "Asset_Turnover": "3.0219",
+          "Inventory_Turnover": "11.5652",
+          "Current_Ratio": "0.8431",
+          "Quick_Ratio": "0.1800"
+        },
+        {
+          "company_name": "Rite Aid",
+          "Asset_Turnover": "3.0000",
+          "Inventory_Turnover": "9.9900",
+          "Current_Ratio": "1.2100",
+          "Quick_Ratio": "0.5100"
+        },
+        {
+          "company_name": "BJ's",
+          "Asset_Turnover": "2.9904",
+          "Inventory_Turnover": "11.2221",
+          "Current_Ratio": "0.7269",
+          "Quick_Ratio": "0.1374"
+        },
+        {
+          "company_name": "Kroger",
+          "Asset_Turnover": "2.9708",
+          "Inventory_Turnover": "12.3938",
+          "Current_Ratio": "0.8063",
+          "Quick_Ratio": "0.2201"
+        },
+        {
+          "company_name": "Best Buy",
+          "Asset_Turnover": "2.9032",
+          "Inventory_Turnover": "6.8271",
+          "Current_Ratio": "0.9985",
+          "Quick_Ratio": "0.3716"
+        },
+        {
+          "company_name": "Walmart",
+          "Asset_Turnover": "2.5679",
+          "Inventory_Turnover": "8.9292",
+          "Current_Ratio": "0.8319",
+          "Quick_Ratio": "0.2379"
+        },
+        {
+          "company_name": "Lowe's",
+          "Asset_Turnover": "2.0667",
+          "Inventory_Turnover": "3.4055",
+          "Current_Ratio": "1.2250",
+          "Quick_Ratio": "0.1398"
+        }
+      ],
+      "_metadata": {
+        "query_name": "efficiency_ratios_2023",
+        "description": "Get efficiency ratios for companies in 2023",
+        "original_query": "SELECT company_name, Asset_Turnover, Inventory_Turnover, Current_Ratio, Quick_Ratio FROM new_financial_metrics WHERE year = 2023 ORDER BY Asset_Turnover DESC LIMIT 10",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company_name%2C%20Asset_Turnover%2C%20Inventory_Turnover%2C%20Current_Ratio%2C%20Quick_Ratio%20FROM%20new_financial_metrics%20WHERE%20year%20%3D%202023%20ORDER%20BY%20Asset_Turnover%20DESC%20LIMIT%2010",
+        "timestamp": "2025-05-31 17:58:14"
+      }
+    },
+    "segment_benchmarks_2023": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT * FROM segment_metrics WHERE year = 2023 ORDER BY segment",
+      "schema": [
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "year",
+          "columnType": "int"
+        },
+        {
+          "columnName": "Cost_of_Goods_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "SGA_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Gross_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Operating_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Net_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Inventory_Turnover",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Asset_Turnover",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Return_on_Assets",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Three_Year_Revenue_CAGR",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Current_Ratio",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Quick_Ratio",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Sales_Current_Year_vs_LY",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Debt_to_Equity",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [
+        {
+          "segment": "Department Store",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "60.3647",
+          "SGA_Percentage": "32.5220",
+          "Gross_Margin_Percentage": "39.6353",
+          "Operating_Profit_Margin_Percentage": "3.6495",
+          "Net_Profit_Margin_Percentage": "2.0583",
+          "Inventory_Turnover": "3.7147",
+          "Asset_Turnover": "1.4926",
+          "Return_on_Assets": "3.0722",
+          "Three_Year_Revenue_CAGR": "9.2300",
+          "Current_Ratio": "1.3566",
+          "Quick_Ratio": "0.4223",
+          "Sales_Current_Year_vs_LY": "-4.5804",
+          "Debt_to_Equity": "2.9856"
+        },
+        {
+          "segment": "Discount Store",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "74.6516",
+          "SGA_Percentage": "20.8559",
+          "Gross_Margin_Percentage": "25.3484",
+          "Operating_Profit_Margin_Percentage": "4.1851",
+          "Net_Profit_Margin_Percentage": "2.4883",
+          "Inventory_Turnover": "7.7817",
+          "Asset_Turnover": "2.2730",
+          "Return_on_Assets": "5.6560",
+          "Three_Year_Revenue_CAGR": "5.0800",
+          "Current_Ratio": "0.8859",
+          "Quick_Ratio": "0.2443",
+          "Sales_Current_Year_vs_LY": "4.9046",
+          "Debt_to_Equity": "2.2269"
+        },
+        {
+          "segment": "Fast Fashion",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "47.9168",
+          "SGA_Percentage": "40.7005",
+          "Gross_Margin_Percentage": "52.0832",
+          "Operating_Profit_Margin_Percentage": "7.8483",
+          "Net_Profit_Margin_Percentage": "5.1937",
+          "Inventory_Turnover": "3.2319",
+          "Asset_Turnover": "1.2709",
+          "Return_on_Assets": "6.6007",
+          "Three_Year_Revenue_CAGR": "137.0900",
+          "Current_Ratio": "1.2560",
+          "Quick_Ratio": "0.7314",
+          "Sales_Current_Year_vs_LY": "6.1924",
+          "Debt_to_Equity": "2.2347"
+        },
+        {
+          "segment": "Grocery",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "75.0751",
+          "SGA_Percentage": "21.2593",
+          "Gross_Margin_Percentage": "24.9249",
+          "Operating_Profit_Margin_Percentage": "2.5191",
+          "Net_Profit_Margin_Percentage": "1.6773",
+          "Inventory_Turnover": "12.6033",
+          "Asset_Turnover": "2.5533",
+          "Return_on_Assets": "4.2827",
+          "Three_Year_Revenue_CAGR": "16.2900",
+          "Current_Ratio": "0.7846",
+          "Quick_Ratio": "0.3004",
+          "Sales_Current_Year_vs_LY": "1.6360",
+          "Debt_to_Equity": "3.2774"
+        },
+        {
+          "segment": "Health & Pharmacy",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "66.2378",
+          "SGA_Percentage": "14.9011",
+          "Gross_Margin_Percentage": "33.7622",
+          "Operating_Profit_Margin_Percentage": "1.3809",
+          "Net_Profit_Margin_Percentage": "0.9693",
+          "Inventory_Turnover": "12.5221",
+          "Asset_Turnover": "1.4345",
+          "Return_on_Assets": "1.3905",
+          "Three_Year_Revenue_CAGR": "6.7700",
+          "Current_Ratio": "0.8037",
+          "Quick_Ratio": "0.5503",
+          "Sales_Current_Year_vs_LY": "9.1586",
+          "Debt_to_Equity": "2.2999"
+        },
+        {
+          "segment": "Home Improvement",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "66.4702",
+          "SGA_Percentage": "17.9511",
+          "Gross_Margin_Percentage": "33.5298",
+          "Operating_Profit_Margin_Percentage": "13.6927",
+          "Net_Profit_Margin_Percentage": "9.4543",
+          "Inventory_Turnover": "4.1606",
+          "Asset_Turnover": "1.9888",
+          "Return_on_Assets": "18.8029",
+          "Three_Year_Revenue_CAGR": "4.5600",
+          "Current_Ratio": "1.3106",
+          "Quick_Ratio": "0.2916",
+          "Sales_Current_Year_vs_LY": "-5.6073",
+          "Debt_to_Equity": "-11.7549"
+        },
+        {
+          "segment": "Off Price",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "69.1837",
+          "SGA_Percentage": "20.1906",
+          "Gross_Margin_Percentage": "30.8163",
+          "Operating_Profit_Margin_Percentage": "10.1988",
+          "Net_Profit_Margin_Percentage": "7.9318",
+          "Inventory_Turnover": "6.3100",
+          "Asset_Turnover": "1.6293",
+          "Return_on_Assets": "12.9230",
+          "Three_Year_Revenue_CAGR": "18.6900",
+          "Current_Ratio": "1.3434",
+          "Quick_Ratio": "0.7887",
+          "Sales_Current_Year_vs_LY": "9.0348",
+          "Debt_to_Equity": "2.9296"
+        },
+        {
+          "segment": "Online",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "53.7256",
+          "SGA_Percentage": "10.4384",
+          "Gross_Margin_Percentage": "46.2744",
+          "Operating_Profit_Margin_Percentage": "5.9464",
+          "Net_Profit_Margin_Percentage": "4.9051",
+          "Inventory_Turnover": "9.2646",
+          "Asset_Turnover": "1.1198",
+          "Return_on_Assets": "5.4927",
+          "Three_Year_Revenue_CAGR": "13.5700",
+          "Current_Ratio": "1.0448",
+          "Quick_Ratio": "0.8396",
+          "Sales_Current_Year_vs_LY": "11.3374",
+          "Debt_to_Equity": "1.6784"
+        },
+        {
+          "segment": "Specialty",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "52.2800",
+          "SGA_Percentage": "33.8727",
+          "Gross_Margin_Percentage": "47.7200",
+          "Operating_Profit_Margin_Percentage": "13.2491",
+          "Net_Profit_Margin_Percentage": "9.4606",
+          "Inventory_Turnover": "2.9077",
+          "Asset_Turnover": "1.0227",
+          "Return_on_Assets": "9.6749",
+          "Three_Year_Revenue_CAGR": "15.4800",
+          "Current_Ratio": "1.5133",
+          "Quick_Ratio": "0.8308",
+          "Sales_Current_Year_vs_LY": "1.8767",
+          "Debt_to_Equity": "1.9189"
+        },
+        {
+          "segment": "Warehouse Clubs",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "87.2849",
+          "SGA_Percentage": "9.3086",
+          "Gross_Margin_Percentage": "12.7151",
+          "Operating_Profit_Margin_Percentage": "3.3991",
+          "Net_Profit_Margin_Percentage": "2.5989",
+          "Inventory_Turnover": "12.6430",
+          "Asset_Turnover": "3.4657",
+          "Return_on_Assets": "9.0070",
+          "Three_Year_Revenue_CAGR": "13.6500",
+          "Current_Ratio": "1.0450",
+          "Quick_Ratio": "0.5428",
+          "Sales_Current_Year_vs_LY": "8.3511",
+          "Debt_to_Equity": "1.8537"
+        }
+      ],
+      "_metadata": {
+        "query_name": "segment_benchmarks_2023",
+        "description": "Get benchmark metrics for all segments in 2023",
+        "original_query": "SELECT * FROM segment_metrics WHERE year = 2023 ORDER BY segment",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20%2A%20FROM%20segment_metrics%20WHERE%20year%20%3D%202023%20ORDER%20BY%20segment",
+        "timestamp": "2025-05-31 17:58:15"
+      }
+    },
+    "grocery_segment_benchmark": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT segment, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, Net_Profit_Margin_Percentage, Return_on_Assets FROM segment_metrics WHERE segment = 'Grocery' AND year = 2023",
+      "schema": [
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "Gross_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Operating_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Net_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Return_on_Assets",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [
+        {
+          "segment": "Grocery",
+          "Gross_Margin_Percentage": "24.9249",
+          "Operating_Profit_Margin_Percentage": "2.5191",
+          "Net_Profit_Margin_Percentage": "1.6773",
+          "Return_on_Assets": "4.2827"
+        }
+      ],
+      "_metadata": {
+        "query_name": "grocery_segment_benchmark",
+        "description": "Get specific Grocery segment benchmark",
+        "original_query": "SELECT segment, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, Net_Profit_Margin_Percentage, Return_on_Assets FROM segment_metrics WHERE segment = 'Grocery' AND year = 2023",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20segment%2C%20Gross_Margin_Percentage%2C%20Operating_Profit_Margin_Percentage%2C%20Net_Profit_Margin_Percentage%2C%20Return_on_Assets%20FROM%20segment_metrics%20WHERE%20segment%20%3D%20%27Grocery%27%20AND%20year%20%3D%202023",
+        "timestamp": "2025-05-31 17:58:17"
+      }
+    },
+    "segment_profitability_comparison": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT segment, Operating_Profit_Margin_Percentage, Return_on_Assets FROM segment_metrics WHERE year = 2023 ORDER BY Return_on_Assets DESC",
+      "schema": [
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "Operating_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Return_on_Assets",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [
+        {
+          "segment": "Home Improvement",
+          "Operating_Profit_Margin_Percentage": "13.6927",
+          "Return_on_Assets": "18.8029"
+        },
+        {
+          "segment": "Off Price",
+          "Operating_Profit_Margin_Percentage": "10.1988",
+          "Return_on_Assets": "12.9230"
+        },
+        {
+          "segment": "Specialty",
+          "Operating_Profit_Margin_Percentage": "13.2491",
+          "Return_on_Assets": "9.6749"
+        },
+        {
+          "segment": "Warehouse Clubs",
+          "Operating_Profit_Margin_Percentage": "3.3991",
+          "Return_on_Assets": "9.0070"
+        },
+        {
+          "segment": "Fast Fashion",
+          "Operating_Profit_Margin_Percentage": "7.8483",
+          "Return_on_Assets": "6.6007"
+        },
+        {
+          "segment": "Discount Store",
+          "Operating_Profit_Margin_Percentage": "4.1851",
+          "Return_on_Assets": "5.6560"
+        },
+        {
+          "segment": "Online",
+          "Operating_Profit_Margin_Percentage": "5.9464",
+          "Return_on_Assets": "5.4927"
+        },
+        {
+          "segment": "Grocery",
+          "Operating_Profit_Margin_Percentage": "2.5191",
+          "Return_on_Assets": "4.2827"
+        },
+        {
+          "segment": "Department Store",
+          "Operating_Profit_Margin_Percentage": "3.6495",
+          "Return_on_Assets": "3.0722"
+        },
+        {
+          "segment": "Health & Pharmacy",
+          "Operating_Profit_Margin_Percentage": "1.3809",
+          "Return_on_Assets": "1.3905"
+        }
+      ],
+      "_metadata": {
+        "query_name": "segment_profitability_comparison",
+        "description": "Compare all segment benchmarks by profitability",
+        "original_query": "SELECT segment, Operating_Profit_Margin_Percentage, Return_on_Assets FROM segment_metrics WHERE year = 2023 ORDER BY Return_on_Assets DESC",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20segment%2C%20Operating_Profit_Margin_Percentage%2C%20Return_on_Assets%20FROM%20segment_metrics%20WHERE%20year%20%3D%202023%20ORDER%20BY%20Return_on_Assets%20DESC",
+        "timestamp": "2025-05-31 17:58:18"
+      }
+    },
+    "subsegment_benchmarks_2023": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT * FROM subsegment_metrics WHERE year = 2023 ORDER BY subsegment LIMIT 10",
+      "schema": [
+        {
+          "columnName": "subsegment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "year",
+          "columnType": "int"
+        },
+        {
+          "columnName": "Cost_of_Goods_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "SGA_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Gross_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Operating_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Net_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Inventory_Turnover",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Asset_Turnover",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Return_on_Assets",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Three_Year_Revenue_CAGR",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Current_Ratio",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Quick_Ratio",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Sales_Current_Year_vs_LY",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Debt_to_Equity",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [
+        {
+          "subsegment": "Accessories and Shoes",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "53.7455",
+          "SGA_Percentage": "36.8857",
+          "Gross_Margin_Percentage": "46.2545",
+          "Operating_Profit_Margin_Percentage": "8.3039",
+          "Net_Profit_Margin_Percentage": "6.7293",
+          "Inventory_Turnover": "3.0730",
+          "Asset_Turnover": "1.1095",
+          "Return_on_Assets": "7.4664",
+          "Three_Year_Revenue_CAGR": "5.5400",
+          "Current_Ratio": "2.0331",
+          "Quick_Ratio": "1.3394",
+          "Sales_Current_Year_vs_LY": "-2.5227",
+          "Debt_to_Equity": "2.1044"
+        },
+        {
+          "subsegment": "Apparel",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "54.5685",
+          "SGA_Percentage": "36.0094",
+          "Gross_Margin_Percentage": "45.4315",
+          "Operating_Profit_Margin_Percentage": "8.4004",
+          "Net_Profit_Margin_Percentage": "6.0901",
+          "Inventory_Turnover": "3.8728",
+          "Asset_Turnover": "1.3025",
+          "Return_on_Assets": "7.9325",
+          "Three_Year_Revenue_CAGR": "11.1400",
+          "Current_Ratio": "1.5324",
+          "Quick_Ratio": "0.8653",
+          "Sales_Current_Year_vs_LY": "3.8132",
+          "Debt_to_Equity": "1.7591"
+        },
+        {
+          "subsegment": "Beauty",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "59.1276",
+          "SGA_Percentage": "24.9275",
+          "Gross_Margin_Percentage": "40.8724",
+          "Operating_Profit_Margin_Percentage": "15.8992",
+          "Net_Profit_Margin_Percentage": "11.6386",
+          "Inventory_Turnover": "4.4937",
+          "Asset_Turnover": "1.6684",
+          "Return_on_Assets": "19.4181",
+          "Three_Year_Revenue_CAGR": "6.6000",
+          "Current_Ratio": "1.6801",
+          "Quick_Ratio": "0.8481",
+          "Sales_Current_Year_vs_LY": "19.8224",
+          "Debt_to_Equity": "16.1233"
+        },
+        {
+          "subsegment": "Category Killer",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "49.2272",
+          "SGA_Percentage": "32.9377",
+          "Gross_Margin_Percentage": "50.7728",
+          "Operating_Profit_Margin_Percentage": "17.5425",
+          "Net_Profit_Margin_Percentage": "12.0880",
+          "Inventory_Turnover": "2.2916",
+          "Asset_Turnover": "0.8616",
+          "Return_on_Assets": "10.4146",
+          "Three_Year_Revenue_CAGR": "33.4800",
+          "Current_Ratio": "1.3011",
+          "Quick_Ratio": "0.5861",
+          "Sales_Current_Year_vs_LY": "3.1228",
+          "Debt_to_Equity": "1.5152"
+        },
+        {
+          "subsegment": "Home",
+          "year": "2023",
+          "Cost_of_Goods_Percentage": "53.8075",
+          "SGA_Percentage": "30.6153",
+          "Gross_Margin_Percentage": "46.1925",
+          "Operating_Profit_Margin_Percentage": "15.3882",
+          "Net_Profit_Margin_Percentage": "10.2450",
+          "Inventory_Turnover": "4.0914",
+          "Asset_Turnover": "1.0541",
+          "Return_on_Assets": "10.7994",
+          "Three_Year_Revenue_CAGR": "6.8600",
+          "Current_Ratio": "1.0481",
+          "Quick_Ratio": "0.5708",
+          "Sales_Current_Year_vs_LY": "-0.9334",
+          "Debt_to_Equity": "4.3700"
+        }
+      ],
+      "_metadata": {
+        "query_name": "subsegment_benchmarks_2023",
+        "description": "Get subsegment benchmarks for 2023",
+        "original_query": "SELECT * FROM subsegment_metrics WHERE year = 2023 ORDER BY subsegment LIMIT 10",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20%2A%20FROM%20subsegment_metrics%20WHERE%20year%20%3D%202023%20ORDER%20BY%20subsegment%20LIMIT%2010",
+        "timestamp": "2025-05-31 17:58:20"
+      }
+    },
+    "retail_subsegments": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT subsegment, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage FROM subsegment_metrics WHERE year = 2023 AND subsegment LIKE '%Retail%'",
+      "schema": [
+        {
+          "columnName": "subsegment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "Gross_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Operating_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [],
+      "_metadata": {
+        "query_name": "retail_subsegments",
+        "description": "Get retail-related subsegments",
+        "original_query": "SELECT subsegment, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage FROM subsegment_metrics WHERE year = 2023 AND subsegment LIKE '%Retail%'",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20subsegment%2C%20Gross_Margin_Percentage%2C%20Operating_Profit_Margin_Percentage%20FROM%20subsegment_metrics%20WHERE%20year%20%3D%202023%20AND%20subsegment%20LIKE%20%27%25Retail%25%27",
+        "timestamp": "2025-05-31 17:58:22"
+      }
+    },
+    "walmart_benchmarks_view": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT * FROM `benchmarks 2023 view` WHERE company = 'Walmart Inc.'",
+      "schema": [
+        {
+          "columnName": "company",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "year",
+          "columnType": "int"
+        },
+        {
+          "columnName": "reportDate",
+          "columnType": "date"
+        },
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "subsegment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "Net Revenue",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Net Revenue 2022",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Net Revenue 2021",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Net Revenue 2020",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Cost of Goods",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Gross Margin",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "SGA",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Operating Profit",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Net Profit",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Inventory",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Current Assets",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Total Assets",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Current Liabilities",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Total Shareholder Equity",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Total Liabilities and Shareholder Equity",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Cost of Goods %",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "SGA %",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Gross Margin %",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Operating Profit Margin %",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Net Profit Margin %",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Inventory Turnover",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Asset Turnover",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Return on Assets",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Three Year Revenue CAGR",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Sales vs LY",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Current Ratio",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Quick Ratio",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Debt to Equity",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [],
+      "_metadata": {
+        "query_name": "walmart_benchmarks_view",
+        "description": "Get comprehensive Walmart data using benchmarks view",
+        "original_query": "SELECT * FROM `benchmarks 2023 view` WHERE company = 'Walmart Inc.'",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20%2A%20FROM%20%60benchmarks%202023%20view%60%20WHERE%20company%20%3D%20%27Walmart%20Inc.%27",
+        "timestamp": "2025-05-31 17:58:23"
+      }
+    },
+    "grocery_companies_metrics": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT company, segment, `Net Revenue`, `Gross Margin %`, `Operating Profit Margin %`, `Return on Assets` FROM `benchmarks 2023 view` WHERE segment = 'Grocery' ORDER BY `Net Revenue` DESC",
+      "schema": [
+        {
+          "columnName": "company",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "Net Revenue",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Gross Margin %",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Operating Profit Margin %",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Return on Assets",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [
+        {
+          "company": "Kroger",
+          "segment": "Grocery",
+          "Net Revenue": "150039000",
+          "Gross Margin %": "22.2369",
+          "Operating Profit Margin %": "2.0635",
+          "Return on Assets": "4.2847"
+        },
+        {
+          "company": "Ahold Delhaize",
+          "segment": "Grocery",
+          "Net Revenue": "88734000",
+          "Gross Margin %": "26.8826",
+          "Operating Profit Margin %": "3.2073",
+          "Return on Assets": "3.9188"
+        },
+        {
+          "company": "Albertsons",
+          "segment": "Grocery",
+          "Net Revenue": "79237700",
+          "Gross Margin %": "27.8222",
+          "Operating Profit Margin %": "2.6110",
+          "Return on Assets": "4.9426"
+        }
+      ],
+      "_metadata": {
+        "query_name": "grocery_companies_metrics",
+        "description": "Get all companies in Grocery segment with their metrics",
+        "original_query": "SELECT company, segment, `Net Revenue`, `Gross Margin %`, `Operating Profit Margin %`, `Return on Assets` FROM `benchmarks 2023 view` WHERE segment = 'Grocery' ORDER BY `Net Revenue` DESC",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company%2C%20segment%2C%20%60Net%20Revenue%60%2C%20%60Gross%20Margin%20%25%60%2C%20%60Operating%20Profit%20Margin%20%25%60%2C%20%60Return%20on%20Assets%60%20FROM%20%60benchmarks%202023%20view%60%20WHERE%20segment%20%3D%20%27Grocery%27%20ORDER%20BY%20%60Net%20Revenue%60%20DESC",
+        "timestamp": "2025-05-31 17:58:25"
+      }
+    },
+    "top_companies_by_revenue": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT company, segment, `Net Revenue`, `Return on Assets` FROM `benchmarks 2023 view` ORDER BY `Net Revenue` DESC LIMIT 10",
+      "schema": [
+        {
+          "columnName": "company",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "Net Revenue",
+          "columnType": "bigint"
+        },
+        {
+          "columnName": "Return on Assets",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [
+        {
+          "company": "Walmart",
+          "segment": "Discount Store",
+          "Net Revenue": "648125000",
+          "Return on Assets": "6.1454"
+        },
+        {
+          "company": "Amazon",
+          "segment": "Online",
+          "Net Revenue": "574785000",
+          "Return on Assets": "5.7639"
+        },
+        {
+          "company": "CVS",
+          "segment": "Health & Pharmacy",
+          "Net Revenue": "357776000",
+          "Return on Assets": "3.3412"
+        },
+        {
+          "company": "Costco",
+          "segment": "Warehouse Clubs",
+          "Net Revenue": "242290000",
+          "Return on Assets": "9.1196"
+        },
+        {
+          "company": "H&M",
+          "segment": "Fast Fashion",
+          "Net Revenue": "236035000",
+          "Return on Assets": "4.8242"
+        },
+        {
+          "company": "Home Depot",
+          "segment": "Home Improvement",
+          "Net Revenue": "152669000",
+          "Return on Assets": "19.7870"
+        },
+        {
+          "company": "Kroger",
+          "segment": "Grocery",
+          "Net Revenue": "150039000",
+          "Return on Assets": "4.2847"
+        },
+        {
+          "company": "Walgreens",
+          "segment": "Health & Pharmacy",
+          "Net Revenue": "139081000",
+          "Return on Assets": "-3.6511"
+        },
+        {
+          "company": "Target",
+          "segment": "Discount Store",
+          "Net Revenue": "107412000",
+          "Return on Assets": "7.4753"
+        },
+        {
+          "company": "Ahold Delhaize",
+          "segment": "Grocery",
+          "Net Revenue": "88734000",
+          "Return on Assets": "3.9188"
+        }
+      ],
+      "_metadata": {
+        "query_name": "top_companies_by_revenue",
+        "description": "Get top companies by revenue across all segments",
+        "original_query": "SELECT company, segment, `Net Revenue`, `Return on Assets` FROM `benchmarks 2023 view` ORDER BY `Net Revenue` DESC LIMIT 10",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company%2C%20segment%2C%20%60Net%20Revenue%60%2C%20%60Return%20on%20Assets%60%20FROM%20%60benchmarks%202023%20view%60%20ORDER%20BY%20%60Net%20Revenue%60%20DESC%20LIMIT%2010",
+        "timestamp": "2025-05-31 17:58:26"
+      }
+    },
+    "amazon_growth_trends": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT company_name, year, Sales_Current_Year_vs_LY, Three_Year_Revenue_CAGR FROM new_financial_metrics WHERE company_name = 'Amazon.com Inc.' AND year >= 2020 ORDER BY year",
+      "schema": [
+        {
+          "columnName": "company_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "year",
+          "columnType": "int"
+        },
+        {
+          "columnName": "Sales_Current_Year_vs_LY",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Three_Year_Revenue_CAGR",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [],
+      "_metadata": {
+        "query_name": "amazon_growth_trends",
+        "description": "Get revenue growth trends for Amazon",
+        "original_query": "SELECT company_name, year, Sales_Current_Year_vs_LY, Three_Year_Revenue_CAGR FROM new_financial_metrics WHERE company_name = 'Amazon.com Inc.' AND year >= 2020 ORDER BY year",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company_name%2C%20year%2C%20Sales_Current_Year_vs_LY%2C%20Three_Year_Revenue_CAGR%20FROM%20new_financial_metrics%20WHERE%20company_name%20%3D%20%27Amazon.com%20Inc.%27%20AND%20year%20%3E%3D%202020%20ORDER%20BY%20year",
+        "timestamp": "2025-05-31 17:58:28"
+      }
+    },
+    "grocery_peer_comparison": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT c.display_name, c.segment, m.Gross_Margin_Percentage, m.Operating_Profit_Margin_Percentage, m.Return_on_Assets FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE c.segment = 'Grocery' AND m.year = 2023 ORDER BY m.Return_on_Assets DESC",
+      "schema": [
+        {
+          "columnName": "display_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "Gross_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Operating_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Return_on_Assets",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [
+        {
+          "display_name": "Albertsons",
+          "segment": "Grocery",
+          "Gross_Margin_Percentage": "27.8222",
+          "Operating_Profit_Margin_Percentage": "2.6110",
+          "Return_on_Assets": "4.9426"
+        },
+        {
+          "display_name": "Kroger",
+          "segment": "Grocery",
+          "Gross_Margin_Percentage": "22.2369",
+          "Operating_Profit_Margin_Percentage": "2.0635",
+          "Return_on_Assets": "4.2847"
+        },
+        {
+          "display_name": "Ahold Delhaize",
+          "segment": "Grocery",
+          "Gross_Margin_Percentage": "26.8826",
+          "Operating_Profit_Margin_Percentage": "3.2073",
+          "Return_on_Assets": "3.9188"
+        }
+      ],
+      "_metadata": {
+        "query_name": "grocery_peer_comparison",
+        "description": "Compare multiple companies within Grocery segment",
+        "original_query": "SELECT c.display_name, c.segment, m.Gross_Margin_Percentage, m.Operating_Profit_Margin_Percentage, m.Return_on_Assets FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE c.segment = 'Grocery' AND m.year = 2023 ORDER BY m.Return_on_Assets DESC",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20c.display_name%2C%20c.segment%2C%20m.Gross_Margin_Percentage%2C%20m.Operating_Profit_Margin_Percentage%2C%20m.Return_on_Assets%20FROM%20new_financial_metrics%20m%20JOIN%20new_company_info%20c%20ON%20m.company_name%20%3D%20c.company%20WHERE%20c.segment%20%3D%20%27Grocery%27%20AND%20m.year%20%3D%202023%20ORDER%20BY%20m.Return_on_Assets%20DESC",
+        "timestamp": "2025-05-31 17:58:30"
+      }
+    },
+    "top_performers_roa": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT c.display_name, c.segment, m.Return_on_Assets, m.Net_Profit_Margin_Percentage FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE m.year = 2023 AND m.Return_on_Assets IS NOT NULL ORDER BY m.Return_on_Assets DESC LIMIT 10",
+      "schema": [
+        {
+          "columnName": "display_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "Return_on_Assets",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Net_Profit_Margin_Percentage",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [
+        {
+          "display_name": "Ulta Beauty",
+          "segment": "Specialty",
+          "Return_on_Assets": "22.6214",
+          "Net_Profit_Margin_Percentage": "11.5193"
+        },
+        {
+          "display_name": "Lululemon",
+          "segment": "Specialty",
+          "Return_on_Assets": "21.8585",
+          "Net_Profit_Margin_Percentage": "16.1155"
+        },
+        {
+          "display_name": "Dillard's",
+          "segment": "Department Store",
+          "Return_on_Assets": "21.4226",
+          "Net_Profit_Margin_Percentage": "10.7478"
+        },
+        {
+          "display_name": "Home Depot",
+          "segment": "Home Improvement",
+          "Return_on_Assets": "19.7870",
+          "Net_Profit_Margin_Percentage": "9.9188"
+        },
+        {
+          "display_name": "Lowe's",
+          "segment": "Home Improvement",
+          "Return_on_Assets": "18.4855",
+          "Net_Profit_Margin_Percentage": "8.9445"
+        },
+        {
+          "display_name": "Williams-Sonoma",
+          "segment": "Specialty",
+          "Return_on_Assets": "18.0099",
+          "Net_Profit_Margin_Percentage": "12.2540"
+        },
+        {
+          "display_name": "Inditex/Zara",
+          "segment": "Fast Fashion",
+          "Return_on_Assets": "16.4381",
+          "Net_Profit_Margin_Percentage": "14.9693"
+        },
+        {
+          "display_name": "Bath & Body Works",
+          "segment": "Specialty",
+          "Return_on_Assets": "16.0718",
+          "Net_Profit_Margin_Percentage": "11.8185"
+        },
+        {
+          "display_name": "TJ Maxx",
+          "segment": "Off Price",
+          "Return_on_Assets": "15.0402",
+          "Net_Profit_Margin_Percentage": "8.2520"
+        },
+        {
+          "display_name": "Nike",
+          "segment": "Specialty",
+          "Return_on_Assets": "14.9567",
+          "Net_Profit_Margin_Percentage": "11.0977"
+        }
+      ],
+      "_metadata": {
+        "query_name": "top_performers_roa",
+        "description": "Find top performing companies by Return on Assets",
+        "original_query": "SELECT c.display_name, c.segment, m.Return_on_Assets, m.Net_Profit_Margin_Percentage FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE m.year = 2023 AND m.Return_on_Assets IS NOT NULL ORDER BY m.Return_on_Assets DESC LIMIT 10",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20c.display_name%2C%20c.segment%2C%20m.Return_on_Assets%2C%20m.Net_Profit_Margin_Percentage%20FROM%20new_financial_metrics%20m%20JOIN%20new_company_info%20c%20ON%20m.company_name%20%3D%20c.company%20WHERE%20m.year%20%3D%202023%20AND%20m.Return_on_Assets%20IS%20NOT%20NULL%20ORDER%20BY%20m.Return_on_Assets%20DESC%20LIMIT%2010",
+        "timestamp": "2025-05-31 17:58:31"
+      }
+    },
+    "liquidity_ratios": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT c.display_name, c.segment, m.Current_Ratio, m.Quick_Ratio, m.Debt_to_Equity FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE m.year = 2023 AND m.Current_Ratio IS NOT NULL ORDER BY m.Current_Ratio DESC LIMIT 10",
+      "schema": [
+        {
+          "columnName": "display_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "Current_Ratio",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Quick_Ratio",
+          "columnType": "decimal(10,4)"
+        },
+        {
+          "columnName": "Debt_to_Equity",
+          "columnType": "decimal(10,4)"
+        }
+      ],
+      "rows": [
+        {
+          "display_name": "Tapestry",
+          "segment": "Specialty",
+          "Current_Ratio": "5.1435",
+          "Quick_Ratio": "4.6617",
+          "Debt_to_Equity": "3.6244"
+        },
+        {
+          "display_name": "Dillard's",
+          "segment": "Department Store",
+          "Current_Ratio": "2.6677",
+          "Quick_Ratio": "1.3461",
+          "Debt_to_Equity": "1.0323"
+        },
+        {
+          "display_name": "Lululemon",
+          "segment": "Specialty",
+          "Current_Ratio": "2.4892",
+          "Quick_Ratio": "1.6778",
+          "Debt_to_Equity": "0.6758"
+        },
+        {
+          "display_name": "Nike",
+          "segment": "Specialty",
+          "Current_Ratio": "2.3961",
+          "Quick_Ratio": "1.6863",
+          "Debt_to_Equity": "1.6410"
+        },
+        {
+          "display_name": "Boot Barn",
+          "segment": "Specialty",
+          "Current_Ratio": "2.3326",
+          "Quick_Ratio": "0.4173",
+          "Debt_to_Equity": "0.8075"
+        },
+        {
+          "display_name": "YETI",
+          "segment": "Specialty",
+          "Current_Ratio": "2.2955",
+          "Quick_Ratio": "1.4490",
+          "Debt_to_Equity": "0.7927"
+        },
+        {
+          "display_name": "Academy Sports",
+          "segment": "Specialty",
+          "Current_Ratio": "1.8695",
+          "Quick_Ratio": "0.5123",
+          "Debt_to_Equity": "1.3926"
+        },
+        {
+          "display_name": "Inditex/Zara",
+          "segment": "Fast Fashion",
+          "Current_Ratio": "1.7921",
+          "Quick_Ratio": "1.4602",
+          "Debt_to_Equity": "0.7560"
+        },
+        {
+          "display_name": "Signet Jewelers",
+          "segment": "Specialty",
+          "Current_Ratio": "1.7898",
+          "Quick_Ratio": "0.8097",
+          "Debt_to_Equity": "2.1448"
+        },
+        {
+          "display_name": "Dick's Sporting Goods",
+          "segment": "Specialty",
+          "Current_Ratio": "1.7767",
+          "Quick_Ratio": "0.7416",
+          "Debt_to_Equity": "2.5578"
+        }
+      ],
+      "_metadata": {
+        "query_name": "liquidity_ratios",
+        "description": "Get liquidity ratios for companies",
+        "original_query": "SELECT c.display_name, c.segment, m.Current_Ratio, m.Quick_Ratio, m.Debt_to_Equity FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE m.year = 2023 AND m.Current_Ratio IS NOT NULL ORDER BY m.Current_Ratio DESC LIMIT 10",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20c.display_name%2C%20c.segment%2C%20m.Current_Ratio%2C%20m.Quick_Ratio%2C%20m.Debt_to_Equity%20FROM%20new_financial_metrics%20m%20JOIN%20new_company_info%20c%20ON%20m.company_name%20%3D%20c.company%20WHERE%20m.year%20%3D%202023%20AND%20m.Current_Ratio%20IS%20NOT%20NULL%20ORDER%20BY%20m.Current_Ratio%20DESC%20LIMIT%2010",
+        "timestamp": "2025-05-31 17:58:33"
+      }
+    },
+    "search_walmart": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT display_name, ticker_symbol, segment FROM new_company_info WHERE display_name LIKE '%Walmart%'",
+      "schema": [
+        {
+          "columnName": "display_name",
+          "columnType": "varchar(255)"
+        },
+        {
+          "columnName": "ticker_symbol",
+          "columnType": "varchar(10)"
+        },
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        }
+      ],
+      "rows": [
+        {
+          "display_name": "Walmart",
+          "ticker_symbol": "WMT",
+          "segment": "Discount Store"
+        }
+      ],
+      "_metadata": {
+        "query_name": "search_walmart",
+        "description": "Search for companies by name (Walmart)",
+        "original_query": "SELECT display_name, ticker_symbol, segment FROM new_company_info WHERE display_name LIKE '%Walmart%'",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20display_name%2C%20ticker_symbol%2C%20segment%20FROM%20new_company_info%20WHERE%20display_name%20LIKE%20%27%25Walmart%25%27",
+        "timestamp": "2025-05-31 17:58:34"
+      }
+    },
+    "available_segments": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT DISTINCT segment FROM new_company_info WHERE segment IS NOT NULL ORDER BY segment",
+      "schema": [
+        {
+          "columnName": "segment",
+          "columnType": "varchar(255)"
+        }
+      ],
+      "rows": [
+        {
+          "segment": "Department Store"
+        },
+        {
+          "segment": "Discount Store"
+        },
+        {
+          "segment": "Fast Fashion"
+        },
+        {
+          "segment": "Grocery"
+        },
+        {
+          "segment": "Health & Pharmacy"
+        },
+        {
+          "segment": "Home Improvement"
+        },
+        {
+          "segment": "Off Price"
+        },
+        {
+          "segment": "Online"
+        },
+        {
+          "segment": "Specialty"
+        },
+        {
+          "segment": "Warehouse Clubs"
+        }
+      ],
+      "_metadata": {
+        "query_name": "available_segments",
+        "description": "Get all available segments",
+        "original_query": "SELECT DISTINCT segment FROM new_company_info WHERE segment IS NOT NULL ORDER BY segment",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20DISTINCT%20segment%20FROM%20new_company_info%20WHERE%20segment%20IS%20NOT%20NULL%20ORDER%20BY%20segment",
+        "timestamp": "2025-05-31 17:58:36"
+      }
+    },
+    "available_subsegments": {
+      "query_execution_status": "Success",
+      "query_execution_message": "",
+      "repository_owner": "calvinw",
+      "repository_name": "BusMgmtBenchmarks",
+      "commit_ref": "main",
+      "sql_query": "SELECT DISTINCT subsegment FROM new_company_info WHERE subsegment IS NOT NULL ORDER BY subsegment LIMIT 15",
+      "schema": [
+        {
+          "columnName": "subsegment",
+          "columnType": "varchar(255)"
+        }
+      ],
+      "rows": [
+        {
+          "subsegment": "Accessories and Shoes"
+        },
+        {
+          "subsegment": "Apparel"
+        },
+        {
+          "subsegment": "Beauty"
+        },
+        {
+          "subsegment": "Category Killer"
+        },
+        {
+          "subsegment": "Home"
+        }
+      ],
+      "_metadata": {
+        "query_name": "available_subsegments",
+        "description": "Get all subsegments",
+        "original_query": "SELECT DISTINCT subsegment FROM new_company_info WHERE subsegment IS NOT NULL ORDER BY subsegment LIMIT 15",
+        "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20DISTINCT%20subsegment%20FROM%20new_company_info%20WHERE%20subsegment%20IS%20NOT%20NULL%20ORDER%20BY%20subsegment%20LIMIT%2015",
+        "timestamp": "2025-05-31 17:58:37"
+      }
+    }
+  }
+}

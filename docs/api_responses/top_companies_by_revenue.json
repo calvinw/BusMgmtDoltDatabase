@@ -1,0 +1,95 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT company, segment, `Net Revenue`, `Return on Assets` FROM `benchmarks 2023 view` ORDER BY `Net Revenue` DESC LIMIT 10",
+  "schema": [
+    {
+      "columnName": "company",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "segment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "Net Revenue",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Return on Assets",
+      "columnType": "decimal(10,4)"
+    }
+  ],
+  "rows": [
+    {
+      "company": "Walmart",
+      "segment": "Discount Store",
+      "Net Revenue": "648125000",
+      "Return on Assets": "6.1454"
+    },
+    {
+      "company": "Amazon",
+      "segment": "Online",
+      "Net Revenue": "574785000",
+      "Return on Assets": "5.7639"
+    },
+    {
+      "company": "CVS",
+      "segment": "Health & Pharmacy",
+      "Net Revenue": "357776000",
+      "Return on Assets": "3.3412"
+    },
+    {
+      "company": "Costco",
+      "segment": "Warehouse Clubs",
+      "Net Revenue": "242290000",
+      "Return on Assets": "9.1196"
+    },
+    {
+      "company": "H&M",
+      "segment": "Fast Fashion",
+      "Net Revenue": "236035000",
+      "Return on Assets": "4.8242"
+    },
+    {
+      "company": "Home Depot",
+      "segment": "Home Improvement",
+      "Net Revenue": "152669000",
+      "Return on Assets": "19.7870"
+    },
+    {
+      "company": "Kroger",
+      "segment": "Grocery",
+      "Net Revenue": "150039000",
+      "Return on Assets": "4.2847"
+    },
+    {
+      "company": "Walgreens",
+      "segment": "Health & Pharmacy",
+      "Net Revenue": "139081000",
+      "Return on Assets": "-3.6511"
+    },
+    {
+      "company": "Target",
+      "segment": "Discount Store",
+      "Net Revenue": "107412000",
+      "Return on Assets": "7.4753"
+    },
+    {
+      "company": "Ahold Delhaize",
+      "segment": "Grocery",
+      "Net Revenue": "88734000",
+      "Return on Assets": "3.9188"
+    }
+  ],
+  "_metadata": {
+    "query_name": "top_companies_by_revenue",
+    "description": "Get top companies by revenue across all segments",
+    "original_query": "SELECT company, segment, `Net Revenue`, `Return on Assets` FROM `benchmarks 2023 view` ORDER BY `Net Revenue` DESC LIMIT 10",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company%2C%20segment%2C%20%60Net%20Revenue%60%2C%20%60Return%20on%20Assets%60%20FROM%20%60benchmarks%202023%20view%60%20ORDER%20BY%20%60Net%20Revenue%60%20DESC%20LIMIT%2010",
+    "timestamp": "2025-05-31 17:58:26"
+  }
+}
