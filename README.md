@@ -31,3 +31,9 @@ Also if you want to load some of the MCPS as tools in the local chainlit app run
 ```bash
 ../mcp-sec-10ks/.venv/bin/python ../mcp-sec-10ks/server.py
 ```
+
+Markdown versions of documentation for LLMs to use when vibe coding using this data:
+
+[BusMgmtDoltDatabaseDocumentation.md](https://calvinw.github.io/BusMgmtDoltDatabase/docs/BusMgmtDoltDatabaseDocumentation.md)
+
+[RestApiBusMgmtDoltDatabase.md](https://calvinw.github.io/BusMgmtDoltDatabase/docs/RestApiBusMgmtDoltDatabase.md)
