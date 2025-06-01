@@ -1,3 +1,4 @@
+
 ## MCP greet server
 ```bash
 /home/calvinw/develop/BusMgmtDoltDatabase/mcp-greet/.venv/bin/python /home/calvinw/develop/BusMgmtDoltDatabase/mcp-greet/server.py
@@ -12,4 +13,19 @@
 
 ```bash
 /home/calvinw/develop/BusMgmtDoltDatabase/mcp-sec-10ks/.venv/bin/python /home/calvinw/develop/BusMgmtDoltDatabase/mcp-sec-10ks/server.py
+```
+
+## MCP greet server
+```bash
+../mcp-greet/.venv/bin/python ../mcp-greet/server.py
+```
+
+## MCP Dolt Database Server 
+```bash
+../mcp-dolt-database/.venv/bin/python ../mcp-dolt-database/server.py
+```
+
+## MCP Sec 10ks 
+```bash
+../mcp-sec-10ks/.venv/bin/python ../mcp-sec-10ks/server.py
 ```
