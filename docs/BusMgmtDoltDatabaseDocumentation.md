@@ -7,8 +7,8 @@ This database contains financial and company information, along with calculated 
 Here are the tables in the database:
 
 *   `financials`: Contains raw financial data for companies.
-*   `new_company_info`: Provides company-specific information, including segment and subsegment classifications.
-*   `new_financial_metrics`: Stores calculated financial ratios and metrics for each company and year.
+*   `company_info`: Provides company-specific information, including segment and subsegment classifications.
+*   `financial_metrics`: Stores calculated financial ratios and metrics for each company and year.
 *   `segment_metrics`: Holds benchmark financial metrics aggregated at the segment level for each year.
 *   `subsegment_metrics`: Holds benchmark financial metrics aggregated at the subsegment level for each year.
 
@@ -35,7 +35,7 @@ Here are the tables in the database:
 | Total Shareholder Equity                 | bigint       | YES  |     | NULL    |       |
 | Total Liabilities and Shareholder Equity | bigint       | YES  |     | NULL    |       |
 
-**`new_company_info`**
+**`company_info`**
 
 | Field         | Type         | Null | Key | Default | Extra |
 | ------------- | ------------ | ---- | --- | ------- | ----- |
@@ -48,7 +48,7 @@ Here are the tables in the database:
 | currency      | varchar(10)  | YES  |     | NULL    |       |
 | units         | varchar(50)  | YES  |     | NULL    |       |
 
-**`new_financial_metrics`**
+**`financial_metrics`**
 
 | Field                              | Type          | Null | Key | Default | Extra |
 | ---------------------------------- | ------------- | ---- | --- | ------- | ----- |
@@ -114,7 +114,7 @@ The database contains several views, primarily focused on providing benchmark da
 
 Here are the views and their descriptions:
 
-*   **`benchmarks [year] view` (e.g., `benchmarks 2018 view`, `benchmarks 2019 view`, etc.):** These views combine financial data from the `financials` table with company information from `new_company_info` and calculated financial metrics from `new_financial_metrics` for a specific year. They provide a comprehensive view of a company's financial performance and key ratios, including year-over-year revenue comparisons where applicable.
+*   **`benchmarks [year] view` (e.g., `benchmarks 2018 view`, `benchmarks 2019 view`, etc.):** These views combine financial data from the `financials` table with company information from `company_info` and calculated financial metrics from `financial_metrics` for a specific year. They provide a comprehensive view of a company's financial performance and key ratios, including year-over-year revenue comparisons where applicable.
 
     ```sql
     CREATE VIEW `benchmarks 2018 view` AS 
@@ -157,16 +157,16 @@ Here are the views and their descriptions:
         FROM 
             financials f
         JOIN 
-            new_company_info c ON f.company_name = c.company
+            company_info c ON f.company_name = c.company
         WHERE 
             f.year = 2018
     ) AS subquery
     JOIN 
-        new_financial_metrics fm ON subquery.company_name = fm.company_name AND subquery.year = fm.year
+        financial_metrics fm ON subquery.company_name = fm.company_name AND subquery.year = fm.year
     ```
     *(Note: The view definitions for other years are similar, including additional columns for Net Revenue from previous years for CAGR calculations.)*
 
-*   **`segment and company benchmarks [year]` (e.g., `segment and company benchmarks 2018`, `segment and company benchmarks 2019`, etc.):** These views combine segment-level benchmark metrics from `segment_metrics` and company-level financial metrics from `new_financial_metrics` for a specific year. They allow for easy comparison of individual company performance against their respective segment benchmarks.
+*   **`segment and company benchmarks [year]` (e.g., `segment and company benchmarks 2018`, `segment and company benchmarks 2019`, etc.):** These views combine segment-level benchmark metrics from `segment_metrics` and company-level financial metrics from `financial_metrics` for a specific year. They allow for easy comparison of individual company performance against their respective segment benchmarks.
 
     ```sql
     CREATE VIEW `segment and company benchmarks 2018` AS 
@@ -219,27 +219,27 @@ Here are the views and their descriptions:
 
         SELECT 
             ci.display_name AS name,
-            nfm.Cost_of_Goods_Percentage,
-            nfm.SGA_Percentage,
-            nfm.Gross_Margin_Percentage,
-            nfm.Operating_Profit_Margin_Percentage,
-            nfm.Net_Profit_Margin_Percentage,
-            nfm.Inventory_Turnover,
-            nfm.Asset_Turnover,
-            nfm.Return_on_Assets,
-            nfm.Three_Year_Revenue_CAGR,
-            nfm.Current_Ratio,
-            nfm.Quick_Ratio,
-            nfm.Sales_Current_Year_vs_LY,
-            nfm.Debt_to_Equity,
+            fm.Cost_of_Goods_Percentage,
+            fm.SGA_Percentage,
+            fm.Gross_Margin_Percentage,
+            fm.Operating_Profit_Margin_Percentage,
+            fm.Net_Profit_Margin_Percentage,
+            fm.Inventory_Turnover,
+            fm.Asset_Turnover,
+            fm.Return_on_Assets,
+            fm.Three_Year_Revenue_CAGR,
+            fm.Current_Ratio,
+            fm.Quick_Ratio,
+            fm.Sales_Current_Year_vs_LY,
+            fm.Debt_to_Equity,
             'Company' AS type,
             ci.segment AS segment_name
         FROM 
-            new_financial_metrics nfm
+            financial_metrics fm
         JOIN 
-            new_company_info ci ON nfm.company_name = ci.company
+            company_info ci ON fm.company_name = ci.company
         WHERE 
-            nfm.year = 2018
+            fm.year = 2018
     ) AS combined_data
     ORDER BY 
         segment_name, type DESC, name
@@ -316,7 +316,7 @@ Here are a few sample queries to demonstrate how to retrieve data from this data
 
     ```sql
     SELECT *
-    FROM new_financial_metrics
+    FROM financial_metrics
     WHERE company_name = 'Your Company Name' AND year = 2023;
     ```
 

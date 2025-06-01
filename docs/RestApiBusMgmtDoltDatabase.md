@@ -14,8 +14,8 @@ The database contains **32 tables and views**:
 
 **Core Tables:**
 - `financials` - Raw financial data
-- `new_company_info` - Company master data
-- `new_financial_metrics` - Calculated financial ratios
+- `company_info` - Company master data
+- `financial_metrics` - Calculated financial ratios
 - `segment_metrics` - Segment-level benchmarks  
 - `subsegment_metrics` - Subsegment-level benchmarks
 
@@ -27,7 +27,7 @@ The database contains **32 tables and views**:
 
 ### Core Table Schemas
 
-#### 1. `new_company_info` (Primary Key: `company`)
+#### 1. `company_info` (Primary Key: `company`)
 **Description:** Master table containing company information and segment classifications.
 
 | Field | Type | Null | Key | Description |
@@ -63,7 +63,7 @@ The database contains **32 tables and views**:
 | `Total Shareholder Equity` | BIGINT | YES | | Total shareholders' equity |
 | `Total Liabilities and Shareholder Equity` | BIGINT | YES | | Balance sheet total |
 
-#### 3. `new_financial_metrics` (Primary Key: `company_name`, `year`)
+#### 3. `financial_metrics` (Primary Key: `company_name`, `year`)
 **Description:** Calculated financial ratios and metrics derived from the raw financial data.
 
 | Field | Type | Null | Key | Description |
@@ -102,7 +102,7 @@ The database includes extensive pre-built views for different analysis needs:
 **Format:** `benchmarks {YEAR} view`
 **Available Years:** 2018, 2019, 2020, 2021, 2022, 2023, 2024
 
-These views combine data from `new_company_info`, `financials`, and `new_financial_metrics` to provide a complete picture of company performance with both raw financial data and calculated ratios.
+These views combine data from `company_info`, `financials`, and `financial_metrics` to provide a complete picture of company performance with both raw financial data and calculated ratios.
 
 #### 7. Segment Benchmark Views (by Year)  
 **Format:** `segment benchmarks {YEAR}`
@@ -173,24 +173,24 @@ ORDER BY TABLE_NAME, ORDINAL_POSITION;
 
 The tables are related as follows:
 
-1. **`new_company_info`** serves as the master company directory with primary key `company`
-2. **`financials`** contains raw financial data linked by `company_name` to `new_company_info.company` and partitioned by `year` (composite PK: `company_name, year`)
-3. **`new_financial_metrics`** contains calculated ratios derived from `financials`, linked by `company_name` and `year` (composite PK: `company_name, year`)
-4. **`segment_metrics`** aggregates data from `new_financial_metrics` grouped by `segment` and `year`
-5. **`subsegment_metrics`** aggregates data from `new_financial_metrics` grouped by `subsegment` and `year`
+1. **`company_info`** serves as the master company directory with primary key `company`
+2. **`financials`** contains raw financial data linked by `company_name` to `company_info.company` and partitioned by `year` (composite PK: `company_name, year`)
+3. **`financial_metrics`** contains calculated ratios derived from `financials`, linked by `company_name` and `year` (composite PK: `company_name, year`)
+4. **`segment_metrics`** aggregates data from `financial_metrics` grouped by `segment` and `year`
+5. **`subsegment_metrics`** aggregates data from `financial_metrics` grouped by `subsegment` and `year`
 6. **Annual benchmark views** (`benchmarks YYYY view`) join:
-   - Company info (`new_company_info`) 
+   - Company info (`company_info`) 
    - Raw financials (`financials`)
-   - Calculated metrics (`new_financial_metrics`)
+   - Calculated metrics (`financial_metrics`)
 7. **Segment benchmark views** (`segment benchmarks YYYY`) provide aggregated segment performance data
 8. **Subsegment benchmark views** (`subsegment benchmarks YYYY`) provide aggregated subsegment performance data
 9. **Combined views** (`segment and company benchmarks YYYY`) merge individual company data with segment benchmarks
 
 **Key Relationships:**
-- `new_company_info.company` ↔ `financials.company_name`
-- `new_company_info.company` ↔ `new_financial_metrics.company_name`
-- `new_company_info.segment` ↔ `segment_metrics.segment`
-- `new_company_info.subsegment` ↔ `subsegment_metrics.subsegment`
+- `company_info.company` ↔ `financials.company_name`
+- `company_info.company` ↔ `financial_metrics.company_name`
+- `company_info.segment` ↔ `segment_metrics.segment`
+- `company_info.subsegment` ↔ `subsegment_metrics.subsegment`
 
 ### Primary Keys and Indexes
 
@@ -198,15 +198,15 @@ The tables are related as follows:
 
 | Table | Primary Key | Notes |
 |-------|-------------|-------|
-| `new_company_info` | `company` | Single column PK |
+| `company_info` | `company` | Single column PK |
 | `financials` | `company_name, year` | Composite PK |
-| `new_financial_metrics` | `company_name, year` | Composite PK |
+| `financial_metrics` | `company_name, year` | Composite PK |
 | `segment_metrics` | Likely `segment, year` | *To be confirmed via API* |
 | `subsegment_metrics` | Likely `subsegment, year` | *To be confirmed via API* |
 
 **Foreign Key Relationships:**
-- `financials.company_name` references `new_company_info.company`
-- `new_financial_metrics.company_name` references `new_company_info.company`
+- `financials.company_name` references `company_info.company`
+- `financial_metrics.company_name` references `company_info.company`
 
 **Index Information:**
 To get complete index and constraint information, use:
@@ -233,12 +233,12 @@ The SQL queries shown in this document need to be URL-encoded when used in actua
 
 **Clean SQL:**
 ```sql
-SELECT * FROM new_company_info WHERE segment = 'Grocery'
+SELECT * FROM company_info WHERE segment = 'Grocery'
 ```
 
 **URL-encoded for API:**
 ```
-https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20*%20FROM%20new_company_info%20WHERE%20segment%20%3D%20%27Grocery%27
+https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20*%20FROM%20company_info%20WHERE%20segment%20%3D%20%27Grocery%27
 ```
 
 **Note:** Most modern clients and AI assistants will handle URL encoding automatically.
@@ -306,8 +306,8 @@ SHOW TABLES
     {"Tables_in_BusMgmtBenchmarks": "benchmarks 2023 view"},
     {"Tables_in_BusMgmtBenchmarks": "benchmarks 2024 view"},
     {"Tables_in_BusMgmtBenchmarks": "financials"},
-    {"Tables_in_BusMgmtBenchmarks": "new_company_info"},
-    {"Tables_in_BusMgmtBenchmarks": "new_financial_metrics"},
+    {"Tables_in_BusMgmtBenchmarks": "company_info"},
+    {"Tables_in_BusMgmtBenchmarks": "financial_metrics"},
     {"Tables_in_BusMgmtBenchmarks": "segment_metrics"},
     {"Tables_in_BusMgmtBenchmarks": "subsegment_metrics"}
   ]
@@ -321,7 +321,7 @@ SHOW TABLES
 **Query:** Get all companies with their segments and subsegments
 ```sql
 SELECT company, display_name, ticker_symbol, segment, subsegment 
-FROM new_company_info 
+FROM company_info 
 ORDER BY segment, display_name 
 LIMIT 10
 ```
@@ -358,7 +358,7 @@ LIMIT 10
 
 **Query:** Find companies in a specific segment
 ```sql
-SELECT * FROM new_company_info 
+SELECT * FROM company_info 
 WHERE segment = 'Grocery' 
 ORDER BY display_name
 ```
@@ -414,7 +414,7 @@ ORDER BY display_name
 
 **Query:** Get company info by ticker symbol
 ```sql
-SELECT * FROM new_company_info 
+SELECT * FROM company_info 
 WHERE ticker_symbol = 'WMT'
 ```
 
@@ -495,7 +495,7 @@ LIMIT 10
 ```sql
 SELECT company_name, year, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, 
        Net_Profit_Margin_Percentage, Return_on_Assets 
-FROM new_financial_metrics 
+FROM financial_metrics 
 WHERE year = 2023 
 ORDER BY Return_on_Assets DESC 
 LIMIT 10
@@ -545,7 +545,7 @@ LIMIT 10
 **Query:** Get efficiency ratios
 ```sql
 SELECT company_name, Asset_Turnover, Inventory_Turnover, Current_Ratio, Quick_Ratio 
-FROM new_financial_metrics 
+FROM financial_metrics 
 WHERE year = 2023 
 ORDER BY Asset_Turnover DESC 
 LIMIT 10
@@ -828,8 +828,8 @@ LIMIT 10
 **Query:** Compare multiple companies within the same segment
 ```sql
 SELECT c.display_name, c.segment, m.Gross_Margin_Percentage, m.Operating_Profit_Margin_Percentage, m.Return_on_Assets 
-FROM new_financial_metrics m 
-JOIN new_company_info c ON m.company_name = c.company 
+FROM financial_metrics m 
+JOIN company_info c ON m.company_name = c.company 
 WHERE c.segment = 'Grocery' AND m.year = 2023 
 ORDER BY m.Return_on_Assets DESC
 ```
@@ -869,8 +869,8 @@ ORDER BY m.Return_on_Assets DESC
 **Query:** Find top performing companies by Return on Assets
 ```sql
 SELECT c.display_name, c.segment, m.Return_on_Assets, m.Net_Profit_Margin_Percentage 
-FROM new_financial_metrics m 
-JOIN new_company_info c ON m.company_name = c.company 
+FROM financial_metrics m 
+JOIN company_info c ON m.company_name = c.company 
 WHERE m.year = 2023 AND m.Return_on_Assets IS NOT NULL 
 ORDER BY m.Return_on_Assets DESC 
 LIMIT 10
@@ -914,8 +914,8 @@ LIMIT 10
 **Query:** Get liquidity ratios for companies
 ```sql
 SELECT c.display_name, c.segment, m.Current_Ratio, m.Quick_Ratio, m.Debt_to_Equity 
-FROM new_financial_metrics m 
-JOIN new_company_info c ON m.company_name = c.company 
+FROM financial_metrics m 
+JOIN company_info c ON m.company_name = c.company 
 WHERE m.year = 2023 AND m.Current_Ratio IS NOT NULL 
 ORDER BY m.Current_Ratio DESC 
 LIMIT 10
@@ -958,7 +958,7 @@ LIMIT 10
 **Query:** Search for companies by name
 ```sql
 SELECT display_name, ticker_symbol, segment 
-FROM new_company_info 
+FROM company_info 
 WHERE display_name LIKE '%Walmart%'
 ```
 
@@ -981,7 +981,7 @@ WHERE display_name LIKE '%Walmart%'
 **Query:** Get all available segments
 ```sql
 SELECT DISTINCT segment 
-FROM new_company_info 
+FROM company_info 
 WHERE segment IS NOT NULL 
 ORDER BY segment
 ```
@@ -1008,7 +1008,7 @@ ORDER BY segment
 **Query:** Get all subsegments
 ```sql
 SELECT DISTINCT subsegment 
-FROM new_company_info 
+FROM company_info 
 WHERE subsegment IS NOT NULL 
 ORDER BY subsegment 
 LIMIT 5
@@ -1061,7 +1061,7 @@ function buildBenchmarkQuery(sqlQuery) {
 }
 
 // Example usage:
-const url = buildBenchmarkQuery("SELECT * FROM new_company_info WHERE segment = 'Grocery'");
+const url = buildBenchmarkQuery("SELECT * FROM company_info WHERE segment = 'Grocery'");
 
 // Fetch data
 fetch(url)
@@ -1100,8 +1100,8 @@ LIMIT 5
 **Company vs Segment Benchmark:**
 ```sql
 SELECT 'Company' as type, c.display_name as name, m.Return_on_Assets, m.Operating_Profit_Margin_Percentage
-FROM new_financial_metrics m 
-JOIN new_company_info c ON m.company_name = c.company 
+FROM financial_metrics m 
+JOIN company_info c ON m.company_name = c.company 
 WHERE c.display_name = 'Walmart' AND m.year = 2023
 UNION ALL
 SELECT 'Segment Benchmark' as type, s.segment as name, s.Return_on_Assets, s.Operating_Profit_Margin_Percentage
