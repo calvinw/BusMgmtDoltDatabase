@@ -1,3 +1,4 @@
 [submodule "chainlit-mcp-client"]
 	path = chainlit-mcp-client
 	url = https://github.com/calvinw/chainlit-mcp-client.git
+	branch = main
