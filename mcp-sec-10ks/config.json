@@ -4,13 +4,11 @@
         "timeout": 60,
         "command": ".venv/bin/python",
         "args": [
-          "mcp_sec_10ks.py"
+          "server.py"
         ],
         "transportType": "stdio",
         "disabled": false,
         "alwaysAllow": [
-          "greet",
-          "greet_in_german"
         ]
       }
     }

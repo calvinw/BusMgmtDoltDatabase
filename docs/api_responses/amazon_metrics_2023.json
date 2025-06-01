@@ -1,0 +1,78 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT * FROM new_financial_metrics WHERE company_name = 'Amazon.com Inc.' AND year = 2023",
+  "schema": [
+    {
+      "columnName": "company_name",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "year",
+      "columnType": "int"
+    },
+    {
+      "columnName": "Cost_of_Goods_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "SGA_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Gross_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Operating_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Net_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Inventory_Turnover",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Asset_Turnover",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Return_on_Assets",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Three_Year_Revenue_CAGR",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Current_Ratio",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Quick_Ratio",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Sales_Current_Year_vs_LY",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Debt_to_Equity",
+      "columnType": "decimal(10,4)"
+    }
+  ],
+  "rows": [],
+  "_metadata": {
+    "query_name": "amazon_metrics_2023",
+    "description": "Get financial ratios for Amazon in 2023",
+    "original_query": "SELECT * FROM new_financial_metrics WHERE company_name = 'Amazon.com Inc.' AND year = 2023",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20%2A%20FROM%20new_financial_metrics%20WHERE%20company_name%20%3D%20%27Amazon.com%20Inc.%27%20AND%20year%20%3D%202023",
+    "timestamp": "2025-05-31 17:58:11"
+  }
+}

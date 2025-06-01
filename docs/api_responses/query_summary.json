@@ -1,0 +1,208 @@
+{
+  "execution_timestamp": "2025-05-31 17:58:37",
+  "total_queries": 25,
+  "successful_queries": 25,
+  "failed_queries": 0,
+  "queries": [
+    {
+      "name": "show_tables",
+      "description": "Get all tables in the database",
+      "status": "Success",
+      "row_count": 33,
+      "column_count": 1,
+      "error_message": null
+    },
+    {
+      "name": "company_info_all",
+      "description": "Get all companies with segments and subsegments",
+      "status": "Success",
+      "row_count": 10,
+      "column_count": 5,
+      "error_message": null
+    },
+    {
+      "name": "company_info_grocery",
+      "description": "Find companies in Grocery segment",
+      "status": "Success",
+      "row_count": 3,
+      "column_count": 8,
+      "error_message": null
+    },
+    {
+      "name": "company_by_ticker",
+      "description": "Get company info by ticker symbol",
+      "status": "Success",
+      "row_count": 1,
+      "column_count": 8,
+      "error_message": null
+    },
+    {
+      "name": "financials_walmart_2023",
+      "description": "Get financial data for Walmart in 2023",
+      "status": "Success",
+      "row_count": 0,
+      "column_count": 16,
+      "error_message": null
+    },
+    {
+      "name": "revenue_data_2023",
+      "description": "Get revenue data for all companies in 2023",
+      "status": "Success",
+      "row_count": 10,
+      "column_count": 6,
+      "error_message": null
+    },
+    {
+      "name": "walmart_multiyear",
+      "description": "Get multi-year financial data for Walmart",
+      "status": "Success",
+      "row_count": 0,
+      "column_count": 4,
+      "error_message": null
+    },
+    {
+      "name": "amazon_metrics_2023",
+      "description": "Get financial ratios for Amazon in 2023",
+      "status": "Success",
+      "row_count": 0,
+      "column_count": 15,
+      "error_message": null
+    },
+    {
+      "name": "profitability_metrics_2023",
+      "description": "Get profitability metrics for all companies in 2023",
+      "status": "Success",
+      "row_count": 10,
+      "column_count": 6,
+      "error_message": null
+    },
+    {
+      "name": "efficiency_ratios_2023",
+      "description": "Get efficiency ratios for companies in 2023",
+      "status": "Success",
+      "row_count": 10,
+      "column_count": 5,
+      "error_message": null
+    },
+    {
+      "name": "segment_benchmarks_2023",
+      "description": "Get benchmark metrics for all segments in 2023",
+      "status": "Success",
+      "row_count": 10,
+      "column_count": 15,
+      "error_message": null
+    },
+    {
+      "name": "grocery_segment_benchmark",
+      "description": "Get specific Grocery segment benchmark",
+      "status": "Success",
+      "row_count": 1,
+      "column_count": 5,
+      "error_message": null
+    },
+    {
+      "name": "segment_profitability_comparison",
+      "description": "Compare all segment benchmarks by profitability",
+      "status": "Success",
+      "row_count": 10,
+      "column_count": 3,
+      "error_message": null
+    },
+    {
+      "name": "subsegment_benchmarks_2023",
+      "description": "Get subsegment benchmarks for 2023",
+      "status": "Success",
+      "row_count": 5,
+      "column_count": 15,
+      "error_message": null
+    },
+    {
+      "name": "retail_subsegments",
+      "description": "Get retail-related subsegments",
+      "status": "Success",
+      "row_count": 0,
+      "column_count": 3,
+      "error_message": null
+    },
+    {
+      "name": "walmart_benchmarks_view",
+      "description": "Get comprehensive Walmart data using benchmarks view",
+      "status": "Success",
+      "row_count": 0,
+      "column_count": 33,
+      "error_message": null
+    },
+    {
+      "name": "grocery_companies_metrics",
+      "description": "Get all companies in Grocery segment with their metrics",
+      "status": "Success",
+      "row_count": 3,
+      "column_count": 6,
+      "error_message": null
+    },
+    {
+      "name": "top_companies_by_revenue",
+      "description": "Get top companies by revenue across all segments",
+      "status": "Success",
+      "row_count": 10,
+      "column_count": 4,
+      "error_message": null
+    },
+    {
+      "name": "amazon_growth_trends",
+      "description": "Get revenue growth trends for Amazon",
+      "status": "Success",
+      "row_count": 0,
+      "column_count": 4,
+      "error_message": null
+    },
+    {
+      "name": "grocery_peer_comparison",
+      "description": "Compare multiple companies within Grocery segment",
+      "status": "Success",
+      "row_count": 3,
+      "column_count": 5,
+      "error_message": null
+    },
+    {
+      "name": "top_performers_roa",
+      "description": "Find top performing companies by Return on Assets",
+      "status": "Success",
+      "row_count": 10,
+      "column_count": 4,
+      "error_message": null
+    },
+    {
+      "name": "liquidity_ratios",
+      "description": "Get liquidity ratios for companies",
+      "status": "Success",
+      "row_count": 10,
+      "column_count": 5,
+      "error_message": null
+    },
+    {
+      "name": "search_walmart",
+      "description": "Search for companies by name (Walmart)",
+      "status": "Success",
+      "row_count": 1,
+      "column_count": 3,
+      "error_message": null
+    },
+    {
+      "name": "available_segments",
+      "description": "Get all available segments",
+      "status": "Success",
+      "row_count": 10,
+      "column_count": 1,
+      "error_message": null
+    },
+    {
+      "name": "available_subsegments",
+      "description": "Get all subsegments",
+      "status": "Success",
+      "row_count": 5,
+      "column_count": 1,
+      "error_message": null
+    }
+  ]
+}

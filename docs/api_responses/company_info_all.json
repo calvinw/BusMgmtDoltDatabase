@@ -1,0 +1,109 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT company, display_name, ticker_symbol, segment, subsegment FROM new_company_info ORDER BY segment, display_name LIMIT 10",
+  "schema": [
+    {
+      "columnName": "company",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "display_name",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "ticker_symbol",
+      "columnType": "varchar(10)"
+    },
+    {
+      "columnName": "segment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "subsegment",
+      "columnType": "varchar(255)"
+    }
+  ],
+  "rows": [
+    {
+      "company": "Dillard's",
+      "display_name": "Dillard's",
+      "ticker_symbol": "DDS",
+      "segment": "Department Store",
+      "subsegment": null
+    },
+    {
+      "company": "Kohl's",
+      "display_name": "Kohl's",
+      "ticker_symbol": "KSS",
+      "segment": "Department Store",
+      "subsegment": null
+    },
+    {
+      "company": "Macy's",
+      "display_name": "Macy's",
+      "ticker_symbol": "M",
+      "segment": "Department Store",
+      "subsegment": null
+    },
+    {
+      "company": "Nordstrom",
+      "display_name": "Nordstrom",
+      "ticker_symbol": "JWN",
+      "segment": "Department Store",
+      "subsegment": null
+    },
+    {
+      "company": "Dollar General",
+      "display_name": "Dollar General",
+      "ticker_symbol": "DG",
+      "segment": "Discount Store",
+      "subsegment": null
+    },
+    {
+      "company": "Dollar Tree",
+      "display_name": "Dollar Tree",
+      "ticker_symbol": "DLTR",
+      "segment": "Discount Store",
+      "subsegment": null
+    },
+    {
+      "company": "Five Below",
+      "display_name": "Five Below",
+      "ticker_symbol": "FIVE",
+      "segment": "Discount Store",
+      "subsegment": null
+    },
+    {
+      "company": "Target",
+      "display_name": "Target",
+      "ticker_symbol": "TGT",
+      "segment": "Discount Store",
+      "subsegment": null
+    },
+    {
+      "company": "Walmart",
+      "display_name": "Walmart",
+      "ticker_symbol": "WMT",
+      "segment": "Discount Store",
+      "subsegment": null
+    },
+    {
+      "company": "H&M",
+      "display_name": "H&M",
+      "ticker_symbol": "HM-B.ST",
+      "segment": "Fast Fashion",
+      "subsegment": null
+    }
+  ],
+  "_metadata": {
+    "query_name": "company_info_all",
+    "description": "Get all companies with segments and subsegments",
+    "original_query": "SELECT company, display_name, ticker_symbol, segment, subsegment FROM new_company_info ORDER BY segment, display_name LIMIT 10",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company%2C%20display_name%2C%20ticker_symbol%2C%20segment%2C%20subsegment%20FROM%20new_company_info%20ORDER%20BY%20segment%2C%20display_name%20LIMIT%2010",
+    "timestamp": "2025-05-31 17:58:02"
+  }
+}

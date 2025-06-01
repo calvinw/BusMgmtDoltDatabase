@@ -1,0 +1,122 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SHOW TABLES",
+  "schema": [
+    {
+      "columnName": "Tables_in_BusMgmtBenchmarks",
+      "columnType": "longtext"
+    }
+  ],
+  "rows": [
+    {
+      "Tables_in_BusMgmtBenchmarks": "benchmarks 2018 view"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "benchmarks 2019 view"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "benchmarks 2020 view"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "benchmarks 2021 view"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "benchmarks 2022 view"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "benchmarks 2023 view"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "benchmarks 2024 view"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "financials"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "new_company_info"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "new_financial_metrics"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2018"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2019"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2020"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2021"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2022"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2023"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment and company benchmarks 2024"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2018"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2019"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2020"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2021"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2022"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2023"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment benchmarks 2024"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "segment_metrics"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2018"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2019"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2020"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2021"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2022"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2023"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "subsegment benchmarks 2024"
+    },
+    {
+      "Tables_in_BusMgmtBenchmarks": "subsegment_metrics"
+    }
+  ],
+  "_metadata": {
+    "query_name": "show_tables",
+    "description": "Get all tables in the database",
+    "original_query": "SHOW TABLES",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SHOW%20TABLES",
+    "timestamp": "2025-05-31 17:58:00"
+  }
+}

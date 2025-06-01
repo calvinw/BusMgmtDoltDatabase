@@ -1,4 +1,3 @@
-#!/bin/bash
 # uv run python client.py \
 #   --model "google/gemini-2.5-flash-preview-05-20" \
 #   --company "Costco" \
@@ -9,4 +8,4 @@
 # --cik 1397187 
 uv run python client.py \
   --model "google/gemini-2.5-flash-preview-05-20" \
-  --csv companies.csv
+  --csv companies-small.csv

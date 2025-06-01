@@ -1,0 +1,123 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT company_name, year, `Net Revenue`, `Gross Margin`, `Operating Profit`, `Net Profit` FROM financials WHERE year = 2023 ORDER BY `Net Revenue` DESC LIMIT 10",
+  "schema": [
+    {
+      "columnName": "company_name",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "year",
+      "columnType": "int"
+    },
+    {
+      "columnName": "Net Revenue",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Gross Margin",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Operating Profit",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Net Profit",
+      "columnType": "bigint"
+    }
+  ],
+  "rows": [
+    {
+      "company_name": "Walmart",
+      "year": "2023",
+      "Net Revenue": "648125000",
+      "Gross Margin": "157983000",
+      "Operating Profit": "27012000",
+      "Net Profit": "15511000"
+    },
+    {
+      "company_name": "Amazon",
+      "year": "2023",
+      "Net Revenue": "574785000",
+      "Gross Margin": "270046000",
+      "Operating Profit": "36852000",
+      "Net Profit": "30425000"
+    },
+    {
+      "company_name": "CVS",
+      "year": "2023",
+      "Net Revenue": "357776000",
+      "Gross Margin": "140678000",
+      "Operating Profit": "13743000",
+      "Net Profit": "8344000"
+    },
+    {
+      "company_name": "Costco",
+      "year": "2023",
+      "Net Revenue": "242290000",
+      "Gross Margin": "29704000",
+      "Operating Profit": "8114000",
+      "Net Profit": "6292000"
+    },
+    {
+      "company_name": "H&M",
+      "year": "2023",
+      "Net Revenue": "236035000",
+      "Gross Margin": "120896000",
+      "Operating Profit": "14537000",
+      "Net Profit": "8745000"
+    },
+    {
+      "company_name": "Home Depot",
+      "year": "2023",
+      "Net Revenue": "152669000",
+      "Gross Margin": "50960000",
+      "Operating Profit": "21689000",
+      "Net Profit": "15143000"
+    },
+    {
+      "company_name": "Kroger",
+      "year": "2023",
+      "Net Revenue": "150039000",
+      "Gross Margin": "33364000",
+      "Operating Profit": "3096000",
+      "Net Profit": "2164000"
+    },
+    {
+      "company_name": "Walgreens",
+      "year": "2023",
+      "Net Revenue": "139081000",
+      "Gross Margin": "27072000",
+      "Operating Profit": "-6882000",
+      "Net Profit": "-3528000"
+    },
+    {
+      "company_name": "Target",
+      "year": "2023",
+      "Net Revenue": "107412000",
+      "Gross Margin": "29676000",
+      "Operating Profit": "5707000",
+      "Net Profit": "4138000"
+    },
+    {
+      "company_name": "Ahold Delhaize",
+      "year": "2023",
+      "Net Revenue": "88734000",
+      "Gross Margin": "23854000",
+      "Operating Profit": "2846000",
+      "Net Profit": "1874000"
+    }
+  ],
+  "_metadata": {
+    "query_name": "revenue_data_2023",
+    "description": "Get revenue data for all companies in 2023",
+    "original_query": "SELECT company_name, year, `Net Revenue`, `Gross Margin`, `Operating Profit`, `Net Profit` FROM financials WHERE year = 2023 ORDER BY `Net Revenue` DESC LIMIT 10",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company_name%2C%20year%2C%20%60Net%20Revenue%60%2C%20%60Gross%20Margin%60%2C%20%60Operating%20Profit%60%2C%20%60Net%20Profit%60%20FROM%20financials%20WHERE%20year%20%3D%202023%20ORDER%20BY%20%60Net%20Revenue%60%20DESC%20LIMIT%2010",
+    "timestamp": "2025-05-31 17:58:08"
+  }
+}

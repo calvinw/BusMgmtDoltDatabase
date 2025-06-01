@@ -1,0 +1,109 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT company_name, Asset_Turnover, Inventory_Turnover, Current_Ratio, Quick_Ratio FROM new_financial_metrics WHERE year = 2023 ORDER BY Asset_Turnover DESC LIMIT 10",
+  "schema": [
+    {
+      "columnName": "company_name",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "Asset_Turnover",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Inventory_Turnover",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Current_Ratio",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Quick_Ratio",
+      "columnType": "decimal(10,4)"
+    }
+  ],
+  "rows": [
+    {
+      "company_name": "Costco",
+      "Asset_Turnover": "3.5118",
+      "Inventory_Turnover": "12.7672",
+      "Current_Ratio": "1.0684",
+      "Quick_Ratio": "0.5726"
+    },
+    {
+      "company_name": "Chewy",
+      "Asset_Turnover": "3.4980",
+      "Inventory_Turnover": "11.1032",
+      "Current_Ratio": "0.9969",
+      "Quick_Ratio": "0.6562"
+    },
+    {
+      "company_name": "Wayfair",
+      "Asset_Turnover": "3.4551",
+      "Inventory_Turnover": "111.1467",
+      "Current_Ratio": "0.8497",
+      "Quick_Ratio": "0.8154"
+    },
+    {
+      "company_name": "Albertsons",
+      "Asset_Turnover": "3.0219",
+      "Inventory_Turnover": "11.5652",
+      "Current_Ratio": "0.8431",
+      "Quick_Ratio": "0.1800"
+    },
+    {
+      "company_name": "Rite Aid",
+      "Asset_Turnover": "3.0000",
+      "Inventory_Turnover": "9.9900",
+      "Current_Ratio": "1.2100",
+      "Quick_Ratio": "0.5100"
+    },
+    {
+      "company_name": "BJ's",
+      "Asset_Turnover": "2.9904",
+      "Inventory_Turnover": "11.2221",
+      "Current_Ratio": "0.7269",
+      "Quick_Ratio": "0.1374"
+    },
+    {
+      "company_name": "Kroger",
+      "Asset_Turnover": "2.9708",
+      "Inventory_Turnover": "12.3938",
+      "Current_Ratio": "0.8063",
+      "Quick_Ratio": "0.2201"
+    },
+    {
+      "company_name": "Best Buy",
+      "Asset_Turnover": "2.9032",
+      "Inventory_Turnover": "6.8271",
+      "Current_Ratio": "0.9985",
+      "Quick_Ratio": "0.3716"
+    },
+    {
+      "company_name": "Walmart",
+      "Asset_Turnover": "2.5679",
+      "Inventory_Turnover": "8.9292",
+      "Current_Ratio": "0.8319",
+      "Quick_Ratio": "0.2379"
+    },
+    {
+      "company_name": "Lowe's",
+      "Asset_Turnover": "2.0667",
+      "Inventory_Turnover": "3.4055",
+      "Current_Ratio": "1.2250",
+      "Quick_Ratio": "0.1398"
+    }
+  ],
+  "_metadata": {
+    "query_name": "efficiency_ratios_2023",
+    "description": "Get efficiency ratios for companies in 2023",
+    "original_query": "SELECT company_name, Asset_Turnover, Inventory_Turnover, Current_Ratio, Quick_Ratio FROM new_financial_metrics WHERE year = 2023 ORDER BY Asset_Turnover DESC LIMIT 10",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company_name%2C%20Asset_Turnover%2C%20Inventory_Turnover%2C%20Current_Ratio%2C%20Quick_Ratio%20FROM%20new_financial_metrics%20WHERE%20year%20%3D%202023%20ORDER%20BY%20Asset_Turnover%20DESC%20LIMIT%2010",
+    "timestamp": "2025-05-31 17:58:14"
+  }
+}

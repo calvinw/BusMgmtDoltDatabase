@@ -1,0 +1,123 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT company_name, year, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, Net_Profit_Margin_Percentage, Return_on_Assets FROM new_financial_metrics WHERE year = 2023 ORDER BY Return_on_Assets DESC LIMIT 10",
+  "schema": [
+    {
+      "columnName": "company_name",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "year",
+      "columnType": "int"
+    },
+    {
+      "columnName": "Gross_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Operating_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Net_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Return_on_Assets",
+      "columnType": "decimal(10,4)"
+    }
+  ],
+  "rows": [
+    {
+      "company_name": "Ulta Beauty",
+      "year": "2023",
+      "Gross_Margin_Percentage": "39.0915",
+      "Operating_Profit_Margin_Percentage": "14.9726",
+      "Net_Profit_Margin_Percentage": "11.5193",
+      "Return_on_Assets": "22.6214"
+    },
+    {
+      "company_name": "Lululemon",
+      "year": "2023",
+      "Gross_Margin_Percentage": "58.3142",
+      "Operating_Profit_Margin_Percentage": "22.1709",
+      "Net_Profit_Margin_Percentage": "16.1155",
+      "Return_on_Assets": "21.8585"
+    },
+    {
+      "company_name": "Dillard's",
+      "year": "2023",
+      "Gross_Margin_Percentage": "41.3608",
+      "Operating_Profit_Margin_Percentage": "13.7597",
+      "Net_Profit_Margin_Percentage": "10.7478",
+      "Return_on_Assets": "21.4226"
+    },
+    {
+      "company_name": "Home Depot",
+      "year": "2023",
+      "Gross_Margin_Percentage": "33.3794",
+      "Operating_Profit_Margin_Percentage": "14.2066",
+      "Net_Profit_Margin_Percentage": "9.9188",
+      "Return_on_Assets": "19.7870"
+    },
+    {
+      "company_name": "Lowe's",
+      "year": "2023",
+      "Gross_Margin_Percentage": "33.3931",
+      "Operating_Profit_Margin_Percentage": "13.3797",
+      "Net_Profit_Margin_Percentage": "8.9445",
+      "Return_on_Assets": "18.4855"
+    },
+    {
+      "company_name": "Williams-Sonoma",
+      "year": "2023",
+      "Gross_Margin_Percentage": "42.6235",
+      "Operating_Profit_Margin_Percentage": "16.0528",
+      "Net_Profit_Margin_Percentage": "12.2540",
+      "Return_on_Assets": "18.0099"
+    },
+    {
+      "company_name": "Inditex/Zara",
+      "year": "2023",
+      "Gross_Margin_Percentage": "57.7545",
+      "Operating_Profit_Margin_Percentage": "18.9418",
+      "Net_Profit_Margin_Percentage": "14.9693",
+      "Return_on_Assets": "16.4381"
+    },
+    {
+      "company_name": "Bath & Body Works",
+      "year": "2023",
+      "Gross_Margin_Percentage": "43.5590",
+      "Operating_Profit_Margin_Percentage": "17.2971",
+      "Net_Profit_Margin_Percentage": "11.8185",
+      "Return_on_Assets": "16.0718"
+    },
+    {
+      "company_name": "TJ Maxx",
+      "year": "2023",
+      "Gross_Margin_Percentage": "30.0017",
+      "Operating_Profit_Margin_Percentage": "10.6922",
+      "Net_Profit_Margin_Percentage": "8.2520",
+      "Return_on_Assets": "15.0402"
+    },
+    {
+      "company_name": "Nike",
+      "year": "2023",
+      "Gross_Margin_Percentage": "44.5602",
+      "Operating_Profit_Margin_Percentage": "12.2873",
+      "Net_Profit_Margin_Percentage": "11.0977",
+      "Return_on_Assets": "14.9567"
+    }
+  ],
+  "_metadata": {
+    "query_name": "profitability_metrics_2023",
+    "description": "Get profitability metrics for all companies in 2023",
+    "original_query": "SELECT company_name, year, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, Net_Profit_Margin_Percentage, Return_on_Assets FROM new_financial_metrics WHERE year = 2023 ORDER BY Return_on_Assets DESC LIMIT 10",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company_name%2C%20year%2C%20Gross_Margin_Percentage%2C%20Operating_Profit_Margin_Percentage%2C%20Net_Profit_Margin_Percentage%2C%20Return_on_Assets%20FROM%20new_financial_metrics%20WHERE%20year%20%3D%202023%20ORDER%20BY%20Return_on_Assets%20DESC%20LIMIT%2010",
+    "timestamp": "2025-05-31 17:58:12"
+  }
+}

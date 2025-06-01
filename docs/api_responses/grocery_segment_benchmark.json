@@ -1,0 +1,46 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT segment, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, Net_Profit_Margin_Percentage, Return_on_Assets FROM segment_metrics WHERE segment = 'Grocery' AND year = 2023",
+  "schema": [
+    {
+      "columnName": "segment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "Gross_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Operating_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Net_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Return_on_Assets",
+      "columnType": "decimal(10,4)"
+    }
+  ],
+  "rows": [
+    {
+      "segment": "Grocery",
+      "Gross_Margin_Percentage": "24.9249",
+      "Operating_Profit_Margin_Percentage": "2.5191",
+      "Net_Profit_Margin_Percentage": "1.6773",
+      "Return_on_Assets": "4.2827"
+    }
+  ],
+  "_metadata": {
+    "query_name": "grocery_segment_benchmark",
+    "description": "Get specific Grocery segment benchmark",
+    "original_query": "SELECT segment, Gross_Margin_Percentage, Operating_Profit_Margin_Percentage, Net_Profit_Margin_Percentage, Return_on_Assets FROM segment_metrics WHERE segment = 'Grocery' AND year = 2023",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20segment%2C%20Gross_Margin_Percentage%2C%20Operating_Profit_Margin_Percentage%2C%20Net_Profit_Margin_Percentage%2C%20Return_on_Assets%20FROM%20segment_metrics%20WHERE%20segment%20%3D%20%27Grocery%27%20AND%20year%20%3D%202023",
+    "timestamp": "2025-05-31 17:58:17"
+  }
+}

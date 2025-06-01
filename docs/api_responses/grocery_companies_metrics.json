@@ -1,0 +1,67 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT company, segment, `Net Revenue`, `Gross Margin %`, `Operating Profit Margin %`, `Return on Assets` FROM `benchmarks 2023 view` WHERE segment = 'Grocery' ORDER BY `Net Revenue` DESC",
+  "schema": [
+    {
+      "columnName": "company",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "segment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "Net Revenue",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Gross Margin %",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Operating Profit Margin %",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Return on Assets",
+      "columnType": "decimal(10,4)"
+    }
+  ],
+  "rows": [
+    {
+      "company": "Kroger",
+      "segment": "Grocery",
+      "Net Revenue": "150039000",
+      "Gross Margin %": "22.2369",
+      "Operating Profit Margin %": "2.0635",
+      "Return on Assets": "4.2847"
+    },
+    {
+      "company": "Ahold Delhaize",
+      "segment": "Grocery",
+      "Net Revenue": "88734000",
+      "Gross Margin %": "26.8826",
+      "Operating Profit Margin %": "3.2073",
+      "Return on Assets": "3.9188"
+    },
+    {
+      "company": "Albertsons",
+      "segment": "Grocery",
+      "Net Revenue": "79237700",
+      "Gross Margin %": "27.8222",
+      "Operating Profit Margin %": "2.6110",
+      "Return on Assets": "4.9426"
+    }
+  ],
+  "_metadata": {
+    "query_name": "grocery_companies_metrics",
+    "description": "Get all companies in Grocery segment with their metrics",
+    "original_query": "SELECT company, segment, `Net Revenue`, `Gross Margin %`, `Operating Profit Margin %`, `Return on Assets` FROM `benchmarks 2023 view` WHERE segment = 'Grocery' ORDER BY `Net Revenue` DESC",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20company%2C%20segment%2C%20%60Net%20Revenue%60%2C%20%60Gross%20Margin%20%25%60%2C%20%60Operating%20Profit%20Margin%20%25%60%2C%20%60Return%20on%20Assets%60%20FROM%20%60benchmarks%202023%20view%60%20WHERE%20segment%20%3D%20%27Grocery%27%20ORDER%20BY%20%60Net%20Revenue%60%20DESC",
+    "timestamp": "2025-05-31 17:58:25"
+  }
+}

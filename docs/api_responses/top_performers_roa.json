@@ -1,0 +1,95 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT c.display_name, c.segment, m.Return_on_Assets, m.Net_Profit_Margin_Percentage FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE m.year = 2023 AND m.Return_on_Assets IS NOT NULL ORDER BY m.Return_on_Assets DESC LIMIT 10",
+  "schema": [
+    {
+      "columnName": "display_name",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "segment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "Return_on_Assets",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Net_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    }
+  ],
+  "rows": [
+    {
+      "display_name": "Ulta Beauty",
+      "segment": "Specialty",
+      "Return_on_Assets": "22.6214",
+      "Net_Profit_Margin_Percentage": "11.5193"
+    },
+    {
+      "display_name": "Lululemon",
+      "segment": "Specialty",
+      "Return_on_Assets": "21.8585",
+      "Net_Profit_Margin_Percentage": "16.1155"
+    },
+    {
+      "display_name": "Dillard's",
+      "segment": "Department Store",
+      "Return_on_Assets": "21.4226",
+      "Net_Profit_Margin_Percentage": "10.7478"
+    },
+    {
+      "display_name": "Home Depot",
+      "segment": "Home Improvement",
+      "Return_on_Assets": "19.7870",
+      "Net_Profit_Margin_Percentage": "9.9188"
+    },
+    {
+      "display_name": "Lowe's",
+      "segment": "Home Improvement",
+      "Return_on_Assets": "18.4855",
+      "Net_Profit_Margin_Percentage": "8.9445"
+    },
+    {
+      "display_name": "Williams-Sonoma",
+      "segment": "Specialty",
+      "Return_on_Assets": "18.0099",
+      "Net_Profit_Margin_Percentage": "12.2540"
+    },
+    {
+      "display_name": "Inditex/Zara",
+      "segment": "Fast Fashion",
+      "Return_on_Assets": "16.4381",
+      "Net_Profit_Margin_Percentage": "14.9693"
+    },
+    {
+      "display_name": "Bath & Body Works",
+      "segment": "Specialty",
+      "Return_on_Assets": "16.0718",
+      "Net_Profit_Margin_Percentage": "11.8185"
+    },
+    {
+      "display_name": "TJ Maxx",
+      "segment": "Off Price",
+      "Return_on_Assets": "15.0402",
+      "Net_Profit_Margin_Percentage": "8.2520"
+    },
+    {
+      "display_name": "Nike",
+      "segment": "Specialty",
+      "Return_on_Assets": "14.9567",
+      "Net_Profit_Margin_Percentage": "11.0977"
+    }
+  ],
+  "_metadata": {
+    "query_name": "top_performers_roa",
+    "description": "Find top performing companies by Return on Assets",
+    "original_query": "SELECT c.display_name, c.segment, m.Return_on_Assets, m.Net_Profit_Margin_Percentage FROM new_financial_metrics m JOIN new_company_info c ON m.company_name = c.company WHERE m.year = 2023 AND m.Return_on_Assets IS NOT NULL ORDER BY m.Return_on_Assets DESC LIMIT 10",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20c.display_name%2C%20c.segment%2C%20m.Return_on_Assets%2C%20m.Net_Profit_Margin_Percentage%20FROM%20new_financial_metrics%20m%20JOIN%20new_company_info%20c%20ON%20m.company_name%20%3D%20c.company%20WHERE%20m.year%20%3D%202023%20AND%20m.Return_on_Assets%20IS%20NOT%20NULL%20ORDER%20BY%20m.Return_on_Assets%20DESC%20LIMIT%2010",
+    "timestamp": "2025-05-31 17:58:31"
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT * FROM segment_metrics WHERE year = 2023 ORDER BY segment",
+  "schema": [
+    {
+      "columnName": "segment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "year",
+      "columnType": "int"
+    },
+    {
+      "columnName": "Cost_of_Goods_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "SGA_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Gross_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Operating_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Net_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Inventory_Turnover",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Asset_Turnover",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Return_on_Assets",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Three_Year_Revenue_CAGR",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Current_Ratio",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Quick_Ratio",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Sales_Current_Year_vs_LY",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Debt_to_Equity",
+      "columnType": "decimal(10,4)"
+    }
+  ],
+  "rows": [
+    {
+      "segment": "Department Store",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "60.3647",
+      "SGA_Percentage": "32.5220",
+      "Gross_Margin_Percentage": "39.6353",
+      "Operating_Profit_Margin_Percentage": "3.6495",
+      "Net_Profit_Margin_Percentage": "2.0583",
+      "Inventory_Turnover": "3.7147",
+      "Asset_Turnover": "1.4926",
+      "Return_on_Assets": "3.0722",
+      "Three_Year_Revenue_CAGR": "9.2300",
+      "Current_Ratio": "1.3566",
+      "Quick_Ratio": "0.4223",
+      "Sales_Current_Year_vs_LY": "-4.5804",
+      "Debt_to_Equity": "2.9856"
+    },
+    {
+      "segment": "Discount Store",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "74.6516",
+      "SGA_Percentage": "20.8559",
+      "Gross_Margin_Percentage": "25.3484",
+      "Operating_Profit_Margin_Percentage": "4.1851",
+      "Net_Profit_Margin_Percentage": "2.4883",
+      "Inventory_Turnover": "7.7817",
+      "Asset_Turnover": "2.2730",
+      "Return_on_Assets": "5.6560",
+      "Three_Year_Revenue_CAGR": "5.0800",
+      "Current_Ratio": "0.8859",
+      "Quick_Ratio": "0.2443",
+      "Sales_Current_Year_vs_LY": "4.9046",
+      "Debt_to_Equity": "2.2269"
+    },
+    {
+      "segment": "Fast Fashion",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "47.9168",
+      "SGA_Percentage": "40.7005",
+      "Gross_Margin_Percentage": "52.0832",
+      "Operating_Profit_Margin_Percentage": "7.8483",
+      "Net_Profit_Margin_Percentage": "5.1937",
+      "Inventory_Turnover": "3.2319",
+      "Asset_Turnover": "1.2709",
+      "Return_on_Assets": "6.6007",
+      "Three_Year_Revenue_CAGR": "137.0900",
+      "Current_Ratio": "1.2560",
+      "Quick_Ratio": "0.7314",
+      "Sales_Current_Year_vs_LY": "6.1924",
+      "Debt_to_Equity": "2.2347"
+    },
+    {
+      "segment": "Grocery",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "75.0751",
+      "SGA_Percentage": "21.2593",
+      "Gross_Margin_Percentage": "24.9249",
+      "Operating_Profit_Margin_Percentage": "2.5191",
+      "Net_Profit_Margin_Percentage": "1.6773",
+      "Inventory_Turnover": "12.6033",
+      "Asset_Turnover": "2.5533",
+      "Return_on_Assets": "4.2827",
+      "Three_Year_Revenue_CAGR": "16.2900",
+      "Current_Ratio": "0.7846",
+      "Quick_Ratio": "0.3004",
+      "Sales_Current_Year_vs_LY": "1.6360",
+      "Debt_to_Equity": "3.2774"
+    },
+    {
+      "segment": "Health & Pharmacy",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "66.2378",
+      "SGA_Percentage": "14.9011",
+      "Gross_Margin_Percentage": "33.7622",
+      "Operating_Profit_Margin_Percentage": "1.3809",
+      "Net_Profit_Margin_Percentage": "0.9693",
+      "Inventory_Turnover": "12.5221",
+      "Asset_Turnover": "1.4345",
+      "Return_on_Assets": "1.3905",
+      "Three_Year_Revenue_CAGR": "6.7700",
+      "Current_Ratio": "0.8037",
+      "Quick_Ratio": "0.5503",
+      "Sales_Current_Year_vs_LY": "9.1586",
+      "Debt_to_Equity": "2.2999"
+    },
+    {
+      "segment": "Home Improvement",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "66.4702",
+      "SGA_Percentage": "17.9511",
+      "Gross_Margin_Percentage": "33.5298",
+      "Operating_Profit_Margin_Percentage": "13.6927",
+      "Net_Profit_Margin_Percentage": "9.4543",
+      "Inventory_Turnover": "4.1606",
+      "Asset_Turnover": "1.9888",
+      "Return_on_Assets": "18.8029",
+      "Three_Year_Revenue_CAGR": "4.5600",
+      "Current_Ratio": "1.3106",
+      "Quick_Ratio": "0.2916",
+      "Sales_Current_Year_vs_LY": "-5.6073",
+      "Debt_to_Equity": "-11.7549"
+    },
+    {
+      "segment": "Off Price",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "69.1837",
+      "SGA_Percentage": "20.1906",
+      "Gross_Margin_Percentage": "30.8163",
+      "Operating_Profit_Margin_Percentage": "10.1988",
+      "Net_Profit_Margin_Percentage": "7.9318",
+      "Inventory_Turnover": "6.3100",
+      "Asset_Turnover": "1.6293",
+      "Return_on_Assets": "12.9230",
+      "Three_Year_Revenue_CAGR": "18.6900",
+      "Current_Ratio": "1.3434",
+      "Quick_Ratio": "0.7887",
+      "Sales_Current_Year_vs_LY": "9.0348",
+      "Debt_to_Equity": "2.9296"
+    },
+    {
+      "segment": "Online",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "53.7256",
+      "SGA_Percentage": "10.4384",
+      "Gross_Margin_Percentage": "46.2744",
+      "Operating_Profit_Margin_Percentage": "5.9464",
+      "Net_Profit_Margin_Percentage": "4.9051",
+      "Inventory_Turnover": "9.2646",
+      "Asset_Turnover": "1.1198",
+      "Return_on_Assets": "5.4927",
+      "Three_Year_Revenue_CAGR": "13.5700",
+      "Current_Ratio": "1.0448",
+      "Quick_Ratio": "0.8396",
+      "Sales_Current_Year_vs_LY": "11.3374",
+      "Debt_to_Equity": "1.6784"
+    },
+    {
+      "segment": "Specialty",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "52.2800",
+      "SGA_Percentage": "33.8727",
+      "Gross_Margin_Percentage": "47.7200",
+      "Operating_Profit_Margin_Percentage": "13.2491",
+      "Net_Profit_Margin_Percentage": "9.4606",
+      "Inventory_Turnover": "2.9077",
+      "Asset_Turnover": "1.0227",
+      "Return_on_Assets": "9.6749",
+      "Three_Year_Revenue_CAGR": "15.4800",
+      "Current_Ratio": "1.5133",
+      "Quick_Ratio": "0.8308",
+      "Sales_Current_Year_vs_LY": "1.8767",
+      "Debt_to_Equity": "1.9189"
+    },
+    {
+      "segment": "Warehouse Clubs",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "87.2849",
+      "SGA_Percentage": "9.3086",
+      "Gross_Margin_Percentage": "12.7151",
+      "Operating_Profit_Margin_Percentage": "3.3991",
+      "Net_Profit_Margin_Percentage": "2.5989",
+      "Inventory_Turnover": "12.6430",
+      "Asset_Turnover": "3.4657",
+      "Return_on_Assets": "9.0070",
+      "Three_Year_Revenue_CAGR": "13.6500",
+      "Current_Ratio": "1.0450",
+      "Quick_Ratio": "0.5428",
+      "Sales_Current_Year_vs_LY": "8.3511",
+      "Debt_to_Equity": "1.8537"
+    }
+  ],
+  "_metadata": {
+    "query_name": "segment_benchmarks_2023",
+    "description": "Get benchmark metrics for all segments in 2023",
+    "original_query": "SELECT * FROM segment_metrics WHERE year = 2023 ORDER BY segment",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20%2A%20FROM%20segment_metrics%20WHERE%20year%20%3D%202023%20ORDER%20BY%20segment",
+    "timestamp": "2025-05-31 17:58:15"
+  }
+}

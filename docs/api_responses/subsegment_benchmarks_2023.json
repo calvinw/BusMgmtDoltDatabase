@@ -1,0 +1,164 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT * FROM subsegment_metrics WHERE year = 2023 ORDER BY subsegment LIMIT 10",
+  "schema": [
+    {
+      "columnName": "subsegment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "year",
+      "columnType": "int"
+    },
+    {
+      "columnName": "Cost_of_Goods_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "SGA_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Gross_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Operating_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Net_Profit_Margin_Percentage",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Inventory_Turnover",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Asset_Turnover",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Return_on_Assets",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Three_Year_Revenue_CAGR",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Current_Ratio",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Quick_Ratio",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Sales_Current_Year_vs_LY",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Debt_to_Equity",
+      "columnType": "decimal(10,4)"
+    }
+  ],
+  "rows": [
+    {
+      "subsegment": "Accessories and Shoes",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "53.7455",
+      "SGA_Percentage": "36.8857",
+      "Gross_Margin_Percentage": "46.2545",
+      "Operating_Profit_Margin_Percentage": "8.3039",
+      "Net_Profit_Margin_Percentage": "6.7293",
+      "Inventory_Turnover": "3.0730",
+      "Asset_Turnover": "1.1095",
+      "Return_on_Assets": "7.4664",
+      "Three_Year_Revenue_CAGR": "5.5400",
+      "Current_Ratio": "2.0331",
+      "Quick_Ratio": "1.3394",
+      "Sales_Current_Year_vs_LY": "-2.5227",
+      "Debt_to_Equity": "2.1044"
+    },
+    {
+      "subsegment": "Apparel",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "54.5685",
+      "SGA_Percentage": "36.0094",
+      "Gross_Margin_Percentage": "45.4315",
+      "Operating_Profit_Margin_Percentage": "8.4004",
+      "Net_Profit_Margin_Percentage": "6.0901",
+      "Inventory_Turnover": "3.8728",
+      "Asset_Turnover": "1.3025",
+      "Return_on_Assets": "7.9325",
+      "Three_Year_Revenue_CAGR": "11.1400",
+      "Current_Ratio": "1.5324",
+      "Quick_Ratio": "0.8653",
+      "Sales_Current_Year_vs_LY": "3.8132",
+      "Debt_to_Equity": "1.7591"
+    },
+    {
+      "subsegment": "Beauty",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "59.1276",
+      "SGA_Percentage": "24.9275",
+      "Gross_Margin_Percentage": "40.8724",
+      "Operating_Profit_Margin_Percentage": "15.8992",
+      "Net_Profit_Margin_Percentage": "11.6386",
+      "Inventory_Turnover": "4.4937",
+      "Asset_Turnover": "1.6684",
+      "Return_on_Assets": "19.4181",
+      "Three_Year_Revenue_CAGR": "6.6000",
+      "Current_Ratio": "1.6801",
+      "Quick_Ratio": "0.8481",
+      "Sales_Current_Year_vs_LY": "19.8224",
+      "Debt_to_Equity": "16.1233"
+    },
+    {
+      "subsegment": "Category Killer",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "49.2272",
+      "SGA_Percentage": "32.9377",
+      "Gross_Margin_Percentage": "50.7728",
+      "Operating_Profit_Margin_Percentage": "17.5425",
+      "Net_Profit_Margin_Percentage": "12.0880",
+      "Inventory_Turnover": "2.2916",
+      "Asset_Turnover": "0.8616",
+      "Return_on_Assets": "10.4146",
+      "Three_Year_Revenue_CAGR": "33.4800",
+      "Current_Ratio": "1.3011",
+      "Quick_Ratio": "0.5861",
+      "Sales_Current_Year_vs_LY": "3.1228",
+      "Debt_to_Equity": "1.5152"
+    },
+    {
+      "subsegment": "Home",
+      "year": "2023",
+      "Cost_of_Goods_Percentage": "53.8075",
+      "SGA_Percentage": "30.6153",
+      "Gross_Margin_Percentage": "46.1925",
+      "Operating_Profit_Margin_Percentage": "15.3882",
+      "Net_Profit_Margin_Percentage": "10.2450",
+      "Inventory_Turnover": "4.0914",
+      "Asset_Turnover": "1.0541",
+      "Return_on_Assets": "10.7994",
+      "Three_Year_Revenue_CAGR": "6.8600",
+      "Current_Ratio": "1.0481",
+      "Quick_Ratio": "0.5708",
+      "Sales_Current_Year_vs_LY": "-0.9334",
+      "Debt_to_Equity": "4.3700"
+    }
+  ],
+  "_metadata": {
+    "query_name": "subsegment_benchmarks_2023",
+    "description": "Get subsegment benchmarks for 2023",
+    "original_query": "SELECT * FROM subsegment_metrics WHERE year = 2023 ORDER BY subsegment LIMIT 10",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20%2A%20FROM%20subsegment_metrics%20WHERE%20year%20%3D%202023%20ORDER%20BY%20subsegment%20LIMIT%2010",
+    "timestamp": "2025-05-31 17:58:20"
+  }
+}

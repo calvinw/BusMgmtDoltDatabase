@@ -1,0 +1,53 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT DISTINCT segment FROM new_company_info WHERE segment IS NOT NULL ORDER BY segment",
+  "schema": [
+    {
+      "columnName": "segment",
+      "columnType": "varchar(255)"
+    }
+  ],
+  "rows": [
+    {
+      "segment": "Department Store"
+    },
+    {
+      "segment": "Discount Store"
+    },
+    {
+      "segment": "Fast Fashion"
+    },
+    {
+      "segment": "Grocery"
+    },
+    {
+      "segment": "Health & Pharmacy"
+    },
+    {
+      "segment": "Home Improvement"
+    },
+    {
+      "segment": "Off Price"
+    },
+    {
+      "segment": "Online"
+    },
+    {
+      "segment": "Specialty"
+    },
+    {
+      "segment": "Warehouse Clubs"
+    }
+  ],
+  "_metadata": {
+    "query_name": "available_segments",
+    "description": "Get all available segments",
+    "original_query": "SELECT DISTINCT segment FROM new_company_info WHERE segment IS NOT NULL ORDER BY segment",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20DISTINCT%20segment%20FROM%20new_company_info%20WHERE%20segment%20IS%20NOT%20NULL%20ORDER%20BY%20segment",
+    "timestamp": "2025-05-31 17:58:36"
+  }
+}

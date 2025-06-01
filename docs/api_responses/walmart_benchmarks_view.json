@@ -1,0 +1,150 @@
+{
+  "query_execution_status": "Success",
+  "query_execution_message": "",
+  "repository_owner": "calvinw",
+  "repository_name": "BusMgmtBenchmarks",
+  "commit_ref": "main",
+  "sql_query": "SELECT * FROM `benchmarks 2023 view` WHERE company = 'Walmart Inc.'",
+  "schema": [
+    {
+      "columnName": "company",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "year",
+      "columnType": "int"
+    },
+    {
+      "columnName": "reportDate",
+      "columnType": "date"
+    },
+    {
+      "columnName": "segment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "subsegment",
+      "columnType": "varchar(255)"
+    },
+    {
+      "columnName": "Net Revenue",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Net Revenue 2022",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Net Revenue 2021",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Net Revenue 2020",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Cost of Goods",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Gross Margin",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "SGA",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Operating Profit",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Net Profit",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Inventory",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Current Assets",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Total Assets",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Current Liabilities",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Total Shareholder Equity",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Total Liabilities and Shareholder Equity",
+      "columnType": "bigint"
+    },
+    {
+      "columnName": "Cost of Goods %",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "SGA %",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Gross Margin %",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Operating Profit Margin %",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Net Profit Margin %",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Inventory Turnover",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Asset Turnover",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Return on Assets",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Three Year Revenue CAGR",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Sales vs LY",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Current Ratio",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Quick Ratio",
+      "columnType": "decimal(10,4)"
+    },
+    {
+      "columnName": "Debt to Equity",
+      "columnType": "decimal(10,4)"
+    }
+  ],
+  "rows": [],
+  "_metadata": {
+    "query_name": "walmart_benchmarks_view",
+    "description": "Get comprehensive Walmart data using benchmarks view",
+    "original_query": "SELECT * FROM `benchmarks 2023 view` WHERE company = 'Walmart Inc.'",
+    "api_url": "https://www.dolthub.com/api/v1alpha1/calvinw/BusMgmtBenchmarks?q=SELECT%20%2A%20FROM%20%60benchmarks%202023%20view%60%20WHERE%20company%20%3D%20%27Walmart%20Inc.%27",
+    "timestamp": "2025-05-31 17:58:23"
+  }
+}
