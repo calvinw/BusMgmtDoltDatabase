@@ -4,6 +4,217 @@ This document provides comprehensive examples of using the DoltHub REST API to a
 
 **⚠️ Important Note**: The API response examples shown in this documentation are for illustrative purposes to demonstrate the JSON structure and data format. The specific companies, financial figures, years, and other data values may have changed since this documentation was created. Always query the live API to get current and accurate data rather than relying on the example values shown here.
 
+## Database Schema
+
+The BusMgmtBenchmarks database contains the following tables with their actual schema definitions retrieved from the live database.
+
+### Complete Table List
+
+The database contains **32 tables and views**:
+
+**Core Tables:**
+- `financials` - Raw financial data
+- `new_company_info` - Company master data
+- `new_financial_metrics` - Calculated financial ratios
+- `segment_metrics` - Segment-level benchmarks  
+- `subsegment_metrics` - Subsegment-level benchmarks
+
+**Annual Benchmark Views:**
+- `benchmarks YYYY view` (2018-2024) - Company + metrics by year
+- `segment benchmarks YYYY` (2018-2024) - Segment benchmarks by year
+- `subsegment benchmarks YYYY` (2018-2024) - Subsegment benchmarks by year
+- `segment and company benchmarks YYYY` (2018-2024) - Combined views
+
+### Core Table Schemas
+
+#### 1. `new_company_info` (Primary Key: `company`)
+**Description:** Master table containing company information and segment classifications.
+
+| Field | Type | Null | Key | Description |
+|-------|------|------|-----|-------------|
+| `company` | VARCHAR(255) | NO | PRI | Company name (Primary Key) |
+| `CIK` | INT | YES | | Central Index Key identifier |
+| `display_name` | VARCHAR(255) | NO | | Display name for the company |
+| `ticker_symbol` | VARCHAR(10) | NO | | Stock ticker symbol |
+| `segment` | VARCHAR(255) | YES | | Industry segment classification |
+| `subsegment` | VARCHAR(255) | YES | | Industry subsegment classification |
+| `currency` | VARCHAR(10) | YES | | Reporting currency (USD, EUR, etc.) |
+| `units` | VARCHAR(50) | YES | | Reporting units (thousands, millions, etc.) |
+
+#### 2. `financials` (Primary Key: `company_name`, `year`)
+**Description:** Raw financial data for companies across multiple years.
+
+| Field | Type | Null | Key | Description |
+|-------|------|------|-----|-------------|
+| `company_name` | VARCHAR(255) | NO | PRI | Company name |
+| `year` | INT | NO | PRI | Reporting year |
+| `reportDate` | DATE | NO | | Report date |
+| `Net Revenue` | BIGINT | YES | | Total revenue |
+| `Cost of Goods` | BIGINT | YES | | Cost of goods sold |
+| `Gross Margin` | BIGINT | YES | | Gross profit margin (calculated field) |
+| `SGA` | BIGINT | YES | | Selling, General & Administrative expenses |
+| `Operating Profit` | BIGINT | YES | | Operating profit |
+| `Net Profit` | BIGINT | YES | | Net profit |
+| `Inventory` | BIGINT | YES | | Inventory value |
+| `Current Assets` | BIGINT | YES | | Current assets |
+| `Total Assets` | BIGINT | YES | | Total assets |
+| `Current Liabilities` | BIGINT | YES | | Current liabilities |
+| `Liabilities` | BIGINT | YES | | Total liabilities |
+| `Total Shareholder Equity` | BIGINT | YES | | Total shareholders' equity |
+| `Total Liabilities and Shareholder Equity` | BIGINT | YES | | Balance sheet total |
+
+#### 3. `new_financial_metrics` (Primary Key: `company_name`, `year`)
+**Description:** Calculated financial ratios and metrics derived from the raw financial data.
+
+| Field | Type | Null | Key | Description |
+|-------|------|------|-----|-------------|
+| `company_name` | VARCHAR(255) | NO | PRI | Company name |
+| `year` | INT | NO | PRI | Reporting year |
+| `Cost_of_Goods_Percentage` | DECIMAL(10,4) | YES | | Cost of goods as % of revenue |
+| `SGA_Percentage` | DECIMAL(10,4) | YES | | SGA as % of revenue |
+| `Gross_Margin_Percentage` | DECIMAL(10,4) | YES | | Gross margin as percentage |
+| `Operating_Profit_Margin_Percentage` | DECIMAL(10,4) | YES | | Operating margin as percentage |
+| `Net_Profit_Margin_Percentage` | DECIMAL(10,4) | YES | | Net margin as percentage |
+| `Inventory_Turnover` | DECIMAL(10,4) | YES | | Inventory turnover ratio |
+| `Asset_Turnover` | DECIMAL(10,4) | YES | | Asset turnover ratio |
+| `Return_on_Assets` | DECIMAL(10,4) | YES | | ROA ratio |
+| `Three_Year_Revenue_CAGR` | DECIMAL(10,4) | YES | | 3-year revenue compound annual growth rate |
+| `Current_Ratio` | DECIMAL(10,4) | YES | | Current ratio |
+| `Quick_Ratio` | DECIMAL(10,4) | YES | | Quick ratio |
+| `Sales_Current_Year_vs_LY` | DECIMAL(10,4) | YES | | Sales growth vs last year |
+| `Debt_to_Equity` | DECIMAL(10,4) | YES | | Debt-to-equity ratio |
+
+#### 4. `segment_metrics`
+**Description:** Aggregate benchmark metrics calculated at the segment level.
+
+**Schema Note:** *Schema details available via API query - contains aggregated versions of the financial metrics above, grouped by segment and year.*
+
+#### 5. `subsegment_metrics`
+**Description:** Aggregate benchmark metrics calculated at the subsegment level.
+
+**Schema Note:** *Schema details available via API query - contains aggregated versions of the financial metrics above, grouped by subsegment and year.*
+
+### Annual Benchmark Views
+
+The database includes extensive pre-built views for different analysis needs:
+
+#### 6. Company Benchmark Views (by Year)
+**Format:** `benchmarks {YEAR} view`
+**Available Years:** 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+These views combine data from `new_company_info`, `financials`, and `new_financial_metrics` to provide a complete picture of company performance with both raw financial data and calculated ratios.
+
+#### 7. Segment Benchmark Views (by Year)  
+**Format:** `segment benchmarks {YEAR}`
+**Available Years:** 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+These views provide segment-level aggregate benchmarks for comparing company performance against industry peers.
+
+#### 8. Subsegment Benchmark Views (by Year)
+**Format:** `subsegment benchmarks {YEAR}`  
+**Available Years:** 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+These views provide subsegment-level aggregate benchmarks for more granular industry comparisons.
+
+#### 9. Combined Segment and Company Views (by Year)
+**Format:** `segment and company benchmarks {YEAR}`
+**Available Years:** 2018, 2019, 2020, 2021, 2022, 2023, 2024
+
+These views combine both individual company metrics and their corresponding segment benchmarks for direct comparison analysis.
+
+**Common View Structure:**
+```sql
+SHOW CREATE VIEW `benchmarks 2023 view`;
+DESCRIBE `segment benchmarks 2023`;
+```
+
+**Typical Columns in Benchmark Views:**
+- Company identifiers (`company`, `display_name`, `ticker_symbol`, `segment`, `subsegment`)
+- Raw financial data (`Net Revenue`, `Operating Profit`, `Net Profit`, `Total Assets`, etc.)
+- Calculated percentages (`Gross_Margin_Percentage`, `Operating_Profit_Margin_Percentage`, etc.)
+- Financial ratios (`Return_on_Assets`, `Asset_Turnover`, `Current_Ratio`, `Debt_to_Equity`, etc.)
+- Growth metrics (`Three_Year_Revenue_CAGR`, `Sales_Current_Year_vs_LY`)
+
+### Schema Exploration Queries
+
+To explore the database schema programmatically, use these queries:
+
+**Get all table names:**
+```sql
+SHOW TABLES;
+```
+
+**Get column information for a specific table:**
+```sql
+DESCRIBE table_name;
+-- or
+SHOW COLUMNS FROM table_name;
+```
+
+**Get detailed table creation syntax:**
+```sql
+SHOW CREATE TABLE table_name;
+```
+
+**Get view definitions:**
+```sql
+SHOW CREATE VIEW view_name;
+```
+
+**Get information about all columns across all tables:**
+```sql
+SELECT TABLE_NAME, COLUMN_NAME, DATA_TYPE, IS_NULLABLE, COLUMN_DEFAULT
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_SCHEMA = 'BusMgmtBenchmarks'
+ORDER BY TABLE_NAME, ORDINAL_POSITION;
+```
+
+### Data Relationships
+
+The tables are related as follows:
+
+1. **`new_company_info`** serves as the master company directory with primary key `company`
+2. **`financials`** contains raw financial data linked by `company_name` to `new_company_info.company` and partitioned by `year` (composite PK: `company_name, year`)
+3. **`new_financial_metrics`** contains calculated ratios derived from `financials`, linked by `company_name` and `year` (composite PK: `company_name, year`)
+4. **`segment_metrics`** aggregates data from `new_financial_metrics` grouped by `segment` and `year`
+5. **`subsegment_metrics`** aggregates data from `new_financial_metrics` grouped by `subsegment` and `year`
+6. **Annual benchmark views** (`benchmarks YYYY view`) join:
+   - Company info (`new_company_info`) 
+   - Raw financials (`financials`)
+   - Calculated metrics (`new_financial_metrics`)
+7. **Segment benchmark views** (`segment benchmarks YYYY`) provide aggregated segment performance data
+8. **Subsegment benchmark views** (`subsegment benchmarks YYYY`) provide aggregated subsegment performance data
+9. **Combined views** (`segment and company benchmarks YYYY`) merge individual company data with segment benchmarks
+
+**Key Relationships:**
+- `new_company_info.company` ↔ `financials.company_name`
+- `new_company_info.company` ↔ `new_financial_metrics.company_name`
+- `new_company_info.segment` ↔ `segment_metrics.segment`
+- `new_company_info.subsegment` ↔ `subsegment_metrics.subsegment`
+
+### Primary Keys and Indexes
+
+**Primary Key Structure:**
+
+| Table | Primary Key | Notes |
+|-------|-------------|-------|
+| `new_company_info` | `company` | Single column PK |
+| `financials` | `company_name, year` | Composite PK |
+| `new_financial_metrics` | `company_name, year` | Composite PK |
+| `segment_metrics` | Likely `segment, year` | *To be confirmed via API* |
+| `subsegment_metrics` | Likely `subsegment, year` | *To be confirmed via API* |
+
+**Foreign Key Relationships:**
+- `financials.company_name` references `new_company_info.company`
+- `new_financial_metrics.company_name` references `new_company_info.company`
+
+**Index Information:**
+To get complete index and constraint information, use:
+```sql
+SHOW KEYS FROM table_name;
+SHOW CREATE TABLE table_name;
+```
+
 ## Base URL Structure
 
 All API calls follow this pattern:
