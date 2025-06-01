@@ -1,6 +1,6 @@
-# Vibe Coding BusMgmtBenchmarks with Google Gemini 2.5 Flash and Pro**
+# Vibe Coding BusMgmtBenchmarks with Google Gemini 2.5 Flash and Pro
 
-## Setting Up With Gemini Canvas Editor**
+## Setting Up With Gemini Canvas Editor
 
 Make sure you are signed up for the [Gemini Pro Plan for Students](https://gemini.google/students/?hl=en) so you can use Gemini 2.5 Pro until Spring 26\. 
 
