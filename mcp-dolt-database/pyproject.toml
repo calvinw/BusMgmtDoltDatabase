@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
                 "fastmcp", 
+                "fastapi", 
                 "requests",
                 "argparse"
                ]
@@ -13,4 +14,6 @@ dependencies = [
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
-py-modules = ["server"]
+
+[tool.setuptools]
+py-modules = ["server", "sse_server"]

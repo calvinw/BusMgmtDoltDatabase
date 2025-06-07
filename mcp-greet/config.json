@@ -7,11 +7,7 @@
           "server.py"
         ],
         "transportType": "stdio",
-        "disabled": false,
-        "alwaysAllow": [
-          "greet",
-          "greet_in_german"
-        ]
+        "disabled": false
       }
     }
 }
