@@ -5,7 +5,7 @@ Also if you want to load some of the MCPS (STDIO mode) as tools in the local cha
 
 First run this:
 ```bash
-./run_chainlit_app.sh
+./run_chainlit.sh
 ```
 
 Hit the MCP plug and add in these servers as Type STDIO:
