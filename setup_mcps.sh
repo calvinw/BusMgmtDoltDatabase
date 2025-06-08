@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Array of your MCP directory names
-mcp_dirs=("mcp-greet" "mcp-dolt-database" "mcp-sec-10ks")
+mcp_dirs=("mcp-greet" "mcp-dolt-database" "mcp-sec-10ks", "mcp-yfinance-10ks")
 
 for dir in "${mcp_dirs[@]}"; do
     if [ -d "$dir" ]; then

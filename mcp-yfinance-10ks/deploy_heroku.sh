@@ -1,13 +1,28 @@
 #!/bin/bash
+# Deploy to Heroku using Container Registry
+# Usage: ./deploy_heroku.sh [app-name]
+# If no app-name provided, will use current directory name
+# Example: ./deploy_heroku.sh mcp-dolt-database
+#
 
-# Deploy mcp-yfinance-10ks to Heroku using Container Registry
-# Usage: ./deploy_heroku.sh
+# If app name not provided, use current directory name
+if [ -z "$1" ]; then
+    APP_NAME=$(basename "$PWD")
+    echo "🔍 No app name provided, using directory name: $APP_NAME"
+else
+    APP_NAME="$1"
+fi
+
+echo "🚀 Removing .venv, *.egg-info"
+rm -rf .venv 
+rm -rf *.egg-info
 
 set -e
 
-APP_NAME="mcp-yfinance-10ks"
+echo "🚀 Stack set container for $APP_NAME"
+heroku stack:set container -a "$APP_NAME" 
 
-echo "🚀 Deploying mcp-yfinance-10ks to Heroku..."
+echo "🚀 Deploying $APP_NAME to Heroku..."
 echo "App name: $APP_NAME"
 
 # Check if Dockerfile exists
@@ -28,12 +43,33 @@ heroku container:push web -a "$APP_NAME"
 echo "🚢 Releasing the container..."
 heroku container:release web -a "$APP_NAME"
 
-echo "✅ mcp-yfinance-10ks successfully!"
-echo "🌐 App URL: https://$APP_NAME.herokuapp.com"
+echo "✅ $APP_NAME deployed successfully!"
+
+# Get the actual app URL from Heroku
+APP_URL=$(heroku info -a "$APP_NAME" | grep "Web URL:" | awk '{print $3}')
+if [ -n "$APP_URL" ]; then
+    echo "🌐 App URL: $APP_URL"
+else
+    echo "🌐 Could not retrieve URL from Heroku"
+fi
 
 # Optional: Open in browser
 read -p "Open app in browser? (y/N): " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    heroku open -a "$APP_NAME"
+    if [ -n "$APP_URL" ]; then
+        # Remove trailing slash if present, then add /sse
+        SSE_URL="${APP_URL%/}/sse"
+        echo "🌐 Opening: $SSE_URL"
+        # Open the app with /sse endpoint
+        if command -v xdg-open > /dev/null; then
+            xdg-open "$SSE_URL"
+        elif command -v open > /dev/null; then
+            open "$SSE_URL"
+        else
+            echo "Please open manually: $SSE_URL"
+        fi
+    else
+        echo "❌ Cannot open browser - no URL available"
+    fi
 fi
