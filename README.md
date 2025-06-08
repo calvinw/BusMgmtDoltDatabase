@@ -1,4 +1,4 @@
-
+ls
 If you are just cloning the repo for the first time, since it has git submodules
 
 ```bash
@@ -15,7 +15,7 @@ git submodule update --init --recursive
 
 This will load in the chainlit-mcp-client
 
-Also if you want to load some of the MCPS as tools in the local chainlit app running in the chainlit-mcp-client directory:
+Also if you want to load some of the MCPS (STDIO mode) as tools in the local chainlit app running in the chainlit-mcp-client directory:
 
 ## MCP greet server
 ```bash
