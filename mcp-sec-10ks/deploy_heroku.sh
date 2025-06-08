@@ -7,7 +7,7 @@ set -e
 
 APP_NAME="mcp-sec-10ks"
 
-echo "🚀 Deploying mcp-dolt-database to Heroku..."
+echo "🚀 Deploying mcp-sec-10ks to Heroku..."
 echo "App name: $APP_NAME"
 
 # Check if Dockerfile exists
