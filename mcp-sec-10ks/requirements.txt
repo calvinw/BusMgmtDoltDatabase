@@ -1,0 +1,6 @@
+fastapi
+fastmcp
+edgartools
+pandas
+requests
+httpx
