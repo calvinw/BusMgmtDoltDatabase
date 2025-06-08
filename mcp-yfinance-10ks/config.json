@@ -1,0 +1,15 @@
+{
+    "mcpServers": {
+      "mcp-sec-10ks": {
+        "timeout": 60,
+        "command": ".venv/bin/python",
+        "args": [
+          "server.py"
+        ],
+        "transportType": "stdio",
+        "disabled": false,
+        "alwaysAllow": [
+        ]
+      }
+    }
+}

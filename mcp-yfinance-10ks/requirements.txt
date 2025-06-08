@@ -1,0 +1,7 @@
+fastapi
+fastmcp
+yfinance
+pandas
+requests
+httpx
+tabulate

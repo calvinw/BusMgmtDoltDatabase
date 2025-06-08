@@ -1,0 +1,20 @@
+[project]
+name = "mcp-sec-10ks"
+version = "0.1.0"
+description = "MCP Server for SEC 10-K Financial Data Extraction"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastmcp",
+    "fastapi",
+    "yfinance",
+    "pandas",
+    "tabulate",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["server","sse_server"]

@@ -111,7 +111,7 @@ async def _get_filing_data(company_name: str, year: int, cik: str):
     return full_filing, selected_filing
 
 @mcp.tool()
-async def process_financial_data(
+async def process_financial_data_from_sec(
     company_name: str, 
     year: int, 
     cik: str
@@ -187,7 +187,7 @@ company_name, year, reportDate, Net Revenue, Cost of Goods, Gross Margin, SGA, O
         return f"Error processing financial data: {str(e)}"
 
 @mcp.tool()
-async def get_income_statement(
+async def get_income_statement_from_sec(
     company_name: str, 
     year: int, 
     cik: str
@@ -220,7 +220,7 @@ async def get_income_statement(
         return f"Error processing income statement: {str(e)}"
 
 @mcp.tool()
-async def get_balance_sheet(
+async def get_balance_sheet_from_sec(
     company_name: str, 
     year: int, 
     cik: str
