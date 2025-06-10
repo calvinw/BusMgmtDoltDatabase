@@ -1,6 +1,7 @@
 
 chainlit-mcp-client/.chainlit/translations/nl.json
 */.dolt*
+.roo
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
