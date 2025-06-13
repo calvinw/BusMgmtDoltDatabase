@@ -13,10 +13,6 @@ else
     APP_NAME="$1"
 fi
 
-echo "🚀 Removing .venv, *.egg-info"
-rm -rf .venv 
-rm -rf *.egg-info
-
 set -e
 
 echo "🚀 Stack set container for $APP_NAME"
@@ -53,23 +49,5 @@ else
     echo "🌐 Could not retrieve URL from Heroku"
 fi
 
-# Optional: Open in browser
-read -p "Open app in browser? (y/N): " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    if [ -n "$APP_URL" ]; then
-        # Remove trailing slash if present, then add /sse
-        SSE_URL="${APP_URL%/}/sse"
-        echo "🌐 Opening: $SSE_URL"
-        # Open the app with /sse endpoint
-        if command -v xdg-open > /dev/null; then
-            xdg-open "$SSE_URL"
-        elif command -v open > /dev/null; then
-            open "$SSE_URL"
-        else
-            echo "Please open manually: $SSE_URL"
-        fi
-    else
-        echo "❌ Cannot open browser - no URL available"
-    fi
-fi
+SSE_URL="${APP_URL%/}/sse"
+echo "🌐 Please test: $SSE_URL"

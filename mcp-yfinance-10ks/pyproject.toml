@@ -1,10 +1,11 @@
 [project]
-name = "mcp-sec-10ks"
+name = "mcp-yfinance-10ks"
 version = "0.1.0"
-description = "MCP Server for SEC 10-K Financial Data Extraction"
+description = "MCP Server for Yahoo Finance 10-K Financial Data Extraction"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "chainlit-mcp-client @ git+https://github.com/calvinw/chainlit-mcp-client",
     "fastmcp",
     "fastapi",
     "yfinance",

@@ -1,0 +1,37 @@
+[project]
+enable_telemetry = true
+user_env = [ "OPENROUTER_API_KEY",]
+session_timeout = 3600
+user_session_timeout = 1296000
+cache = false
+allow_origins = [ "*",]
+transports = ["websocket"]
+
+[features]
+unsafe_allow_html = false
+latex = true 
+auto_tag_thread = true
+edit_message = true
+
+[UI]
+name = "Chainlit MCP Client"
+description = "A chatbot for accessing using MCPS"
+
+[meta]
+generated_by = "2.4.0"
+
+[features.spontaneous_file_upload]
+enabled = true
+accept = [ "*/*",]
+max_files = 20
+max_size_mb = 500
+
+[features.audio]
+sample_rate = 24000
+
+[UI.features]
+prompt_playground = true
+settings_button = true
+chat_history = true
+human_avatar = false
+ai_avatar = true

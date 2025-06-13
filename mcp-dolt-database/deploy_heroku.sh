@@ -13,10 +13,6 @@ else
     APP_NAME="$1"
 fi
 
-echo "🚀 Removing .venv, *.egg-info"
-rm -rf .venv 
-rm -rf *.egg-info
-
 set -e
 
 echo "🚀 Stack set container for $APP_NAME"
