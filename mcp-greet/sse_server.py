@@ -1,6 +1,7 @@
 import os
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from server import mcp
 
@@ -16,6 +17,17 @@ async def oauth_metadata(request: Request):
 
 # Create a FastAPI app and mount the MCP server
 app = FastAPI(lifespan=http_app.lifespan)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Access-Control-Allow-Origin
+    allow_methods=["GET", "POST", "OPTIONS"],  # Access-Control-Allow-Methods
+    allow_headers=["Content-Type", "Authorization", "x-api-key"],  # Access-Control-Allow-Headers
+    expose_headers=["Content-Type", "Authorization", "x-api-key"],  # Access-Control-Expose-Headers
+    max_age=86400  # Access-Control-Max-Age (in seconds)
+)
+
 
 # Add the OAuth metadata route before mounting
 app.add_api_route("/.well-known/oauth-authorization-server", oauth_metadata, methods=["GET"])
