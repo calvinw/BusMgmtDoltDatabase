@@ -301,7 +301,7 @@ wheels = [
 [[package]]
 name = "chainlit-mcp-client"
 version = "0.1.0"
-source = { git = "https://github.com/calvinw/chainlit-mcp-client#4caad99e2ad51c2721844e0b4f63075364e6cc35" }
+source = { git = "https://github.com/calvinw/chainlit-mcp-client#df5ad5f61465e3856c59e756ba0a4f46b99c62e5" }
 dependencies = [
     { name = "chainlit" },
     { name = "mcp" },
