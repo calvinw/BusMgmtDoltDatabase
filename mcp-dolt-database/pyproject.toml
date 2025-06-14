@@ -3,7 +3,7 @@ name = "mcp-dolt-database"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 dependencies = [
                 "chainlit-mcp-client @ git+https://github.com/calvinw/chainlit-mcp-client",
                 "fastmcp", 

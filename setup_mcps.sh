@@ -7,10 +7,7 @@ for dir in "${mcp_dirs[@]}"; do
     if [ -d "$dir" ]; then
         echo "Setting up $dir..."
         cd "$dir"
-        uv venv
-        source .venv/bin/activate
         uv sync
-        deactivate
         cd ..
         echo "Completed $dir"
         echo "---"

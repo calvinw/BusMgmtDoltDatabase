@@ -1,9 +1,9 @@
 [project]
 name = "mcp-greet"
 version = "0.1.0"
-description = "Add your description here"
+description = "This is a simple greet MCP"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 dependencies = [
     "chainlit-mcp-client @ git+https://github.com/calvinw/chainlit-mcp-client",
     "uvicorn",
