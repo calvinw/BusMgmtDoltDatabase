@@ -1,13 +1,17 @@
 {
     "mcpServers": {
       "mcp-greet": {
+        "disabled": true,
         "timeout": 60,
-        "command": ".venv/bin/python",
+        "type": "stdio",
+        "command": "uv",
         "args": [
+          "--directory",
+          "/home/user/BusMgmtDoltDatabase/mcp-greet",
+          "run",
+          "python",
           "server.py"
-        ],
-        "transportType": "stdio",
-        "disabled": false
+        ]
       }
     }
 }

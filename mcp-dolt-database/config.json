@@ -1,15 +1,17 @@
 {
     "mcpServers": {
       "mcp-dolt-database": {
+        "disabled": true,
         "timeout": 60,
-        "command": ".venv/bin/python",
+        "type": "stdio",
+        "command": "uv",
         "args": [
-          "server.py",
-          "--db", 
-          "calvinw/BusMgmtBenchmarks/company-info-update"
-        ],
-        "transportType": "stdio",
-        "disabled": false
+          "--directory",
+          "/home/user/BusMgmtDoltDatabase/mcp-dolt-database",
+          "run",
+          "python",
+          "server.py"
+        ]
       }
     }
 }
