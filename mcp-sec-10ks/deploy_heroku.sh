@@ -49,5 +49,8 @@ else
     echo "🌐 Could not retrieve URL from Heroku"
 fi
 
-SSE_URL="${APP_URL%/}/sse"
-echo "🌐 Please test: $SSE_URL"
+if [ -n "$APP_URL" ]; then
+    # Remove trailing slash if present, then add /sse
+    SSE_URL="${APP_URL%/}/sse"
+    echo "Please open manually: $SSE_URL"
+fi
