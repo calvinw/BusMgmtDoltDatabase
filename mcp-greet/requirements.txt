@@ -1,4 +1,0 @@
-fastmcp
-fastapi
-requests
-argparse
