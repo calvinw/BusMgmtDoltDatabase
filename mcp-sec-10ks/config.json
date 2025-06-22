@@ -1,14 +1,16 @@
 {
     "mcpServers": {
       "mcp-sec-10ks": {
+        "disabled": true,
         "timeout": 60,
-        "command": ".venv/bin/python",
+        "type": "stdio",
+        "command": "uv",
         "args": [
+          "--directory",
+          "/home/user/BusMgmtDoltDatabase/mcp-sec-10ks",
+          "run",
+          "python",
           "server.py"
-        ],
-        "transportType": "stdio",
-        "disabled": false,
-        "alwaysAllow": [
         ]
       }
     }
