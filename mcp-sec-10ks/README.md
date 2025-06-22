@@ -33,4 +33,4 @@ This project is an example of an MCP server.
 
     Type: SSE
     Name: mcp-sec-10ks
-    ServerURL: https://mcp-sec-10ks-0f5ce95846d9.herokuapp.com/sse
+    ServerURL: https://mcp-sec-10ks-121045565852.us-central1.run.app/sse  

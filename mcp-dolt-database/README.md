@@ -33,4 +33,4 @@ This project is an example of an MCP server.
 
     Type: SSE
     Name: mcp-dolt-database
-    ServerURL: https://mcp-dolt-database-3b846e43fd3d.herokuapp.com/sse
+    ServerURL: https://mcp-dolt-database-121045565852.us-central1.run.app/sse

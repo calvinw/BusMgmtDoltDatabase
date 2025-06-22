@@ -4,3 +4,4 @@ edgartools
 pandas
 requests
 httpx
+packaging

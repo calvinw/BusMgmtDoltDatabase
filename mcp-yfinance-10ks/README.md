@@ -33,4 +33,4 @@ This project is an example of an MCP server.
 
     Type: SSE
     Name: mcp-yfinance-10ks
-    ServerURL: https://mcp-yfinance-10ks-89c87b6d03d1.herokuapp.com/sse
+    ServerURL: https://mcp-yfinance-10ks-121045565852.us-central1.run.app/sse
