@@ -36,10 +36,10 @@ yfinance_module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(yfinance_module)
 yfinance_mcp = yfinance_module.mcp
 
-# Create HTTP apps for each MCP server (using modern http_app method)
-dolt_http_app = dolt_mcp.http_app()
-sec_http_app = sec_mcp.http_app()  
-yfinance_http_app = yfinance_mcp.http_app()
+# Create SSE apps for each MCP server (matching individual sse_server.py files)
+dolt_http_app = dolt_mcp.http_app(transport="sse", path='/sse')
+sec_http_app = sec_mcp.http_app(transport="sse", path='/sse')  
+yfinance_http_app = yfinance_mcp.http_app(transport="sse", path='/sse')
 
 # Minimal OAuth endpoint (just enough for Claude.ai)
 async def oauth_metadata(request: Request):
