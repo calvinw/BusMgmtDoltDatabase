@@ -1,0 +1,11 @@
+fastapi
+fastmcp==2.8.0
+uvicorn
+requests
+argparse
+edgartools
+pandas
+httpx
+packaging
+yfinance
+tabulate
