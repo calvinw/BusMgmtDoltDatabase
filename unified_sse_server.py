@@ -65,8 +65,10 @@ app.add_middleware(
     max_age=86400  # Access-Control-Max-Age (in seconds)
 )
 
-# Add the OAuth metadata route
-app.add_api_route("/.well-known/oauth-authorization-server", oauth_metadata, methods=["GET"])
+# Add OAuth metadata routes for each MCP server
+app.add_api_route("/mcp-dolt-database/.well-known/oauth-authorization-server", oauth_metadata, methods=["GET"])
+app.add_api_route("/mcp-sec-10ks/.well-known/oauth-authorization-server", oauth_metadata, methods=["GET"])
+app.add_api_route("/mcp-yfinance-10ks/.well-known/oauth-authorization-server", oauth_metadata, methods=["GET"])
 
 # Health check endpoint
 @app.get("/")
