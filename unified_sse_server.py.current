@@ -33,9 +33,9 @@ yfinance_module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(yfinance_module)
 yfinance_mcp = yfinance_module.mcp
 
-# Create SSE apps for each MCP server
+# Create SSE apps for each MCP server (matching working pattern)
 dolt_http_app = dolt_mcp.http_app(transport="sse", path='/sse')
-sec_http_app = sec_mcp.http_app(transport="sse", path='/sse')
+sec_http_app = sec_mcp.http_app(transport="sse", path='/sse')  
 yfinance_http_app = yfinance_mcp.http_app(transport="sse", path='/sse')
 
 # Minimal OAuth endpoint (just enough for Claude.ai)
@@ -52,7 +52,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Add CORS middleware
+# Add CORS middleware (match working server exactly)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -71,9 +71,9 @@ async def root():
     return {
         "message": "Bus Management MCP Servers",
         "endpoints": [
-            "http://localhost:8080/mcp-dolt-database/sse",
-            "http://localhost:8080/mcp-sec-10ks/sse", 
-            "http://localhost:8080/mcp-yfinance-10ks/sse"
+            "https://bus-mgmt-servers.mcp.mathplosion.com/mcp-dolt-database/sse",
+            "https://bus-mgmt-servers.mcp.mathplosion.com/mcp-sec-10ks/sse", 
+            "https://bus-mgmt-servers.mcp.mathplosion.com/mcp-yfinance-10ks/sse"
         ]
     }
 
