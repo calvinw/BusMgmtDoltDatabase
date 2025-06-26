@@ -5,7 +5,6 @@ description = "MCP Server for SEC 10-K Financial Data Extraction"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "chainlit-mcp-client @ git+https://github.com/calvinw/chainlit-mcp-client",
     "fastmcp",
     "fastapi",
     "edgartools",
