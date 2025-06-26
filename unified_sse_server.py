@@ -43,6 +43,17 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# Add CORS middleware to main app
+from fastapi.middleware.cors import CORSMiddleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Access-Control-Allow-Origin
+    allow_methods=["GET", "POST", "OPTIONS"],  # Access-Control-Allow-Methods
+    allow_headers=["Content-Type", "Authorization", "x-api-key"],  # Access-Control-Allow-Headers
+    expose_headers=["Content-Type", "Authorization", "x-api-key"],  # Access-Control-Expose-Headers
+    max_age=86400  # Access-Control-Max-Age (in seconds)
+)
+
 # Add the OAuth metadata route at root level for Claude.ai compatibility
 from fastapi.responses import JSONResponse
 from fastapi import Request
