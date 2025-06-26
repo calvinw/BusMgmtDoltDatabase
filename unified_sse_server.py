@@ -64,9 +64,7 @@ async def oauth_metadata_handler(request: Request):
         "issuer": base_url
     })
 
-app.add_api_route("/mcp-dolt-database/.well-known/oauth-authorization-server", oauth_metadata_handler, methods=["GET"])
-app.add_api_route("/mcp-sec-10ks/.well-known/oauth-authorization-server", oauth_metadata_handler, methods=["GET"])
-app.add_api_route("/mcp-yfinance-10ks/.well-known/oauth-authorization-server", oauth_metadata_handler, methods=["GET"])
+app.add_api_route("/.well-known/oauth-authorization-server", oauth_metadata_handler, methods=["GET"])
 
 # Health check endpoint
 @app.get("/")
