@@ -71,9 +71,9 @@ async def root():
     return {
         "message": "Bus Management MCP Servers",
         "endpoints": [
-            "http://localhost:8080/mcp-dolt-database/sse",
-            "http://localhost:8080/mcp-sec-10ks/sse", 
-            "http://localhost:8080/mcp-yfinance-10ks/sse"
+            "https://bus-mgmt-databases.mcp.mathplosion.com/mcp-dolt-database/sse",
+            "https://bus-mgmt-databases.mcp.mathplosion.com/mcp-sec-10ks/sse", 
+            "https://bus-mgmt-databases.mcp.mathplosion.com/mcp-yfinance-10ks/sse"
         ]
     }
 
