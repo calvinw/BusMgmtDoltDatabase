@@ -1,40 +1,49 @@
 import os
 import sys
 from pathlib import Path
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import importlib.util
 
-# Import the complete FastAPI apps from each subdirectory
-def import_sse_app(subdirectory_name):
-    """Import the FastAPI app from a subdirectory's sse_server.py"""
-    # Add the subdirectory to Python path temporarily
-    subdirectory_path = str(Path(__file__).parent / subdirectory_name)
-    if subdirectory_path not in sys.path:
-        sys.path.insert(0, subdirectory_path)
-    
-    try:
-        sse_path = Path(__file__).parent / subdirectory_name / "sse_server.py"
-        spec = importlib.util.spec_from_file_location(f"{subdirectory_name}_sse", sse_path)
-        sse_module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(sse_module)
-        return sse_module.app
-    finally:
-        # Remove from path to avoid conflicts
-        if subdirectory_path in sys.path:
-            sys.path.remove(subdirectory_path)
+# Add subdirectories to Python path
+sys.path.append(str(Path(__file__).parent / "mcp-dolt-database"))
+sys.path.append(str(Path(__file__).parent / "mcp-sec-10ks"))
+sys.path.append(str(Path(__file__).parent / "mcp-yfinance-10ks"))
 
-# Import the complete FastAPI apps from each subdirectory
-dolt_app = import_sse_app("mcp-dolt-database")
-sec_app = import_sse_app("mcp-sec-10ks")
-yfinance_app = import_sse_app("mcp-yfinance-10ks")
+# Import dolt server
+dolt_path = Path(__file__).parent / "mcp-dolt-database" / "dolt_server.py"
+spec = importlib.util.spec_from_file_location("dolt_server", dolt_path)
+dolt_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(dolt_module)
+dolt_mcp = dolt_module.mcp
+
+# Import sec server
+sec_path = Path(__file__).parent / "mcp-sec-10ks" / "sec_server.py"
+spec = importlib.util.spec_from_file_location("sec_server", sec_path)
+sec_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(sec_module)
+sec_mcp = sec_module.mcp
+
+# Import yfinance server
+yfinance_path = Path(__file__).parent / "mcp-yfinance-10ks" / "yfinance_server.py"
+spec = importlib.util.spec_from_file_location("yfinance_server", yfinance_path)
+yfinance_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(yfinance_module)
+yfinance_mcp = yfinance_module.mcp
+
+# Create SSE apps for each MCP server (matching working pattern)
+dolt_http_app = dolt_mcp.http_app(transport="sse", path='/sse')
+sec_http_app = sec_mcp.http_app(transport="sse", path='/sse')  
+yfinance_http_app = yfinance_mcp.http_app(transport="sse", path='/sse')
 
 # Minimal OAuth endpoint (just enough for Claude.ai)
-async def oauth_metadata(request):
+async def oauth_metadata(request: Request):
     base_url = str(request.base_url).rstrip("/")
-    return {
+    return JSONResponse({
         "issuer": base_url
-    }
+    })
 
 # Create main FastAPI app
 app = FastAPI(
@@ -43,28 +52,18 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Add CORS middleware to main app
-from fastapi.middleware.cors import CORSMiddleware
+# Add CORS middleware (match working server exactly)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Access-Control-Allow-Origin
-    allow_methods=["GET", "POST", "OPTIONS"],  # Access-Control-Allow-Methods
-    allow_headers=["Content-Type", "Authorization", "x-api-key"],  # Access-Control-Allow-Headers
-    expose_headers=["Content-Type", "Authorization", "x-api-key"],  # Access-Control-Expose-Headers
-    max_age=86400  # Access-Control-Max-Age (in seconds)
+    allow_origins=["*"],
+    allow_methods=["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+    allow_headers=["Content-Type", "Authorization", "x-api-key", "Upgrade", "Connection", "Sec-WebSocket-Key", "Sec-WebSocket-Version", "Sec-WebSocket-Protocol"],
+    expose_headers=["Content-Type", "Authorization", "x-api-key"],
+    max_age=86400
 )
 
-# Add OAuth metadata routes for each MCP server
-from fastapi.responses import JSONResponse
-from fastapi import Request
-
-async def oauth_metadata_handler(request: Request):
-    base_url = str(request.base_url).rstrip("/")
-    return JSONResponse({
-        "issuer": base_url
-    })
-
-app.add_api_route("/.well-known/oauth-authorization-server", oauth_metadata_handler, methods=["GET"])
+# Add the OAuth metadata route
+app.add_api_route("/.well-known/oauth-authorization-server", oauth_metadata, methods=["GET"])
 
 # Health check endpoint
 @app.get("/")
@@ -78,10 +77,10 @@ async def root():
         ]
     }
 
-# Mount each complete FastAPI app at its respective path
-app.mount("/mcp-dolt-database", dolt_app)
-app.mount("/mcp-sec-10ks", sec_app)
-app.mount("/mcp-yfinance-10ks", yfinance_app)
+# Mount each MCP server at its respective path
+app.mount("/mcp-dolt-database", dolt_http_app)
+app.mount("/mcp-sec-10ks", sec_http_app)
+app.mount("/mcp-yfinance-10ks", yfinance_http_app)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
