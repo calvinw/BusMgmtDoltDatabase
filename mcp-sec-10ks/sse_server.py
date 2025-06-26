@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from server import mcp
+from sec_server import mcp
 
 # Create the ASGI app
 http_app = mcp.http_app(transport="sse", path='/sse')

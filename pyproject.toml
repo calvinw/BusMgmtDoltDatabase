@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bus-mgmt-unified-server"
+version = "1.0.0"
+description = "Unified FastAPI server for Bus Management MCP servers"
+authors = [
+    {name = "Calvin Williamson", email = "calvin_williamson@fitnyc.edu"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.100.0",
+    "uvicorn[standard]>=0.20.0",
+    "fastmcp",
+    "requests",
+    "edgartools",
+    "yfinance",
+    "pandas",
+    "packaging",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["unified_sse_server*"]
