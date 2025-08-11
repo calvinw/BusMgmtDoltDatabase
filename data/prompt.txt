@@ -1,0 +1,5 @@
+We need to update some data in the dolt database. I want to pull SEC data for each of the companies in the @american-companies.csv file. There you will find the CIKs for each of the companies we need data for. Call the sec mcp server, collect the data and then compose update statements for updating the data in the financials table of the dolt database calvinw/BusMgmtBenchmarks/main. The update statements should have the correct "reportDate". When we use 2024 in the dolt database that means for companies that report early in the year that the report date will be in early 2025. If the company reports later in the year then 2024 will mean the report date will be in late 2024.  This might be different from how you pass the year to the SEC mcp tool. At any rate I want update statements for all companies that have reported so far this year (todays date is 10 Aug 2025). 
+
+Can you construct and appropriate sql. 
+
+You can use insert_all.sql as a starting point.

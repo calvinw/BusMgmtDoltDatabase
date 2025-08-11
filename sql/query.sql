@@ -1,1 +1,1 @@
-select * from financial_metrics;
+select * from segment_metrics where year=2024;

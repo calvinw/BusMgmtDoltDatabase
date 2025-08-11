@@ -172,6 +172,8 @@ Can you return them in a markdown table rounded to the thousands using my names 
 - Gross Margin = Net Revenue - Cost of Goods (if both available, otherwise NULL)
 - Liabilities = Total Assets - Total Shareholder Equity (always calculate this)
 
+CRITICAL: For the reportDate field, use the FISCAL YEAR END DATE from the financial statement period headers. This is the leftmost/most recent date column in the income statement or balance sheet (e.g., if columns show "2025-02-01 | 2024-02-03 | 2023-01-28", use "2025-02-01" as the reportDate). DO NOT use filing dates, publication dates, or any other administrative dates - only the actual fiscal period end date from the statement headers.
+
 Here's the final list of fields to extract:
 company_name, year, reportDate, Net Revenue, Cost of Goods, Gross Margin, SGA, Operating Profit, Net Profit, Inventory, Current Assets, Total Assets, Current Liabilities, Liabilities, Total Shareholder Equity, Total Liabilities and Shareholder Equity
 
