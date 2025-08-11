@@ -1,1 +1,3 @@
-select * from segment_metrics where year=2024;
+SELECT company_name, year, reportDate 
+FROM financials 
+ORDER BY company_name, year;

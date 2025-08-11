@@ -1,0 +1,149 @@
+Can you find the financial data included here for Walmart, 2025.
+
+Then get income statement and find the latest year's values on it:
+- "Net Revenue" 
+- "Cost of Goods" (report as positive value)
+- "SGA" (report as positive value)
+- "Operating Profit" 
+- "Net Profit" 
+
+Then on the balance sheet find these values on it:
+- "Inventory" 
+- "Current Assets" 
+- "Total Assets" 
+- "Current Liabilities" 
+- "Total Shareholder Equity"
+- "Total Liabilities and Shareholder Equity"
+
+Can you return them in a markdown table rounded to the thousands using my names for them and add two computed fields, Gross Margin and Liabilities:
+- Gross Margin = Net Revenue - Cost of Goods (if both available, otherwise NULL)
+- Liabilities = Total Assets - Total Shareholder Equity (always calculate this)
+
+CRITICAL: For the reportDate field, use the FISCAL YEAR END DATE from the financial statement period headers. This is the leftmost/most recent date column in the income statement or balance sheet (e.g., if columns show "2025-02-01 | 2024-02-03 | 2023-01-28", use "2025-02-01" as the reportDate). DO NOT use filing dates, publication dates, or any other administrative dates - only the actual fiscal period end date from the statement headers.
+
+Here's the final list of fields to extract:
+company_name, year, reportDate, Net Revenue, Cost of Goods, Gross Margin, SGA, Operating Profit, Net Profit, Inventory, Current Assets, Total Assets, Current Liabilities, Liabilities, Total Shareholder Equity, Total Liabilities and Shareholder Equity
+
+---
+
+# INCOME STATEMENT
+
+|                                                            |   2025-01-31 00:00:00 |   2024-01-31 00:00:00 |   2023-01-31 00:00:00 |   2022-01-31 00:00:00 |   2021-01-31 00:00:00 |
+|:-----------------------------------------------------------|----------------------:|----------------------:|----------------------:|----------------------:|----------------------:|
+| Tax Effect Of Unusual Items                                |           0           |           0           |           0           |          -6.1214e+08  |                   nan |
+| Tax Rate For Calcs                                         |           0.234       |           0.255       |           0.336       |           0.254       |                   nan |
+| Normalized EBITDA                                          |           4.201e+10   |           3.6384e+10  |           3.0089e+10  |           3.3758e+10  |                   nan |
+| Total Unusual Items                                        |         nan           |           0           |           0           |          -2.41e+09    |                     0 |
+| Total Unusual Items Excluding Goodwill                     |         nan           |           0           |           0           |          -2.41e+09    |                     0 |
+| Net Income From Continuing Operation Net Minority Interest |           1.9436e+10  |           1.5511e+10  |           1.168e+10   |           1.3673e+10  |                   nan |
+| Reconciled Depreciation                                    |           1.2973e+10  |           1.1853e+10  |           1.0945e+10  |           1.0658e+10  |                   nan |
+| Reconciled Cost Of Revenue                                 |           5.11753e+11 |           4.90142e+11 |           4.63721e+11 |           4.29e+11    |                   nan |
+| EBITDA                                                     |           4.201e+10   |           3.6384e+10  |           3.0089e+10  |           3.1348e+10  |                   nan |
+| EBIT                                                       |           2.9037e+10  |           2.4531e+10  |           1.9144e+10  |           2.069e+10   |                   nan |
+| Net Interest Income                                        |          -2.245e+09   |          -2.137e+09   |          -1.874e+09   |          -1.836e+09   |                   nan |
+| Interest Expense                                           |           2.728e+09   |           2.683e+09   |           2.128e+09   |           1.994e+09   |                   nan |
+| Interest Income                                            |           4.83e+08    |           5.46e+08    |           2.54e+08    |           1.58e+08    |                   nan |
+| Normalized Income                                          |           1.9436e+10  |           1.5511e+10  |           1.168e+10   |           1.54709e+10 |                   nan |
+| Net Income From Continuing And Discontinued Operation      |           1.9436e+10  |           1.5511e+10  |           1.168e+10   |           1.3673e+10  |                   nan |
+| Total Expenses                                             |           6.51637e+11 |           6.21113e+11 |           5.90861e+11 |           5.46812e+11 |                   nan |
+| Total Operating Income As Reported                         |           2.9348e+10  |           2.7012e+10  |           2.0428e+10  |           2.5942e+10  |                   nan |
+| Diluted Average Shares                                     |           8.081e+09   |           8.109e+09   |           8.202e+09   |           8.415e+09   |                   nan |
+| Basic Average Shares                                       |           8.041e+09   |           8.076e+09   |           8.172e+09   |           8.376e+09   |                   nan |
+| Diluted EPS                                                |           2.41        |           1.91333     |           1.42333     |           1.62333     |                   nan |
+| Basic EPS                                                  |           2.42        |           1.92        |           1.43        |           1.63333     |                   nan |
+| Diluted NI Availto Com Stockholders                        |           1.9436e+10  |           1.5511e+10  |           1.168e+10   |           1.3673e+10  |                   nan |
+| Net Income Common Stockholders                             |           1.9436e+10  |           1.5511e+10  |           1.168e+10   |           1.3673e+10  |                   nan |
+| Net Income                                                 |           1.9436e+10  |           1.5511e+10  |           1.168e+10   |           1.3673e+10  |                   nan |
+| Minority Interests                                         |          -7.21e+08    |          -7.59e+08    |           3.88e+08    |          -2.67e+08    |                   nan |
+| Net Income Including Noncontrolling Interests              |           2.0157e+10  |           1.627e+10   |           1.1292e+10  |           1.394e+10   |                   nan |
+| Net Income Continuous Operations                           |           2.0157e+10  |           1.627e+10   |           1.1292e+10  |           1.394e+10   |                   nan |
+| Tax Provision                                              |           6.152e+09   |           5.578e+09   |           5.724e+09   |           4.756e+09   |                   nan |
+| Pretax Income                                              |           2.6309e+10  |           2.1848e+10  |           1.7016e+10  |           1.8696e+10  |                   nan |
+| Other Income Expense                                       |          -7.94e+08    |          -3.027e+09   |          -1.538e+09   |          -5.41e+09    |                   nan |
+| Other Non Operating Income Expenses                        |          -7.94e+08    |          -3.027e+09   |          -1.538e+09   |          -3e+09       |                   nan |
+| Special Income Charges                                     |         nan           |           0           |           0           |          -2.41e+09    |                     0 |
+| Other Special Charges                                      |         nan           |         nan           |         nan           |           2.41e+09    |                   nan |
+| Net Non Operating Interest Income Expense                  |          -2.245e+09   |          -2.137e+09   |          -1.874e+09   |          -1.836e+09   |                   nan |
+| Interest Expense Non Operating                             |           2.728e+09   |           2.683e+09   |           2.128e+09   |           1.994e+09   |                   nan |
+| Interest Income Non Operating                              |           4.83e+08    |           5.46e+08    |           2.54e+08    |           1.58e+08    |                   nan |
+| Operating Income                                           |           2.9348e+10  |           2.7012e+10  |           2.0428e+10  |           2.5942e+10  |                   nan |
+| Operating Expense                                          |           1.39884e+11 |           1.30971e+11 |           1.2714e+11  |           1.17812e+11 |                   nan |
+| Other Operating Expenses                                   |           1.39884e+11 |           1.30971e+11 |           1.2714e+11  |           1.17812e+11 |                   nan |
+| Selling General And Administration                         |           1.39884e+11 |           1.30971e+11 |           1.2714e+11  |           1.17812e+11 |                   nan |
+| Gross Profit                                               |           1.69232e+11 |           1.57983e+11 |           1.47568e+11 |           1.43754e+11 |                   nan |
+| Cost Of Revenue                                            |           5.11753e+11 |           4.90142e+11 |           4.63721e+11 |           4.29e+11    |                   nan |
+| Total Revenue                                              |           6.80985e+11 |           6.48125e+11 |           6.11289e+11 |           5.72754e+11 |                   nan |
+| Operating Revenue                                          |           6.80985e+11 |           6.48125e+11 |           6.11289e+11 |           5.72754e+11 |                   nan |
+
+# BALANCE SHEET
+
+|                                                        |   2025-01-31 00:00:00 |   2024-01-31 00:00:00 |   2023-01-31 00:00:00 |   2022-01-31 00:00:00 |   2021-01-31 00:00:00 |
+|:-------------------------------------------------------|----------------------:|----------------------:|----------------------:|----------------------:|----------------------:|
+| Ordinary Shares Number                                 |           8.024e+09   |           8.054e+09   |           8.1e+09     |           8.283e+09   |          nan          |
+| Share Issued                                           |           8.024e+09   |           8.054e+09   |           8.1e+09     |           8.283e+09   |          nan          |
+| Net Debt                                               |           3.003e+10   |           3.059e+10   |           3.0587e+10  |           2.3317e+10  |          nan          |
+| Total Debt                                             |           6.0114e+10  |           6.1321e+10  |           5.8923e+10  |           5.7323e+10  |          nan          |
+| Tangible Book Value                                    |           6.2221e+10  |           5.5748e+10  |           4.8519e+10  |           5.4239e+10  |          nan          |
+| Invested Capital                                       |           1.3008e+11  |           1.24318e+11 |           1.15905e+11 |           1.2133e+11  |          nan          |
+| Working Capital                                        |          -1.7126e+10  |          -1.5538e+10  |          -1.6543e+10  |          -6.309e+09   |          nan          |
+| Net Tangible Assets                                    |           6.2221e+10  |           5.5748e+10  |           4.8519e+10  |           5.4239e+10  |          nan          |
+| Capital Lease Obligations                              |           2.1047e+10  |           2.0864e+10  |           1.9711e+10  |           1.9246e+10  |          nan          |
+| Common Stock Equity                                    |           9.1013e+10  |           8.3861e+10  |           7.6693e+10  |           8.3253e+10  |          nan          |
+| Total Capitalization                                   |           1.24414e+11 |           1.19993e+11 |           1.11342e+11 |           1.18117e+11 |          nan          |
+| Total Equity Gross Minority Interest                   |           9.7692e+10  |           9.0571e+10  |           8.3991e+10  |           9.1891e+10  |          nan          |
+| Minority Interest                                      |           6.679e+09   |           6.71e+09    |           7.298e+09   |           8.638e+09   |          nan          |
+| Stockholders Equity                                    |           9.1013e+10  |           8.3861e+10  |           7.6693e+10  |           8.3253e+10  |          nan          |
+| Gains Losses Not Affecting Retained Earnings           |          -1.3605e+10  |          -1.1302e+10  |          -1.168e+10   |          -8.766e+09   |          nan          |
+| Other Equity Adjustments                               |          -9.44e+08    |          -8.95e+08    |          -8.57e+08    |          -6.54e+08    |          nan          |
+| Foreign Currency Translation Adjustments               |          -1.2661e+10  |          -1.0407e+10  |          -1.0816e+10  |          -8.1e+09     |          nan          |
+| Minimum Pension Liabilities                            |         nan           |          -1.8e+07     |          -7e+06       |          -1.2e+07     |           -1.986e+09  |
+| Unrealized Gain Loss                                   |         nan           |         nan           |         nan           |         nan           |            0          |
+| Retained Earnings                                      |           9.8313e+10  |           8.9814e+10  |           8.3135e+10  |           8.6904e+10  |          nan          |
+| Additional Paid In Capital                             |           5.503e+09   |           4.544e+09   |           4.43e+09    |           4.839e+09   |          nan          |
+| Capital Stock                                          |           8.02e+08    |           8.05e+08    |           8.08e+08    |           2.76e+08    |          nan          |
+| Common Stock                                           |           8.02e+08    |           8.05e+08    |           8.08e+08    |           2.76e+08    |          nan          |
+| Total Liabilities Net Minority Interest                |           1.63131e+11 |           1.61828e+11 |           1.59206e+11 |           1.52969e+11 |          nan          |
+| Total Non Current Liabilities Net Minority Interest    |           6.6547e+10  |           6.9413e+10  |           6.7008e+10  |           6.559e+10   |          nan          |
+| Other Non Current Liabilities                          |           1.4398e+10  |           1.4629e+10  |           1.4688e+10  |           1.3474e+10  |          nan          |
+| Non Current Deferred Liabilities                       |         nan           |         nan           |           1.4688e+10  |           1.3474e+10  |            1.437e+10  |
+| Non Current Deferred Taxes Liabilities                 |         nan           |         nan           |           1.4688e+10  |           1.3474e+10  |            1.437e+10  |
+| Long Term Debt And Capital Lease Obligation            |           5.2149e+10  |           5.4784e+10  |           5.232e+10   |           5.2116e+10  |          nan          |
+| Long Term Capital Lease Obligation                     |           1.8748e+10  |           1.8652e+10  |           1.7671e+10  |           1.7252e+10  |          nan          |
+| Long Term Debt                                         |           3.3401e+10  |           3.6132e+10  |           3.4649e+10  |           3.4864e+10  |          nan          |
+| Current Liabilities                                    |           9.6584e+10  |           9.2415e+10  |           9.2198e+10  |           8.7379e+10  |          nan          |
+| Other Current Liabilities                              |         nan           |         nan           |         nan           |           2.1e+07     |            1.2734e+10 |
+| Current Deferred Liabilities                           |           2.755e+09   |           2.664e+09   |           2.488e+09   |           2.559e+09   |          nan          |
+| Current Deferred Revenue                               |           2.755e+09   |           2.664e+09   |           2.488e+09   |           2.559e+09   |          nan          |
+| Current Debt And Capital Lease Obligation              |           7.965e+09   |           6.537e+09   |           6.603e+09   |           5.207e+09   |          nan          |
+| Current Capital Lease Obligation                       |           2.299e+09   |           2.212e+09   |           2.04e+09    |           1.994e+09   |          nan          |
+| Current Debt                                           |           5.666e+09   |           4.325e+09   |           4.563e+09   |           3.213e+09   |          nan          |
+| Other Current Borrowings                               |           5.666e+09   |           4.325e+09   |           4.563e+09   |           3.213e+09   |          nan          |
+| Pensionand Other Post Retirement Benefit Plans Current |         nan           |         nan           |         nan           |         nan           |            4.698e+09  |
+| Payables And Accrued Expenses                          |           8.5864e+10  |           8.3214e+10  |           8.3107e+10  |           7.9613e+10  |          nan          |
+| Current Accrued Expenses                               |           2.3087e+10  |           2.2636e+10  |           2.5213e+10  |           2.0254e+10  |          nan          |
+| Payables                                               |           6.2777e+10  |           6.0578e+10  |           5.7894e+10  |           5.9359e+10  |          nan          |
+| Total Tax Payable                                      |           4.111e+09   |           3.766e+09   |           4.152e+09   |           4.098e+09   |          nan          |
+| Income Tax Payable                                     |           6.08e+08    |           3.07e+08    |           7.27e+08    |           8.51e+08    |          nan          |
+| Accounts Payable                                       |           5.8666e+10  |           5.6812e+10  |           5.3742e+10  |           5.5261e+10  |          nan          |
+| Total Assets                                           |           2.60823e+11 |           2.52399e+11 |           2.43197e+11 |           2.4486e+11  |          nan          |
+| Total Non Current Assets                               |           1.81365e+11 |           1.75522e+11 |           1.67542e+11 |           1.6379e+11  |          nan          |
+| Other Non Current Assets                               |           1.2869e+10  |           1.7071e+10  |           2.0134e+10  |           2.2152e+10  |          nan          |
+| Goodwill And Other Intangible Assets                   |           2.8792e+10  |           2.8113e+10  |           2.8174e+10  |           2.9014e+10  |          nan          |
+| Goodwill                                               |           2.8792e+10  |           2.8113e+10  |           2.8174e+10  |           2.9014e+10  |          nan          |
+| Net PPE                                                |           1.39704e+11 |           1.30338e+11 |           1.19234e+11 |           1.12624e+11 |          nan          |
+| Accumulated Depreciation                               |          -1.11624e+11 |          -1.09049e+11 |          -1.0161e+11  |          -9.4809e+10  |          nan          |
+| Gross PPE                                              |           2.51328e+11 |           2.39387e+11 |           2.20844e+11 |           2.07433e+11 |          nan          |
+| Construction In Progress                               |           1.5403e+10  |           1.339e+10   |           1.0802e+10  |           7.199e+09   |          nan          |
+| Other Properties                                       |           1.9711e+10  |           1.9528e+10  |           1.8474e+10  |           1.8109e+10  |          nan          |
+| Machinery Furniture Equipment                          |           7.8899e+10  |           7.514e+10   |           6.7697e+10  |           6.2545e+10  |          nan          |
+| Buildings And Improvements                             |           1.17973e+11 |           1.11767e+11 |           1.04554e+11 |           1.00376e+11 |          nan          |
+| Land And Improvements                                  |           1.9342e+10  |           1.9562e+10  |           1.9317e+10  |           1.9204e+10  |          nan          |
+| Properties                                             |           0           |           0           |           0           |           0           |          nan          |
+| Current Assets                                         |           7.9458e+10  |           7.6877e+10  |           7.5655e+10  |           8.107e+10   |          nan          |
+| Other Current Assets                                   |           4.011e+09   |           3.322e+09   |           2.521e+09   |           1.519e+09   |          nan          |
+| Prepaid Assets                                         |         nan           |         nan           |         nan           |           1.519e+09   |            2.0861e+10 |
+| Inventory                                              |           5.6435e+10  |           5.4892e+10  |           5.6576e+10  |           5.6511e+10  |          nan          |
+| Receivables                                            |           9.975e+09   |           8.796e+09   |           7.933e+09   |           8.28e+09    |          nan          |
+| Accounts Receivable                                    |           9.975e+09   |           8.796e+09   |           7.933e+09   |           8.28e+09    |          nan          |
+| Cash Cash Equivalents And Short Term Investments       |           9.037e+09   |           9.867e+09   |           8.625e+09   |           1.476e+10   |          nan          |
+| Cash And Cash Equivalents                              |           9.037e+09   |           9.867e+09   |           8.625e+09   |           1.476e+10   |          nan          |
